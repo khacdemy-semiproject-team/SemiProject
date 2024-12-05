@@ -18,9 +18,22 @@ public interface FollowService {
 	 * @param loginMember
 	 * @param memberno
 	 * @return
+	 * @author 신동국
 	 */
 	int unFollow(Member loginMember, int memberNo);
 
+	/** loginMember와 memberNo를 활용하여 일치하는 컬럼 줄 추가
+	 * @param loginMember
+	 * @param memberNo
+	 * @return
+	 * @author 신동국
+	 */
 	int addFollow(Member loginMember, int memberNo);
+
+	/** 팔로우 클릭 시 팔로우 관계 유저들 리스트 가져오기
+	 * @param memberNo
+	 * @return
+	 */
+	List<Member> selectList(int memberNo);
 
 }

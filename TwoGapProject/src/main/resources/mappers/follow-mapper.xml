@@ -2,6 +2,82 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.twogap.project.follow.model.mapper.FollowMapper">
 
+	<!-- 팔로우 유저 리스트-->
+	<select id="selectList">
+		SELECT
+
+			MEMBER_NO,
+			MEMBER_NICKNAME,
+			PROFILE_IMG,
+			INTRODUCTION,
+			1 as followState
+			
+		FROM "MEMBER"
+		WHERE MEMBER_NO IN (
+		SELECT A.FOLLOWING_ID 
+		FROM "FOLLOW" A
+		JOIN "FOLLOW" B 
+		ON A.FOLLOWER_ID = B.FOLLOWING_ID
+		AND A.FOLLOWING_ID = B.FOLLOWER_ID
+		WHERE A.FOLLOWER_ID = #{memberNo}
+		AND A.FOLLOWING_ID IN  
+		(SELECT FOLLOWER_ID FROM FOLLOW))
+		
+		UNION
+		 
+		SELECT
+		
+			MEMBER_NO,
+			MEMBER_NICKNAME,
+			PROFILE_IMG,
+			INTRODUCTION,
+			2 as followState
+			
+			
+		FROM "MEMBER"
+		WHERE MEMBER_NO IN (SELECT FOLLOWING_ID
+		FROM FOLLOW
+		WHERE FOLLOWER_ID = #{memberNo}
+		AND FOLLOWING_ID NOT IN
+		(
+		SELECT A.FOLLOWING_ID 
+		FROM "FOLLOW" A
+		JOIN "FOLLOW" B 
+		ON A.FOLLOWER_ID = B.FOLLOWING_ID
+		AND A.FOLLOWING_ID = B.FOLLOWER_ID
+		WHERE A.FOLLOWER_ID = #{memberNo}
+		AND A.FOLLOWING_ID IN  
+		(SELECT FOLLOWER_ID FROM FOLLOW)))
+		 
+		UNION
+		
+		SELECT
+		
+			MEMBER_NO,
+			MEMBER_NICKNAME,
+			PROFILE_IMG,
+			INTRODUCTION,
+			3 as followState
+			
+			
+		FROM "MEMBER"
+		WHERE MEMBER_NO IN (SELECT FOLLOWER_ID
+		FROM FOLLOW
+		WHERE FOLLOWING_ID = #{memberNo}
+		AND FOLLOWER_ID NOT IN
+		(
+		SELECT A.FOLLOWING_ID 
+		FROM "FOLLOW" A
+		JOIN "FOLLOW" B 
+		ON A.FOLLOWER_ID = B.FOLLOWING_ID
+		AND A.FOLLOWING_ID = B.FOLLOWER_ID
+		WHERE A.FOLLOWER_ID = #{memberNo}
+		AND A.FOLLOWING_ID IN  
+		(SELECT FOLLOWER_ID FROM FOLLOW)))
+		  
+		 ORDER BY 2
+	</select>
+
 	<!-- 검색창 유저 검색-->
 	<select id="searchMember">
 		SELECT
@@ -108,6 +184,11 @@
 		DELETE FROM FOLLOW
 		WHERE FOLLOWER_ID = #{followNo}
 		AND FOLLOWING_ID = #{follwingNo}
+	</delete>
+	
+	
+	<delete id="addFollow">
+		INSERT INTO "FOLLOW" VALUES (#{followNo}, #{follwingNo}, SYSDATE)
 	</delete>
 	
 </mapper>

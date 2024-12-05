@@ -20,6 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 public class FollowServiceImpl implements FollowService{
 	
 	private final FollowMapper mapper;
+	
+	@Override
+	public List<Member> selectList(int memberNo) {
+		// TODO Auto-generated method stub
+		return mapper.selectList(memberNo);
+	}
 
 	// 유저 검색하기
 	@Override
@@ -27,7 +33,7 @@ public class FollowServiceImpl implements FollowService{
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberNo", loginMember.getMemberNo());
-		map.put("keyword", "%");
+		map.put("keyword", keyword);
 		
 		return mapper.searchMember(map);
 	}
@@ -44,10 +50,15 @@ public class FollowServiceImpl implements FollowService{
 		return mapper.unFollow(map);
 	}
 	
+	// 팔로우 추가하기
 	@Override
 	public int addFollow(Member loginMember, int memberNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		Map<String, Integer> map = new HashMap<>();
+		
+		map.put("followNo", loginMember.getMemberNo());
+		map.put("follwingNo", memberNo);
+		
+		return mapper.addFollow(map);
 	}
 	
 }
