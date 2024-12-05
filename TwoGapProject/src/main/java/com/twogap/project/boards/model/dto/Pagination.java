@@ -1,5 +1,7 @@
 package com.twogap.project.boards.model.dto;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*
  * Pagination 뜻 : 목록을 일정 페이지로 분할해서
  *                원하는 페이지를 볼 수 있게 하는 것
@@ -8,6 +10,7 @@ package com.twogap.project.boards.model.dto;
  * Pagination 객체 : 페이징 처리에 필요한 값을 모아두고, 계산하는 객체
  */
 
+@Slf4j
 public class Pagination {
    private int currentPage;      // 현재 페이지 번호
    private int listCount;         // 전체 게시글 수
@@ -126,7 +129,6 @@ public class Pagination {
     *  (maxPage, startPage, endPage, prevPage, nextPage)
     */
    private void calculate() {
-      
       // maxPage : 최대 페이지 == 마지막 페이지 == 총 페이지 수
       
       // 한 페이지에 게시글이 10개씩 보여질 경우
@@ -149,7 +151,7 @@ public class Pagination {
       // 현재 페이지가 11 ~ 20 : 20page
       // 현재 페이지가 21 ~ 30 : 30page
       
-      // endPage = (pageSize - 1 + startPage) > maxPage ? endPage : maxPage;
+//      endPage = (pageSize - 1 + startPage) > maxPage ? endPage : maxPage;
       
       endPage = pageSize - 1 + startPage;
       

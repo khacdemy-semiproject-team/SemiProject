@@ -93,13 +93,15 @@ function createNoteItemList(result) {
     // 글이 있는 경우
     const noteList = result['noteList'];
 
-    // 글 목록을 출려
+    // 글 목록을 출력
     for( let note of noteList) {
         createNoteItem(noteItemList, note);
     }
     
     // 페이지 네이션 출력 - base.js에 있습니다
+
     pagination(result['pagination'], noteList[0].boardTypeNo);
+
 
 }
 
@@ -257,7 +259,9 @@ function insertNote() {
 }
 
 
+
 ////////////////////////////////////////////////////////////////////
+
 // 상세 조회용
 function select(note) {
 

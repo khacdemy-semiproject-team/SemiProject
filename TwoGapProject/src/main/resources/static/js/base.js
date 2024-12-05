@@ -79,7 +79,7 @@ function pagination(pagination, boardTypeNo) {
     // 11.29 추가 파라미터 가져올 방법이 안 떠오름
     switch (boardTypeNo) {
       case 1:
-        page.addEventListener("click", e => noteSelectCp(e));
+        page.addEventListener("click", e => boardSelectCp(e.target.value));
         break;
         
       case 2:
@@ -95,7 +95,9 @@ function pagination(pagination, boardTypeNo) {
         break;
 
       default:
+
         alert("시스템 문제 발생 저희에게 문의 해주세요");
+
     }
     // 페이지 이동 요청 이벤트
   }

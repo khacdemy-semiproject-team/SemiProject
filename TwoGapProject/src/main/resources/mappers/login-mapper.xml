@@ -58,6 +58,7 @@
 		)
 	 </insert>
 
+
 	 
 	 <!-- 아이디 찾기 -->
 	 <select id="findId">
@@ -80,5 +81,6 @@
 	 	MEMBER_PW = #{memberPw}
 	 	WHERE MEMBER_ID = #{memberId}
 	 </update>
+
 
 </mapper>
