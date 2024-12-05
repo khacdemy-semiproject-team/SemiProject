@@ -1,6 +1,6 @@
 const centerBox = document.querySelector(".center-box");
 const profileEdit = document.querySelector('.profile-edit');
-let alertWrite = document.querySelector(".write"); // 최초 alertWrite 버튼을 한 번만 정의
+// let alertWrite = document.querySelector(".write"); // 최초 alertWrite 버튼을 한 번만 정의
 
 // 알림 내용 갱신 함수
 function fetchRequest() {
@@ -22,7 +22,7 @@ function selectAlert(alertContent) {
 }
 
 // 글쓰기 클릭 시 이벤트
-alertWrite.addEventListener("click", handleWriteClick);
+// alertWrite.addEventListener("click", handleWriteClick);
 
 function handleWriteClick() {
   const testBox = document.querySelector(".self-box2");

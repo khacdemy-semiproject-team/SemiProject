@@ -165,13 +165,3 @@ profileForm.addEventListener("submit", e =>{
 //   e.preventDefault();
 //   alert("유효한 닉네임을 입력하세요.");
 // };
-
-
-
-
-
-
-
-
-
-
