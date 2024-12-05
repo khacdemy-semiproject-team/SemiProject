@@ -22,7 +22,7 @@ public class Member {
 	private String memberDelFl;
 	private String memberTel;
 	private String memberHomeTel;
-	private String memberAdress;
+	private String memberAddress;
 	private String profileImg;
 	private String backgroundColor;
 	private String personalCode;

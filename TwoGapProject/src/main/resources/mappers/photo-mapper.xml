@@ -1,7 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.twogap.project.photo.model.mapper">
+<mapper namespace="com.twogap.project.photo.model.mapper.PhotoMapper">
 
+<!-- photo insert -->
+	<insert id="photoInsert" useGeneratedKeys="true" parameterType="Photo">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="photoNo">
+			SELECT PHOTO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO "PHOTO"	VALUES(
+			   #{photoNo},
+			   #{photoTitle},
+			   DEFAULT, 
+			   NULL,
+			   #{memberNo},
+			   DEFAULT
+		)
+	
+	</insert>
+	
+	
+	<!-- Photo Img DB 정보 저장 -->
+	<insert id="photoInsertUploadList" parameterType="list">
+		INSERT INTO "IMG"
+		
+		<foreach collection="list" item="img"
+				 open="(" close=")" separator=" UNION ">
+			 SELECT 
+			 NEXT_IMG_NO(),
+			 #{img.imgPath},
+			 #{img.imgOriginalName},
+			 #{img.imgRename},
+			 #{img.imgOrder},
+			 #{img.imgBoardNo},
+			 #{img.boardTypeNo}
+			 FROM DUAL
+		
+		
+		</foreach>
+		
+	</insert>
+	
+	<!-- photoList 조회용 쿼리 -->
+	<select id="photoSelectList">
+		SELECT 
+			PHOTO_NO,
+			PHOTO_TITLE,
+			PHOTO_DATE,
+			TO_CHAR(PHOTO_DATE, 'YYYY-MM-DD HH24:MI:SS') "PHOTO_DATE",
+			TO_CHAR(PHOTO_UPDATE_DATE, 'YYYY-MM-DD HH24:MI:SS') "PHOTO_UPDATE_DATE",
+			MEMBER_NO,
+			BOARD_TYPE_NO
+		FROM "PHOTO"
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY 1 DESC
+	</select>
+
+
+	<!-- 게시글 수 세기-->
+	<select id="getPhotoListCount">
+		SELECT COUNT(*) FROM "PHOTO"
+		WHERE MEMBER_NO = #{memberNo}	
+	</select>
 
 	
 </mapper>

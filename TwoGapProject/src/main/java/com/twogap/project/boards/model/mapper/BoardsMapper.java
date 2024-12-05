@@ -26,6 +26,13 @@ public interface BoardsMapper {
 	 * @return
 	 * @author 김용찬
 	 */
-	int insertAlert(Member member); 
+	int insertAlert(Member member);
+
+	/** 닉네임 중복 검사
+	 * @param memberNickname
+	 * @return
+	 * @author 우수민
+	 */
+	int checkNickname(String memberNickname);
 
 }

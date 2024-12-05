@@ -34,5 +34,11 @@ public class BoardsServiceImpl implements BoardsService {
 		return result;
 	}
 
+	// 닉네임 중복검사
+	@Override
+	public int checkNickname(String memberNickname) {
+		return mapper.checkNickname(memberNickname);
+	}
+
 
 }

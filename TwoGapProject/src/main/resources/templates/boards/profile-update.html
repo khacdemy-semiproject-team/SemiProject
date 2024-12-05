@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프로필 편집</title>
+  <script src="https://kit.fontawesome.com/4d970bf746.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/profile-update.css">
+  
+
+</head>
+
+<body>
+  <div class="homepage-container">
+
+    <div class="menubar">
+
+      <div class="menu-item">
+
+        <a href="#"><i class="fa-solid fa-star"></i>메인</a>
+      </div>
+
+      <div class="menu-item">
+
+        <a href="#"><i class="fa-solid fa-star"></i>프로필<br>변경</a>
+      </div>
+
+      <div class="menu-item">
+
+        <a href="#"><i class="fa-solid fa-star"></i>비밀번호<br>변경</a>
+
+      </div>
+
+      <div class="menu-item">
+
+        <a href="#"><i class="fa-solid fa-star"></i>개인정보<br>변경</a>
+
+      </div>
+
+      <div class="menu-item">
+
+        <a href="#"><i class="fa-solid fa-star"></i>회원탈퇴</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="homepage">
+
+      <div class="center-box">
+        <div class="test-box">
+          <div>
+
+            <div class="profile-section">
+              <div class="profile-edit-img">이미지</div>
+              <!-- <input type="file" name="profileImg" id="imageInput" accept="image/*"> -->
+              <div class="profile-picture">
+                프로필 사진
+                <label class="a">파일 선택
+                <input  class="img-select" type="file" accept="image/*" style="display: none;">
+                </label>
+              </div>
+
+              <div class="color">
+                <span>배경색 바꾸기 : </span>
+                <input type="color" name="" id="">
+                <button class="color-button">기본색</button>
+              </div>
+              
+              <div class="profile-info">
+                <label>닉네임
+                <input type="text" placeholder="변경할 닉네임을 입력해주세요." class="input-info"> <button class="info-button">중복확인</button><br>
+               </label>
+               </div>
+
+               <div class="introduction">
+               <label>자기소개 변경 <br>
+                <textarea class="profile-edit-introduction" placeholder="자기소개 입력"></textarea>
+               </label> <br>
+                <button class="introduction-button"  type="button">적용</button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="right-box">
+        <div class="profile">
+
+          <!-- 프로필 닉네임, 프사, 글쓰기, 프로필수정 -->
+          <div class="profile-test">
+            <div class="profile-img"></div>
+            <div class="profile-nickname"></div>
+            <div class="profile-edit"></div>
+          </div>
+
+          <!-- 자기소개 -->
+          <div class="profile-introduction"></div>
+        </div>
+
+        <div class="calendar"></div>
+
+        <div class="friend-box">
+          <button>팔로우</button>
+          <button>랜덤방문</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/main.js"></script>
+</body>
+
+</html>

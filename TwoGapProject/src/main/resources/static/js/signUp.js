@@ -164,7 +164,6 @@ sendAuthKeyBtn.addEventListener("click", async e => {
     clearInterval(authTimer);
     console.log(inputEmail);
     // *************************************
-    // 잊지말고 꼭하기 꼭
     // 비동기로 서버에서 메일보내기 
     fetch("/email/signup", {
         method: "POST",
@@ -299,8 +298,8 @@ checkId.addEventListener("click", async e => {
     const memberId = document.querySelector("#memberId");
     const idMessage = document.querySelector("#idMessage");
 
-     // 입력된 아이디기 없을 경우
-     if (memberId.value.replace('@', '').trim().length === 0) { // memberId가 문자열이 아니라는 에러
+     // 입력된 아이디가 없을 경우
+     if (memberId.value.replace('@', '').trim().length === 0) { 
         idMessage.innerText = "사용할 아이디를 입력해주세요.";  
 
         // 메시지에 색상을 추가하는 클래스 모두 제거
@@ -315,18 +314,19 @@ checkId.addEventListener("click", async e => {
         return;
     }
 
-    // const regExp = /^[a-zA-Z0-9._%+-]$/;
+    const regExp = /^[a-z0-9]{3,16}$/;;
+    // 3자 이상 16자 이하, 영어 또는 숫자로 구성
 
-    // // 입력 받은 아이디가 정규식과 일치하지 않는 경우
-    // // (알맞은 아이디 형태가 아닌 경우)
-    // if (!regExp.test(inputEmail)) {
-    //     emailMessage.innerText = "알맞은 이메일 형식으로 작성해주세요.";
-    //     emailMessage.classList.add('error'); // 글자를 빨간색으로 변경
-    //     emailMessage.classList.remove('confirm'); // 초록색 제거
-    //     checkObj.memberEmail = false; // 유효하지 않은 이메일임을 기록
+    // 입력 받은 아이디가 정규식과 일치하지 않는 경우
+    // (알맞은 아이디 형태가 아닌 경우)
+    if (!regExp.test(memberId.value)) {
+        idMessage.innerText = "알맞은 아이디 형식으로 작성해주세요.";
+        idMessage.classList.add('error'); // 글자를 빨간색으로 변경
+        idMessage.classList.remove('confirm'); // 초록색 제거
+        checkObj.memberId = false; // 유효하지 않은 이메일임을 기록
 
-    //     return;
-    // }
+        return;
+    }
 
     // 유효한 아이디 형식인 경우 중복 검사 수행
     const resp = await fetch("/member/checkId?memberId=" + memberId.value);
@@ -346,7 +346,6 @@ checkId.addEventListener("click", async e => {
     idMessage.classList.add("confirm");
     idMessage.classList.remove("error");
     checkObj.memberId = true; // 유효한 아이디
-
 });
 
 // ----------------------------------------------------
@@ -445,7 +444,8 @@ checkNickname.addEventListener("click", (e) => {
         .then(resp => resp.text())
         .then(count => {
 
-            if (count == 1) {
+            console.log(count);
+            if (count > 0) {
                 nicknameMessage.innerText = "이미 사용 중인 닉네임 입니다.";
                 nicknameMessage.classList.add("error");
                 nicknameMessage.classList.remove("confirm");

@@ -1,5 +1,7 @@
 package com.twogap.project.login.model.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.twogap.project.member.model.dto.Member;
@@ -36,6 +38,20 @@ public interface LoginMapper {
 	 * @return
 	 */
 	int submit(Member inputMember);
+
+	/** 아이디 찾기
+	 * @param inputmember
+	 * @return
+	 */
+	Member findId(Member inputmember);
+
+	int updatePw(Map<String, String> map);
+
+	/** 아이디 이메일 매치 확인
+	 * @param inputmember
+	 * @return
+	 */
+	int matchInput(Member inputmember); 
 
 
 }

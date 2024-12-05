@@ -5,18 +5,10 @@ let alertWrite = document.querySelector(".write"); // 최초 alertWrite 버튼�
 // 알림 내용 갱신 함수
 function fetchRequest() {
   fetch("/boards/selectAlert")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('알림 내용을 가져오는 데 실패했습니다.');
-      }
-      return response.text();
-    })
+    .then(response => response.text())  // 응답을 바로 텍스트로 변환
     .then(alertContent => {
+      alertContent = alertContent.replaceAll("<br>", "\n");
       selectAlert(alertContent);
-    })
-    .catch(error => {
-      console.error(error);
-      alert("알림 내용을 가져오는 데 실패했습니다.");
     });
 }
 
@@ -26,7 +18,7 @@ function selectAlert(alertContent) {
   logo.classList.remove("update-logo");
   logo.innerHTML = "<h1>2 YEARS APART</h1><h2>MINI HOMEPAGE</h2>";
   const testBox = document.querySelector(".self-box2");
-  testBox.innerText = alertContent;
+  testBox.innerHTML = alertContent;
 }
 
 // 글쓰기 클릭 시 이벤트
@@ -51,6 +43,7 @@ function handleWriteClick() {
 
   // 확인 버튼 클릭 이벤트 리스너
   checkBtn.addEventListener("click", handleCheckClick);
+  
 }
 
 function handleCheckClick() {
@@ -64,10 +57,7 @@ function handleCheckClick() {
     // 알림 수정 요청
     fetch("/boards/updateAlert", {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(textContent),
+      body: textContent,
     })
     .then(resp => {
       if (!resp.ok) {

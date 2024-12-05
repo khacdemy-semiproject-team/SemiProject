@@ -26,7 +26,7 @@
         <div class="form-group">
           <label for="memberId">* ID</label>
           <div class="input-row">
-            <input type="text" name="memberId" id="memberId" class="memberId" placeholder="아이디 입력" value="test">
+            <input type="text" name="memberId" id="memberId" class="memberId" placeholder="아이디 입력">
             <button type="button" id="checkId" class="btn btn-secondary">중복확인</button>
           </div>
           <span class="signUp-message" id="idMessage"></span>
@@ -37,7 +37,7 @@
         <div class="form-group">
           <label for="memberPw">* 비밀번호</label>
           <div class="input-row">
-            <input type="password" name="memberPw" id="memberPw" class="memberPw" placeholder="********" value="test123">
+            <input type="password" name="memberPw" id="memberPw" class="memberPw" placeholder="********">
           </div>
           <span class="signUp-message" id="pwMessage"></span>
           
@@ -45,7 +45,7 @@
         <div class="form-group">
           <label for="memberPwConfirm">비밀번호 확인</label>
           <div class="input-row">
-            <input type="password" name="memberPwConfirm" id="memberPwConfirm" class="memberPwConfirm" placeholder="********" value="test123">
+            <input type="password" name="memberPwConfirm" id="memberPwConfirm" class="memberPwConfirm" placeholder="********">
           </div>
           <span class="signUp-message" id="checkPwMessage"></span>
         </div>
@@ -55,13 +55,13 @@
         <div class="form-group">
           <label for="memberEmail">* Email</label>
           <div class="input-row">
-              <input type="text" name="memberEmail" id="member-email-id" placeholder="이메일" maxlength="18" autocomplete="off" value="test"/>
+              <input type="text" name="memberEmail" id="member-email-id" placeholder="이메일" maxlength="18" autocomplete="off" />
               <span>@</span> 
-              <input type="text" name="memberEmail" id="member-email-domain" placeholder="이메일 도메인" maxlength="18" autocomplete="off" value="test.com"/>
+              <input type="text" name="memberEmail" id="member-email-domain" placeholder="이메일 도메인" maxlength="18" autocomplete="off" />
   
               <div class="memberEmail" id="memberEmail">
                   <select name="memberEmail" id="memberEmail">
-                    <option value="text">직접입력</option>
+                    <option value="" selected disabled>직접입력</option>
                     <option value="naver.com">naver.com</option>
                     <option value="hanmail.net">hanmail.net</option>
                     <option value="hotmail.com">hotmail.com</option>
@@ -94,7 +94,7 @@
         <div class="form-group">
           <label for="memberNickname">* 닉네임</label>
           <div class="input-row">
-            <input type="text" name="memberNickname" id="memberNickname" placeholder="닉네임 입력" value="바보">
+            <input type="text" name="memberNickname" id="memberNickname" placeholder="닉네임 입력" >
             <button type="button" id="checkNickname" class="btn btn-secondary">중복확인</button>
           </div>
           <span class="signUp-message" id="nicknameMessage">한글, 영어, 숫자로만 2~10 글자로 입력해주세요.</span>
@@ -104,9 +104,9 @@
          
         <div class="form-group dual-input">
           <label for="personalCode">* 주민등록번호</label>
-          <input type="text" name="personalCode" id="personalCode1" class="personalCode1" maxlength="6" placeholder="앞자리 (예: 900101)" value="123465">
+          <input type="text" name="personalCode" id="personalCode1" class="personalCode1" maxlength="6" placeholder="앞자리 (예: 900101)">
           <span>-</span>
-          <input type="password" name="personalCode" id="personalCode2" class="personalCode2" maxlength="7" placeholder="뒷자리 (예: 1234567)" value="1234567">
+          <input type="password" name="personalCode" id="personalCode2" class="personalCode2" maxlength="7" placeholder="뒷자리 (예: 1234567)">
           <span class="signUp-message" id="personalMessage"></span>
         </div>
         
@@ -114,11 +114,11 @@
         <!-- Phone -->
         <div class="form-group dual-input">
           <label for="memberTel">* 핸드폰번호</label>
-          <input type="text" name="memberTel" id="memberTel1" class="memberTel" maxlength="3" placeholder="010" value="010">
+          <input type="text" name="memberTel" id="memberTel1" class="memberTel" maxlength="3" placeholder="010">
           <span>-</span>
-          <input type="text" name="memberTel" id="memberTel2" class="memberTel" maxlength="4" placeholder="1234" value="1234">
+          <input type="text" name="memberTel" id="memberTel2" class="memberTel" maxlength="4" placeholder="1234">
           <span>-</span>
-          <input type="text" name="memberTel" id="memberTel3" class="memberTel" maxlength="4" placeholder="5678" value="1234">
+          <input type="text" name="memberTel" id="memberTel3" class="memberTel" maxlength="4" placeholder="5678">
         </div>
 
         <!-- Home -->
@@ -135,14 +135,14 @@
         <div class="form-group">
             <label for="Adress">주소</label>
             <div class="input-row">
-              <input type="text" name="memberAdress" id="postcode" class="Adress" placeholder="우편번호" readonly value="탐라국">
+              <input type="text" name="memberAddress" id="postcode" class="Adress" placeholder="우편번호" readonly>
               <button type="button" id="searchAddress" class="btn btn-secondary">검색</button>
             </div>
             <div class="input-row">
-              <input type="text" name="memberAdress" id="address" class="Adress" placeholder="기본 주소" readonly value="돌할아버지 3번지">
+              <input type="text" name="memberAddress" id="address" class="Adress" placeholder="기본 주소" readonly>
             </div>
             <div class="input-row">
-              <input type="text" name="memberAdress" id="detailAddress" class="Adress" placeholder="상세 주소" value="감귤 1박스">
+              <input type="text" name="memberAddress" id="detailAddress" class="Adress" placeholder="상세 주소">
             </div>
           </div>
   

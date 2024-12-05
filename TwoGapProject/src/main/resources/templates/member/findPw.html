@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 YEARS APART - Login</title>
+
+  <script src="https://kit.fontawesome.com/4d970bf746.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/css/findId.css">
+</head>
+
+<body>
+  <div class="logo">
+    <h1>2 YEARS APART</h1>
+    <h2>MINI HOMEPAGE</h2>
+  </div>
+
+  <div class="findId-container">
+    <h2 class="form-title">PW 찾기</h2>
+
+    <form action="/member/findPw" method="POST" class="formSection">
+
+      <div class="form-group">
+        <label for="memberId">ID</label>
+        <div class="input-row">
+          <input type="text" name="memberId" id="memberId" class="memberId" placeholder="아이디 입력" value="test">
+          <button type="button" id="checkId" class="btn btn-secondary">확인</button>
+        </div>
+        <span class="signUp-message" id="idMessage"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="memberEmail">Email</label>
+        <div class="input-row">
+          <input type="text" name="memberEmail" id="member-email-id" placeholder="이메일" maxlength="18"
+            autocomplete="off" />
+          <span>@</span>
+          <input type="text" name="memberEmail" id="member-email-domain" placeholder="이메일 도메인" maxlength="18"
+            autocomplete="off" />
+
+          <div class="memberEmail" id="memberEmail">
+            <select name="memberEmail" id="memberEmail">
+              <option value="" selected disabled>직접입력</option>
+              <option value="naver.com">naver.com</option>
+              <option value="hanmail.net">hanmail.net</option>
+              <option value="hotmail.com">hotmail.com</option>
+              <option value="nate.com">nate.com</option>
+              <option value="yahoo.co.kr">yahoo.co.kr</option>
+              <option value="gmail.com">gmail.com</option>
+            </select>
+          </div>
+
+          <button type="button" id="sendAuthKeyBtn" class="btn btn-secondary">인증번호 받기</button>
+        </div>
+        <span class="signUp-message" id="emailMessage"></span>
+
+      </div>
+
+      <div class="form-group">
+        <label for="authKey">인증번호 입력</label>
+        <div class="input-row">
+          <input type="text" name="authKey" id="authKey" placeholder="인증번호 입력">
+          <button type="button" id="checkAuthKeyBtn" class="btn btn-secondary">확인</button>
+        </div>
+        <span class="signUp-message" id="authKeyMessage"></span>
+        <!-- 인증번호가 일치하지 않습니다 -->
+      </div>
+
+      <button type="submit" id="findPwForm" class="findId-button">비밀번호 찾기</button>
+
+    </form>
+
+  </div>
+
+  <div class="footer">
+    <div>
+      <a href="#">홈페이지소개</a> |
+      <a href="#">개인정보처리방침</a> |
+      <a href="#">고객센터</a>
+    </div>
+  </div>
+
+  <script src="/js/findPw.js"></script>
+  <script th:inline="javascript">
+    const message =  /*[[${message}]]*/ "전달 받은 message";
+
+    if (message != null) alert(message);
+  </script>
+</body>
+
+</html>

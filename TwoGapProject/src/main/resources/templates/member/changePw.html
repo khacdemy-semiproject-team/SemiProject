@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 YEARS APART - Login</title>
+
+  <script src="https://kit.fontawesome.com/4d970bf746.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/css/changePw.css">
+</head>
+
+<body>
+  <div class="logo">
+    <h1>2 YEARS APART</h1>
+    <h2>MINI HOMEPAGE</h2>
+  </div>
+
+  <div class="changePw-container">
+    <h2 class="changePw-title">PW 변경</h2>
+
+    <form action="/member/changePw" method="POST" class="formSection">
+      <div class="form-group"> <!-- 여기부터-->
+        <label for="memberPw">비밀번호</label>
+        <div class="input-row">
+          <input type="password" name="memberPw" id="memberPw" class="memberPw" placeholder="********">
+        </div>
+        <span class="signUp-message" id="pwMessage"></span>
+
+      </div>
+      <div class="form-group">
+        <label for="memberPwConfirm">비밀번호 확인</label>
+        <div class="input-row">
+          <input type="password" name="memberPwConfirm" id="memberPwConfirm" class="memberPwConfirm"
+            placeholder="********">
+        </div>
+        <span class="signUp-message" id="checkPwMessage"></span>
+      </div>
+
+      <input type="hidden" name ="memberId" th:value="${memberId}">
+
+      <button type="submit" id="changePwForm" class="changePw-button">비밀번호 변경</button>
+
+    </form>
+
+  </div>
+
+  <div class="footer">
+    <div>
+      <a href="#">홈페이지소개</a> |
+      <a href="#">개인정보처리방침</a> |
+      <a href="#">고객센터</a>
+    </div>
+  </div>
+
+  <script src="/js/changePw.js"></script>
+  <script th:inline="javascript">
+    const message =  /*[[${message}]]*/ "전달 받은 message";
+
+    if (message != null) alert(message);
+  </script>
+</body>
+
+</html>
