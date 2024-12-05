@@ -9,15 +9,18 @@
 
             <div class="profile-text">
                 <div class="profile-nickname"  th:text="${session.loginMember.memberNickname}">닉네임</div>
+
                 <div class="profile-edit">
                     <a href="/boards/profile-update">프로필 수정</a>
                     <span> | </span>
                      <button class="write">글쓰기</button>
                 </div>
+
                 <!-- 11.27일 추가 우리 모두 반성합시다 ㅠㅠ -->
                 <div class="logout">
                     <button type="button">로그아웃</button>
                 </div>
+
 
             </div>
         </div>
@@ -34,6 +37,7 @@
     <div class="friend-box">
         <button onclick="location.href='/follow/main' ">팔로우</button>
         <button id="test">랜덤방문</button>
+        
     </div>
 
 </div>
