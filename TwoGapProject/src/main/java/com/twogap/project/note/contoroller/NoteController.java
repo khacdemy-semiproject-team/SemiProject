@@ -50,6 +50,7 @@ public class NoteController {
 									 Model model) {
 		// noteList 결과 받아오기
 		Map<String, Object> map = service.noteSelectList(loginMember.getMemberNo(), cp);
+
 		return map;
 	}
 	

@@ -74,6 +74,7 @@ public class LoginServiceImpl implements LoginService {
 
 	// 회원 가입
 	@Override
+
 	public int submit(Member inputMember, String[] memberAddress, String[] memberTel,
 			String[] memberHomeTel, String[] memberEmail, String[] personalCode) {
 		
