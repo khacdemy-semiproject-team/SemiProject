@@ -179,11 +179,35 @@ form[name='myPageFrm']{position: relative;}
   margin-top: 20px;
 }
 
+.profile div {
+  border: 1px solid;
+}
+
+.profile-test {
+  flex-basis: 44%;
+}
+
+.profile-img {
+
+}
+
+.profile-nickname {
+
+}
+
+/* .input-info{
+  width: 300px;
+  border-bottom: 1px solid;
+} */
+
 .form-group label {
   display: block;
   margin-bottom: 8px;
   font-size: 14px;
   font-weight: bold;
+}
+
+.profile-edit {
 }
 
 .profile-introduction {
@@ -298,6 +322,9 @@ form[name='myPageFrm']{position: relative;}
   cursor: pointer;
 }
 
+/* .profile-info {
+  margin-top: 20px;
+} */
 
 .input-info {
   border-bottom-style: 1px solid black;
