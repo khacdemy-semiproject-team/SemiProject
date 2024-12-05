@@ -102,3 +102,15 @@ function pagination(pagination, boardTypeNo) {
     // 페이지 이동 요청 이벤트
   }
 }
+
+
+// 12.05일 신동국 추가
+const logoutBtn = document.querySelector("#logoutBtn");
+
+if(logoutBtn !== null ) {
+
+  logoutBtn.addEventListener("click", () => {
+    location.href = "/member/logout"
+  })
+
+}
