@@ -4,7 +4,8 @@
         <!-- 프로필 닉네임, 프사, 글쓰기, 프로필수정 -->
         <div class="profile-test">
             <div class="profile-img">
-                이미지
+                <!-- 12.05 신동국 이미지 추가 -->
+                <img th:src="${session.loginMember.profileImg ?: '/images/user.jpg'}">
             </div>
 
             <div class="profile-text">
@@ -18,7 +19,8 @@
 
                 <!-- 11.27일 추가 우리 모두 반성합시다 ㅠㅠ -->
                 <div class="logout">
-                    <button type="button">로그아웃</button>
+                    <!-- 12.05 신동국 로그아웃 id 추가 밑 이벤트 추가 -->
+                    <button type="button" id="logoutBtn">로그아웃</button>
                 </div>
 
 
@@ -27,7 +29,8 @@
 
         <!-- 자기소개 -->
         <div class="profile-introduction">
-            <div>
+            <!-- 12.05 신동국 자기 소개 추가 -->
+            <div th:text="${session.loginMember.introduction ?: '안녕하세요. 잘 부탁드립니다'}">
             </div>
         </div>
     </div>
