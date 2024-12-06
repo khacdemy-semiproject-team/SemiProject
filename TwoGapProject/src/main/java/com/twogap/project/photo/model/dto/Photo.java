@@ -1,5 +1,7 @@
 package com.twogap.project.photo.model.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,5 +22,11 @@ public class Photo {
 	private String photoUpdateDate;
 	private int memberNo;
 	private int boardTypeNo;
-
+	
+	//------------------ IMG 테이블 관련
+	private String imgPath;
+	private String imgOriginalName;
+	private String imgRename;
+	
+	
 }

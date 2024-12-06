@@ -42,7 +42,7 @@ public interface PhotoMapper {
 	 * @param rowBounds
 	 * @return
 	 */
-	List<Note> photoSelectList(int memberNo, RowBounds rowBounds);
+	List<Photo> photoSelectList(int memberNo, RowBounds rowBounds);
 	
 	
 	

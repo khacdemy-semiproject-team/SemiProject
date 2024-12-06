@@ -59,7 +59,7 @@ public class PhotoController {
 	public Map<String, Object> photoSelectList(@SessionAttribute("loginMember") Member loginMember,
 									 @RequestParam(value="cp",required = false, defaultValue = "1") int cp,
 									 Model model) {
-		// noteList 결과 받아오기
+		// photoSelectList 결과 받아오기
 		Map<String, Object> map = service.photoSelectList(loginMember.getMemberNo(), cp);
 		return map;
 	}

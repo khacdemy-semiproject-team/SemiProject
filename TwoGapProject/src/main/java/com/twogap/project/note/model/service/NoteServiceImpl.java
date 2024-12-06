@@ -29,11 +29,11 @@ public class NoteServiceImpl implements NoteService{
 	
 	private final NoteMapper mapper;
 	
-	@Value("${my.board.web-path}")
-	private String webPath; // /images/board/
+	@Value("${my.memo.web-path}")
+	private String webPath; // /images/memo/
 
-	@Value("${my.board.folder-path}")
-	private String folderPath; // C:/uploadFiles/board
+	@Value("${my.memo.folder-path}")
+	private String folderPath; // C:/uploadFiles/memo
 	
 	// Note 게시글 목록 가져오기
 	@Override
