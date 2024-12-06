@@ -40,6 +40,10 @@
   width: 750px;
   height: 600px;
   border-radius: 0px 0px 20px 20px;
+
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  border: 1px solid #ddd; /* 경계선 */
+
 }
 
 
@@ -58,17 +62,15 @@
 
 /* 사진 칸 */
 .photo-item { /* 각 사진 항목 */
-  flex: 0 0 calc(25% - 20px); /* 4열 배치 */
-  max-width: calc(25% - 20px);
-  height: 125px;
+  flex: 0 0 calc(33.33% - 20px); /* 3열 배치 */
+  max-width: calc(33.33% - 20px);
+  height: 150px;
   position: relative; /* 내부 요소 위치 지정용 */
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  
-  
 }
 
 .photo-item:hover { /* 사진 항목 hover 효과 */
@@ -211,4 +213,3 @@
   height: 100%;         /* 세로 비율 유지 */
   object-fit: contain;  /* 이미지 비율을 유지하면서 컨테이너에 맞게 크기 조정 */
 }
-

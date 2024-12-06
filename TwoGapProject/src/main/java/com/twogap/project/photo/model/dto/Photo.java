@@ -20,5 +20,12 @@ public class Photo {
 	private String photoUpdateDate;
 	private int memberNo;
 	private int boardTypeNo;
+	
+	// --------------------------------IMG 테이블 관련
+	private String imgPath;
+	private String imgOriginalName;
+	private String imgRename;
+	private String imgOrder;
+	
 
 }

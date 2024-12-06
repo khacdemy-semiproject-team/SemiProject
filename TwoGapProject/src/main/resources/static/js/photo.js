@@ -1,11 +1,11 @@
 // 사진 항목을 생성하는 함수
-function makePhotoItem(i) {
+function makePhotoItem(photo) {
   return `
     <div class="photo-item">
-      <span class="photo-item-number">No.${i}</span>
+      <span class="photo-item-number">No.${photo.photoNo}</span>
       <div class="photo-item-detail"></div>
-      <img src="" class="photo-item-content"> 
-      <div class="photo-item-title">사진 설명 ${i}</div> 
+      <img src="${photo.imgPath}${photo.imgRename}" class="photo-item-content"> 
+      <div class="photo-item-title">사진 설명 ${photo.photoTitle}</div> 
     </div>
   `;
 }
@@ -18,22 +18,110 @@ function selectPhoto() {
   const selfBox = document.querySelector(".self-box");
   selfBox.innerHTML = "<div class='photo-list-container'></div>"; // 사진 목록을 담을 컨테이너
 
-  const photoList = document.querySelector(".photo-list-container");
+  const photoContainer = document.querySelector(".photo-list-container");
 
   // 반복문을 통해 사진 항목들을 추가
-  let photoItemsHTML = "";
-  for (let i = 1; i <= 12; i++) {
-    photoItemsHTML += makePhotoItem(i); // 사진 항목을 HTML 문자열로 생성
-  }
+  //let photoItemsHTML = "";
+  // for (let i = 1; i <= 12; i++) {
+  //   photoItemsHTML += makePhotoItem(i); // 사진 항목을 HTML 문자열로 생성
+  // }
+
+  // 비동기 요청
+  /* 일반 fetch로 비동기 요청 보내어 처리하는 방법
+  fetch("/photo/selectList")
+  .then(resp => resp.json()) 
+  .then(data => {
+    console.log(data);
+
+    const photoList = data.photoList;
+    const pagination = data.pagination;
+
+    photoList.forEach((photo) => {
+      console.log(photo);
+      photoItemsHTML += makePhotoItem(photo);
+      console.log(photoItemsHTML);
+      photoContainer.innerHTML = photoItemsHTML;
+    })
+  })
+  .catch((err) => console.log(err));
+  */
+
+  let currentPage = 1; // 현재 페이지
+  let isLoading = false; // 데이터 로딩 중인지 여부
+  let hasMoreData = true; // 데이터가 더 있는지 여부
+
+  // async/await 사용법
+  const fetchPhotoList = async () => { 
+    
+    if (isLoading || !hasMoreData) return; // 로딩 중이거나 데이터가 없으면 중단
+    isLoading = true;
+
+    try {
+      const resp = await fetch(`/photo/selectList?cp=${currentPage}`); // 데이터 요청
+      const photoList = await resp.json(); // JSON 변환
+
+      console.log(photoList);
+
+
+
+//         삭제 고민을 해봅시다
+
+      if (photoList.length > 0) {
+        photoList.forEach((photo) => {
+          const photoItem = makePhotoItem(photo); // 개별 사진 항목 생성
+          photoContainer.innerHTML += photoItem; // 컨테이너에 HTML 삽입
+          
+          const photoSelect = document.querySelector(".photo-list-container");
+          photoSelect.firstElementChild.addEventListener("click", e => {
+            alert("찍혔냐");
+          });
+          console.log(photoSelect.lastElementChild);
+        });
+        
+//         삭제 고민을 해봅시다
+
+        currentPage++; // 다음 페이지로 이동
+
+      } else {
+        hasMoreData = false; // 더 이상 데이터가 없음을 표시
+        console.log("더 이상 로드할 데이터가 없습니다.");
+      }
+
+    } catch (err) {
+      console.error(err); // 에러 처리
+    } finally {
+      isLoading = false; // 로딩 상태 해제
+    }
+  };
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const { scrollTop, scrollHeight, clientHeight } = selfBox;
+
+    console.log(scrollTop);
+    console.log(scrollHeight);
+    console.log(clientHeight);
+
+    // 스크롤이 하단에 도달했는지 확인
+    if (scrollTop + clientHeight >= scrollHeight - 5) {
+      fetchPhotoList();
+    }
+  };
+
+  // 초기화
+  const init = () => {
+    fetchPhotoList(); // 첫 페이지 로드
+    selfBox.addEventListener("scroll", handleScroll); // 스크롤 이벤트 등록
+  };
+
+  // 함수 호출
+  init();
 
   // 전체 HTML을 한 번에 넣기
-  photoList.innerHTML = photoItemsHTML;
 }
 
 // 사진 목록을 생성하고 화면에 표시
 selectPhoto();
-
-
 
 // 글쓰기 버튼
 let write = document.querySelector(".write");
@@ -89,9 +177,6 @@ write.addEventListener("click", () => {
   checkBtn.classList.add("checkBtn");
   cancelBtn.classList.add("cancelBtn");
 
-  // 로고의 'no-after' 클래스 추가
-  logo.classList.add("no-after");
-
   // 사진 등록 영역에 콘텐츠 및 버튼들 추가
   const photoWriteContent = document.querySelector(".photo-write-content");
   photoWriteContent.append(previewDivthumnail);
@@ -115,21 +200,27 @@ write.addEventListener("click", () => {
   const previewDiv2 = document.querySelector(".previewDiv1");
   const previewDiv3 = document.querySelector(".previewDiv2");
   const previewDiv4 = document.querySelector(".previewDiv3");
-  
+
   // 파일 선택 input 요소
   const photoInput = document.querySelector(".select-photo");
-  
-   // 파일 선택 시 미리보기 추가
-   photoInput.addEventListener("change", (e) => {
+
+  // 파일 선택 시 미리보기 추가
+  photoInput.addEventListener("change", (e) => {
     const files = e.target.files; // 선택된 파일들
-    const previewDivs = [previewDiv0, previewDiv1, previewDiv2, previewDiv3, previewDiv4]; // 미리보기 div들
-  
+    const previewDivs = [
+      previewDiv0,
+      previewDiv1,
+      previewDiv2,
+      previewDiv3,
+      previewDiv4,
+    ]; // 미리보기 div들
+
     // 선택된 파일에 대해 미리보기 추가
     for (let i = 0; i < files.length; i++) {
       if (i >= previewDivs.length) break; // 최대 4개의 파일만 미리보기
       const file = files[i];
       const reader = new FileReader();
-  
+
       reader.onload = function (e) {
         const img = document.createElement("img");
         img.src = e.target.result; // 파일을 데이터 URL로 읽어서 이미지 src에 설정
@@ -137,51 +228,50 @@ write.addEventListener("click", () => {
         previewDivs[i].innerHTML = ""; // 기존 미리보기 내용 제거
         previewDivs[i].appendChild(img); // 해당 div에 이미지 추가
       };
-  
+
       reader.readAsDataURL(file); // 파일을 데이터 URL로 읽기
     }
   });
-  
+
   cancelBtn.addEventListener("click", () => {
-  selectPhoto();
+    selectPhoto();
   });
 
   checkBtn.addEventListener("click", () => {
-      console.log(inputPhoto.files);
-      if(inputPhoto.files.length === 0) {
-        alert("사진을 넣어 주세요");
-        return;
-      } 
-      const photoTitle = document.querySelector(".photo-write-title").value;
-      const formData = new FormData();
-  
-      for (const [i, photo] of Array.from(inputPhoto.files).entries()) {
-          formData.append("images", photo);
-      }
+    console.log(inputPhoto.files);
+    if (inputPhoto.files.length === 0) {
+      alert("사진을 넣어 주세요");
+      return;
+    }
+    const photoTitle = document.querySelector(".photo-write-title").value;
+    const formData = new FormData();
 
-      formData.append('photoTitle', new Blob([JSON.stringify(photoTitle)] , {type: "application/json"}));
+    for (const [i, photo] of Array.from(inputPhoto.files).entries()) {
+      formData.append("images", photo);
+    }
 
-      fetch("/photo/write", {
-          method: "PUT",
-          // headers: {
-          //     "Content-Type": "multipart/form-data"
-          //   },
-          body: formData
-      })
-      .then(resp => resp.text())
-      .then(result => {
+    formData.append(
+      "photoTitle",
+      new Blob([JSON.stringify(photoTitle)], { type: "application/json" })
+    );
 
-        if( result > 0) {
+    fetch("/photo/write", {
+      method: "PUT",
+      // headers: {
+      //     "Content-Type": "multipart/form-data"
+      //   },
+      body: formData,
+    })
+      .then((resp) => resp.text())
+      .then((result) => {
+        if (result > 0) {
           alert("등록완료");
-          selectPhoto();          
-      } else {
+          selectPhoto();
+        } else {
           alert("등록 실패... ㅠㅠ");
-      }
-
-      })
-  }) 
-  
-  
+        }
+      });
+  });
 });
 
 

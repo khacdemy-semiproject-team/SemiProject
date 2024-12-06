@@ -181,7 +181,7 @@ function insertNote() {
         const formData = new FormData();
         const contentTextarea = document.querySelector(".content-textarea");
  
-        // 글자 띄어쓰기 내려쓰기제외 비어있을시
+        // 글자 띄어쓰기 내려쓰기 제외 비어있을시
         if(contentTextarea.value.trim().length == 0) {
             alert("빈칸으로 제출 하실 수 없습니다");
             contentTextarea.innerText = "";

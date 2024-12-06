@@ -56,7 +56,7 @@ public class EmailServiceImpl implements EmailService {
 			helper.addInline("logo", new ClassPathResource("static/images/twogap.jpg"));  
 			
 			
-//			mailSender.send(mimeMessage);
+			mailSender.send(mimeMessage);
 			return authKey; // 모든 작업 성공 시 Controller 쪽으로 인증키 반환
 			
 		} catch (Exception e) {

@@ -40,6 +40,7 @@ function handleWriteClick() {
   alertWrite.classList.add("checkBtn");
 
   const checkBtn = document.querySelector(".checkBtn");
+  checkBtn.innerText = "수정하기";
 
   // 확인 버튼 클릭 이벤트 리스너
   checkBtn.addEventListener("click", handleCheckClick);
