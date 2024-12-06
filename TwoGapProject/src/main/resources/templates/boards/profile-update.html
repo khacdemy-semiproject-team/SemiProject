@@ -7,6 +7,7 @@
   <title>프로필 편집</title>
   <script src="https://kit.fontawesome.com/4d970bf746.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/profile-update.css">
+  <link rel="stylesheet" href="/css/base.css">
   
 
 </head>
@@ -14,37 +15,8 @@
 <body>
   <div class="homepage-container">
 
-    <div class="menubar">
-
-      <div class="menu-item">
-
-        <a href="#"><i class="fa-solid fa-star"></i>메인</a>
-      </div>
-
-      <div class="menu-item">
-
-        <a href="#"><i class="fa-solid fa-star"></i>프로필<br>변경</a>
-      </div>
-
-      <div class="menu-item">
-
-        <a href="#"><i class="fa-solid fa-star"></i>비밀번호<br>변경</a>
-
-      </div>
-
-      <div class="menu-item">
-
-        <a href="#"><i class="fa-solid fa-star"></i>개인정보<br>변경</a>
-
-      </div>
-
-      <div class="menu-item">
-
-        <a href="#"><i class="fa-solid fa-star"></i>회원탈퇴</a>
-
-      </div>
-
-    </div>
+    
+    <th:block th:replace="~{base/myProfilebar}"></th:block>
 
 
     <div class="homepage">
@@ -95,33 +67,15 @@
 
 
 
-      <div class="right-box">
-        <div class="profile">
+      
+      <th:block th:replace="~{base/rightbox}"></th:block>
 
-          <!-- 프로필 닉네임, 프사, 글쓰기, 프로필수정 -->
-          <div class="profile-test">
-            <div class="profile-img"></div>
-            <div class="profile-nickname"></div>
-            <div class="profile-edit"></div>
-          </div>
-
-          <!-- 자기소개 -->
-          <div class="profile-introduction"></div>
-        </div>
-
-        <div class="calendar"></div>
-
-        <div class="friend-box">
-          <button>팔로우</button>
-          <button>랜덤방문</button>
-        </div>
-      </div>
     </div>
   </div>
   </div>
   <script src="/js/profile-update.js"></script>
   <script src="https://kit.fontawesome.com/4d970bf746.js" crossorigin="anonymous"></script>
-  <script src="/js/main.js"></script>
+  <script src="/js/base.js"></script>
 </body>
 
 </html>

@@ -13,7 +13,7 @@ function boardSelect(e) {
   if (boardListTitle != null) {
   } else {
     boardListTitle = document.createElement("div");
-    boardListTitle.innerHTML = "<h1>게시판</h1>";
+    boardListTitle.innerHTML = "<h1>게시글</h1>";
     boardListTitle.classList.add("boardList-title");
     testBox.append(boardListTitle);
   }
@@ -35,12 +35,27 @@ function boardSelect(e) {
   fetch("/board/selectList")
     .then((resp) => resp.json())
     .then((result) => {
+
+      if( result.boardList.length === 0 ) {
+        document.querySelector(".boardList-table").remove();
+        const div = document.createElement("div");
+        div.classList.add("result-none");
+        testBox.append(div);
+        div.style.width = "100%";
+        div.style.height = "100%";
+        div.style.display = "flex";
+        div.style.justifyContent = "center";
+        div.style.alignItems = "center";
+        div.innerText = "등록된 게시글이 없습니다 T.T";
+        
+        return;
+      }
       board(boardListTable, result.boardList);
       pagination(result["pagination"], result.boardList[0].boardTypeNo);
       cp = document.querySelector(".current").value;
     });
 
-  document.querySelector(".board-write").onclick = () => boardInsert();
+  document.querySelector(".write").onclick = () => boardInsert();
 }
 
 function boardSelectCp(value) {
@@ -133,7 +148,8 @@ function selectBoard(board) {
 
   // 내용 없애기
   let boardListTable = document.querySelector("table");
-  boardListTable.innerHTML = "";
+  if( boardListTable === null ) boardListTable = document.createElement("table");
+  else  boardListTable.innerHTML = "";
 
   // create
   const boardDetailPostHeader = document.createElement("div");
@@ -206,8 +222,6 @@ function selectBoard(board) {
   // 삭제 버튼 클릭 시 이벤트
   boardDetailDeleteBtn.addEventListener("click", () => boardDetailDelete(board));
 
-  // 글쓰기
-  // 글쓰기 버튼 클릭 시 이벤트
 }
 
 
@@ -222,8 +236,6 @@ function backListEvent(value) {
   // // 내용 감싸고 있는 테이블 삭제
   document.querySelector(".boardList-table").innerHTML = "";
 
-
-
   value = value === null ? 1 : value;
 
   fetch("/board/selectList?cp=" + value)
@@ -231,6 +243,7 @@ function backListEvent(value) {
     .then((result) => {
       board(document.querySelector("table"), result.boardList);
       pagination(result["pagination"], result.boardList[0].boardTypeNo);
+      
     });
 }
 
@@ -286,6 +299,7 @@ function boardDetailUpdate(board) {
     alert("게시글 수정하기가 취소되었습니다.")
     document.querySelector(".boardDetail-post-header").remove();
     selectBoard(board);
+    document.querySelector(".boardList-title > h1").innerHTML = "게시글";
   };
 
   // 확인버튼 클릭 시
@@ -313,6 +327,11 @@ function boardDetailUpdate(board) {
           document.querySelector(".boardDetail-post-header").remove();
           selectBoard(board);
           alert("게시글 수정에 성공 >.<");
+          document.querySelector(".boardList-title > h1").innerHTML = "게시글";
+         
+         
+
+
         } else {
           // 수정 실패 시
           alert("게시글 수정에 실패했습니다.");
@@ -323,8 +342,6 @@ function boardDetailUpdate(board) {
         alert("게시글 수정 중 오류가 발생했습니다.");
       });
   };
-
-  // 취소버튼 클릭 시 게시글 상세조회로 돌아가기
   
 
 }
@@ -370,23 +387,16 @@ function boardDetailDelete(board) {
 
 // 게시글 글쓰기
 // 게시글 작성 페이지로 이동
-function boardInsert(insertBoard) {
-
+function boardInsert() {
+  if(document.querySelector(".result-none") !== null ) document.querySelector(".result-none").remove();
   // 박스 초기화
   document.querySelector(".boardList-title").remove();
-  document.querySelector(".boardList-table").remove();
+  if(document.querySelector(".boardList-table") !== null )document.querySelector(".boardList-table").remove();
   if(document.querySelector(".boardDetail-post-header") !== null) document.querySelector(".boardDetail-post-header").remove();
   if(document.querySelector(".pagination") !== null) document.querySelector(".pagination").remove();
-  // if(document.querySelector(".board-write") !== null) document.querySelector(".board-write").remove();
-  document.querySelector(".board-write").style.display = "none";
+  document.querySelector(".write").style.display = "none";
 
-  // 등록 취소 버튼 클릭 시 잊지말기
-  // document.querySelector(".board-write").style.display = "block";
-
-  // const testBox = document.querySelector(".test-box");
-  // testBox.innerHTML = "";
-  // testBox.style.display = "block";
-  // testBox.style.padding = "30px";
+  
 
   // 제목 설정
   const boardWriteTitle = document.createElement("div");
@@ -434,14 +444,38 @@ function boardInsert(insertBoard) {
   submitButton.type = "button";
   submitButton.innerText = "등록";
   submitButton.classList.add("board-submit-btn");
-  submitButton.addEventListener("click", () => boardWrite());
+  
+  
+  submitButton.onclick = () => {
+    boardWrite();
+
+  }
+  
 
   // 취소 버튼
   const cancelButton = document.createElement("button");
   cancelButton.type = "button";
   cancelButton.innerText = "취소";
   cancelButton.classList.add("board-cancel-btn");
-  cancelButton.addEventListener("click", () =>boardSelect);
+  
+  cancelButton.onclick = () => {
+    alert("게시글 작성하기가 취소되었습니다.")
+    document.querySelector(".board-write-form").remove();
+    boardSelect(board);
+    document.querySelector(".write").style.display = "block";
+    document.querySelector(".boardList-title > h1").innerHTML = "게시글";
+  }
+
+
+  // // 취소 버튼 클릭 시 이벤트
+  // boardUpdateCancelBtn.onclick = () => {
+  //   alert("게시글 수정하기가 취소되었습니다.")
+  //   document.querySelector(".boardDetail-post-header").remove();
+  //   selectBoard(board);
+  // };
+
+
+  // console.log("됨");
 
   buttonWrapper.appendChild(submitButton);
   buttonWrapper.appendChild(cancelButton);
@@ -456,7 +490,7 @@ function boardInsert(insertBoard) {
   testBox.appendChild(writeForm);
 }
 
-// 게시글 작성 함수
+// 게시글 작성 후 확인 함수
 function boardWrite() {
   const titleInput = document.querySelector(".board-title-input");
   const contentTextarea = document.querySelector(".board-content-textarea");
@@ -476,30 +510,29 @@ function boardWrite() {
 
   // 서버로 전송할 데이터 객체 생성
   const boardData = {
-    boardWriteTitle: titleInput.value,
-    boardWriteContent: contentTextarea.value,
+    boardTitle: titleInput.value,
+    boardContent: contentTextarea.value,
   };
-
-  // 서버 요청
-  boardData.boardWriteTitle = titleInput;
-  boardData.boardWriteContent = contentTextarea;
-
   console.log(boardData);
 
   // 게시글 작성 비동기 요청
   fetch("/board/write", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(boardData)
   })
     .then((resp) => resp.json())
     .then((result) => {
+
       if (result > 0) {
-        // 작성 성공 시 게시판 목록으로 이동
+        document.querySelector(".board-write-form").remove();
         boardSelect();
+        document.querySelector(".write").style.display = "block";
+        // 작성 성공 시 게시판 목록으로 이동
         alert("게시글이 성공적으로 등록되었습니다.");
+        document.querySelector(".boardList-title > h1").innerHTML = "게시글";
         
       } else {
         // 작성 실패 시 알림

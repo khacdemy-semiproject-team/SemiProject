@@ -40,30 +40,28 @@
 	
 	
 	
-	<insert id="insertBoard">
+	<insert id="insertBoard" useGeneratedKeys="true" parameterType="Board">
 	
-	<selectKey resultType="_int" keyProperty="boardNo">
-				SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
-	</selectKey>
-		
-        INSERT INTO board (
-            BOARD_NO,
-            BOARD_TITLE, 
-            BOARD_CONTENT,
-            BOARD_DATE, 
-            BOARD_UPDATE_DATE,
-            MEMBER_NO, 
-            BOARD_TYPE_NO)  
-            
-          VALUES (
-            SEQ_BOARD_NO.NEXTVAL, 
+        <!-- selectKey를 사용하여 boardNo를 먼저 생성 -->
+        <selectKey resultType="_int" keyProperty="boardNo" order="BEFORE">
+            SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+        </selectKey>
+        
+        INSERT INTO "BOARD" (
+		    BOARD_NO,
+		    BOARD_TITLE, 
+		    BOARD_CONTENT,
+		    BOARD_DATE, 
+		    MEMBER_NO, 
+		    BOARD_TYPE_NO) 
+        VALUES (
+            #{boardNo}, 
             #{boardTitle}, 
             #{boardContent}, 
-            #{boardDate},
-            #{boardUpdateDate},
+            DEFAULT, 
             #{memberNo}, 
-            #{boardTypeNo} )
-        
+            DEFAULT <!-- 기본 게시판 타입 번호 -->
+        )
     </insert>
 	
 	
