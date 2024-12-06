@@ -27,7 +27,7 @@ public interface PhotoService {
 	 * @param cp
 	 * @return
 	 */
-	Map<String, Object> photoSelectList(int memberNo, int cp);
+	List<Photo> photoSelectList(int memberNo, int cp);
 	
 
 }

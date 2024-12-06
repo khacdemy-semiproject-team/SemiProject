@@ -56,12 +56,15 @@ public class PhotoController {
 	
 	@GetMapping("selectList")
 	@ResponseBody
-	public Map<String, Object> photoSelectList(@SessionAttribute("loginMember") Member loginMember,
+	public List<Photo> photoSelectList(@SessionAttribute("loginMember") Member loginMember,
 									 @RequestParam(value="cp",required = false, defaultValue = "1") int cp,
 									 Model model) {
+		
+		log.debug("cp : " + cp);
+		
 		// photoSelectList 결과 받아오기
-		Map<String, Object> map = service.photoSelectList(loginMember.getMemberNo(), cp);
-		return map;
+		List<Photo> photoList = service.photoSelectList(loginMember.getMemberNo(), cp);
+		return photoList;
 	}
 	
 	

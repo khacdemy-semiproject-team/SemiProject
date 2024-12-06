@@ -67,11 +67,11 @@
 
 
 	<!-- 게시글 수 세기 -->
-	<select id="getPhotoListCount">
+	<!-- <select id="getPhotoListCount">
 		SELECT COUNT(*) FROM "PHOTO"
 		WHERE MEMBER_NO =
 		#{memberNo}
-	</select>
+	</select> -->
 
 
 </mapper>

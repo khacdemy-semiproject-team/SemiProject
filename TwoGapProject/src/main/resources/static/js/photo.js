@@ -1,4 +1,3 @@
-
 // 사진 항목을 생성하는 함수
 function makePhotoItem(photo) {
   return `
@@ -22,7 +21,7 @@ function selectPhoto() {
   const photoContainer = document.querySelector(".photo-list-container");
 
   // 반복문을 통해 사진 항목들을 추가
-  let photoItemsHTML = "";
+  //let photoItemsHTML = "";
   // for (let i = 1; i <= 12; i++) {
   //   photoItemsHTML += makePhotoItem(i); // 사진 항목을 HTML 문자열로 생성
   // }
@@ -47,34 +46,63 @@ function selectPhoto() {
   .catch((err) => console.log(err));
   */
 
+  let currentPage = 1; // 현재 페이지
+  let isLoading = false; // 데이터 로딩 중인지 여부
+  let hasMoreData = true; // 데이터가 더 있는지 여부
+
   // async/await 사용법
   const fetchPhotoList = async () => {
-    try {
-      const resp = await fetch("/photo/selectList"); // 데이터 요청
-      const data = await resp.json(); // JSON 변환
-  
-      console.log(data);
-  
-      const photoList = data.photoList;
-      const pagination = data.pagination;
-  
-      let photoItemsHTML = ""; // 초기화
+    if (isLoading || !hasMoreData) return; // 로딩 중이거나 데이터가 없으면 중단
+    isLoading = true;
 
-      console.log(pagination);
-  
-      photoList.forEach((photo) => {
-        console.log(photo);
-        photoItemsHTML += makePhotoItem(photo); // 각 사진 항목 HTML 생성
-      });
-  
-      photoContainer.innerHTML = photoItemsHTML; // 컨테이너에 HTML 삽입
+    try {
+      const resp = await fetch(`/photo/selectList?cp=${currentPage}`); // 데이터 요청
+      const photoList = await resp.json(); // JSON 변환
+
+      console.log(photoList);
+
+      if (photoList.length > 0) {
+        photoList.forEach((photo) => {
+          const photoItem = makePhotoItem(photo); // 개별 사진 항목 생성
+          photoContainer.innerHTML += photoItem; // 컨테이너에 HTML 삽입
+        });
+
+        currentPage++; // 다음 페이지로 이동
+
+      } else {
+        hasMoreData = false; // 더 이상 데이터가 없음을 표시
+        console.log("더 이상 로드할 데이터가 없습니다.");
+      }
+
     } catch (err) {
       console.error(err); // 에러 처리
+    } finally {
+      isLoading = false; // 로딩 상태 해제
     }
   };
-  
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const { scrollTop, scrollHeight, clientHeight } = selfBox;
+
+    console.log(scrollTop);
+    console.log(scrollHeight);
+    console.log(clientHeight);
+
+    // 스크롤이 하단에 도달했는지 확인
+    if (scrollTop + clientHeight >= scrollHeight - 5) {
+      fetchPhotoList();
+    }
+  };
+
+  // 초기화
+  const init = () => {
+    fetchPhotoList(); // 첫 페이지 로드
+    selfBox.addEventListener("scroll", handleScroll); // 스크롤 이벤트 등록
+  };
+
   // 함수 호출
-  fetchPhotoList();
+  init();
 
   // 전체 HTML을 한 번에 넣기
 }

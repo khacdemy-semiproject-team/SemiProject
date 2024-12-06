@@ -93,27 +93,19 @@ public class PhotoServiceImpl implements PhotoService {
 
 	// 사진첩 전체 목록 조회
 	@Override
-	public Map<String, Object> photoSelectList(int memberNo, int cp) {
+	public List<Photo> photoSelectList(int memberNo, int cp) {
 		// 게시글 수 가져오기
-		int listCount = mapper.getPhotoListCount(memberNo);
-
-		// 페이지 네이션
-		Pagination pagination = new Pagination(cp, listCount);
-
-		int limit = pagination.getLimit();
+		//int listCount = mapper.getPhotoListCount(memberNo);
+		
+		int limit = 10;
 		int offset = (cp - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		// noteList 가져오기
+		// 전체 photoList 가져오기
 		List<Photo> photoList = mapper.photoSelectList(memberNo, rowBounds);
 
-		// 목록 조회 결과
-		Map<String, Object> map = new HashMap<>();
 
-		map.put("pagination", pagination);
-		map.put("photoList", photoList);
-
-		return map;
+		return photoList;
 	}
 
 }
