@@ -139,8 +139,7 @@ checkNickname.addEventListener("click", (e) => {
         .catch(err => console.log(err));
 });
 
-// 변경사항이 있을 때는 제출, 없을 때는 제출 없이 메인페이지로 리턴
-console.log(checkObj.memberNickname);
+// 변경사항이 있을 때는 제출, 없을 때는 페이지 이동 없음
 
 const application = document.getElementById("application");
 

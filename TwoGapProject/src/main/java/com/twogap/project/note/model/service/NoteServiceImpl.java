@@ -29,10 +29,10 @@ public class NoteServiceImpl implements NoteService{
 	
 	private final NoteMapper mapper;
 	
-	@Value("${my.board.web-path}")
+	@Value("${my.memo.web-path}")
 	private String webPath; // /images/board/
 
-	@Value("${my.board.folder-path}")
+	@Value("${my.memo.folder-path}")
 	private String folderPath; // C:/uploadFiles/board
 	
 	// Note 게시글 목록 가져오기

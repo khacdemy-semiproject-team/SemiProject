@@ -39,6 +39,22 @@ const emailMessage = document.querySelector("#emailMessage");
 // 작성된 이메일 값 얻어오기
 const emailId = document.querySelector("#member-email-id");
 const emailDomain = document.querySelector("#member-email-domain");
+const selectEmail = document.querySelector("#memberEmail");
+
+// select 옵션 변경 시
+selectEmail.addEventListener('change', (event) => {
+    // 옵션에 있는 도메인 선택 시
+    if(event.target.value !== "type") {
+        // 선택한 도메인을 input에 입력하고 disabled
+        emailDomain.value = event.target.value
+        emailDomain.disabled = true
+        
+    } else { // 직접 입력 시
+        // input 내용 초기화, 입력 가능하도록 변경
+        emailDomain.value = ""
+        emailDomain.disabled = false
+    }
+})
 
 let inputEmail = null;
 

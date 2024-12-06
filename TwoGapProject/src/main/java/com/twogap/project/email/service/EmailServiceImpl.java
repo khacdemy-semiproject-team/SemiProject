@@ -39,6 +39,9 @@ public class EmailServiceImpl implements EmailService {
 		map.put("authKey", authKey);
 		map.put("email", email);
 
+		log.debug("map : " + map);
+		
+		
 		// DB 저장 실패 시 해당 메서드 종료
 		if(!storeAuthKey(map)) {
 			return null; 
@@ -47,16 +50,16 @@ public class EmailServiceImpl implements EmailService {
 		// DB 저장 성공 시 메일 발송 시도
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		log.debug("authKey : " + authKey);
-//		
+		
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			helper.setTo(email); // 받는 사람 (수신자)
-			helper.setSubject("[boardProject] 회원가입 인증번호 입니다."); // 메일 전송 시 제목
+			helper.setSubject("[2gapProject] 회원가입 인증번호 입니다."); // 메일 전송 시 제목
 			helper.setText(loadHtml(authKey, htmlName), true);
 			helper.addInline("logo", new ClassPathResource("static/images/twogap.jpg"));  
 			
 			
-//			mailSender.send(mimeMessage);
+			mailSender.send(mimeMessage);
 			return authKey; // 모든 작업 성공 시 Controller 쪽으로 인증키 반환
 			
 		} catch (Exception e) {

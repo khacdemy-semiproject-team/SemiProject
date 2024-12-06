@@ -130,13 +130,6 @@ body {
   align-items: flex-end;
 }
 
-.right-box div {
-
-  border: 1px solid;
-  border-radius: 20px;
-
-}
-
 .profile-image-area{
   margin-top: 35px;
   width: 110px;
@@ -179,22 +172,9 @@ form[name='myPageFrm']{position: relative;}
   margin-top: 20px;
 }
 
-.profile div {
-  border: 1px solid;
-}
-
 .profile-test {
   flex-basis: 44%;
 }
-
-.profile-img {
-
-}
-
-.profile-nickname {
-
-}
-
 /* .input-info{
   width: 300px;
   border-bottom: 1px solid;

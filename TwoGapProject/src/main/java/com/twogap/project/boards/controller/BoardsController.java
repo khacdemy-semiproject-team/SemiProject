@@ -60,6 +60,7 @@ public class BoardsController {
 
 		return "/boards/profile-update";
 	}
+	
 
 	/**
 	 * 닉네임 유효성 검사
@@ -80,13 +81,6 @@ public class BoardsController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-
 	// 프로필 변경사항 제출
 	@PostMapping("application")
 	public String application(Member inputMember,
