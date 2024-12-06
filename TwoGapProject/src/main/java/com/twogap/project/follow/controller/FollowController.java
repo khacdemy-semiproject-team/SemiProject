@@ -28,13 +28,23 @@ public class FollowController {
 	
 	public final FollowService service;
 	
-	/** 게시판으로 이동
+	/** 팔로우로 이동
 	 * @return
 	 * @author 신동국
 	 */
 	@GetMapping("main")
 	public String followMain() {
 		return "follow/followbox";
+	}
+	
+	/** 팔로우 리스트 가져오기
+	 * @param loginMember
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("selectList")
+	public List<Member> selectList(@SessionAttribute("loginMember") Member loginMember) {
+		return service.selectList(loginMember.getMemberNo());
 	}
 	
 	/** 검색 창에 닉네임이 포한되는 유저 검색
@@ -49,7 +59,7 @@ public class FollowController {
 		return service.searchMember(loginMember, keyword);
 	}
 	
-	/** 
+	/**  팔로우 해제
 	 * @param loginMember
 	 * @param memberno
 	 * @return
@@ -62,6 +72,12 @@ public class FollowController {
 		return service.unFollow(loginMember, memberNo);
 	}
 	
+	/** 팔로우 추가
+	 * @param loginMember
+	 * @param memberNo
+	 * @return
+	 * @author 신동국
+	 */
 	@ResponseBody
 	@PutMapping("addFollow")
 	public int addFollow(@SessionAttribute("loginMember") Member loginMember,

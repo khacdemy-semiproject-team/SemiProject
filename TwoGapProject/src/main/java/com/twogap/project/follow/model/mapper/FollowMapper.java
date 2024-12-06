@@ -9,6 +9,13 @@ import com.twogap.project.member.model.dto.Member;
 
 @Mapper
 public interface FollowMapper {
+	
+
+	/** 팔로우들 얻어오기
+	 * @param memberNo
+	 * @return
+	 */
+	List<Member> selectList(int memberNo);
 
 	/** 닉네임으로 유저 검색
 	 * @param map
@@ -21,5 +28,12 @@ public interface FollowMapper {
 	 * @return
 	 */
 	int unFollow(Map<String, Integer> map);
+
+	/** 팔로우 추가
+	 * @param map
+	 * @return
+	 */
+	int addFollow(Map<String, Integer> map);
+
 
 }
