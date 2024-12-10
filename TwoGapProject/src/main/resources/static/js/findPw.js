@@ -1,6 +1,6 @@
 const checkObj = {
   "memberId" : false,
-  "memberEmail": false,
+//  "memberEmail": false,
   "authKey": false
 };
 const checkId = document.querySelector("#checkId");
@@ -14,7 +14,7 @@ checkId.addEventListener("click", async e => {
 
      // 입력된 아이디가 없을 경우
      if (memberId.value.replace('@', '').trim().length === 0) { 
-        idMessage.innerText = "사용할 아이디를 입력해주세요.";  
+        idMessage.innerText = "사용할 아이디를 입력해주세요.";  	
 
         // 메시지에 색상을 추가하는 클래스 모두 제거
         idMessage.classList.add('error');
@@ -107,19 +107,16 @@ const selectEmail = document.querySelector("#memberEmail");
 
 // select 옵션 변경 시
 selectEmail.addEventListener('change', (event) => {
-    // 옵션에 있는 도메인 선택 시
-    if(event.target.value !== "type") {
-        // 선택한 도메인을 input에 입력하고 disabled
-        emailDomain.value = event.target.value
-        emailDomain.disabled = true
-        
-    } else { // 직접 입력 시
-        // input 내용 초기화, 입력 가능하도록 변경
-        emailDomain.value = ""
-        emailDomain.disabled = false
+    if (event.target.value !== "") {
+        // 옵션에 있는 도메인 선택 시
+        emailDomain.value = event.target.value;
+        emailDomain.disabled = true;
+    } else {
+        // 직접 입력 시
+        emailDomain.value = "";
+        emailDomain.disabled = false;
     }
-})
-
+});
 let inputEmail = null;
 
 // 인증번호 받기 버튼 클릭 시 
@@ -141,7 +138,7 @@ sendAuthKeyBtn.addEventListener("click", async e => {
         emailMessage.classList.remove('confirm', 'error');
 
         // 이메일 유효성 검사 여부를 false 변경
-        checkObj.memberEmail = false;
+        //checkObj.memberEmail = false;
 
         // 잘못 입력한 띄어쓰기가 있을 경우 없앰
         emailId.value = "";
@@ -164,13 +161,14 @@ sendAuthKeyBtn.addEventListener("click", async e => {
         emailMessage.innerText = "알맞은 이메일 형식으로 작성해주세요.";
         emailMessage.classList.add('error'); // 글자를 빨간색으로 변경
         emailMessage.classList.remove('confirm'); // 초록색 제거
-        checkObj.memberEmail = false; // 유효하지 않은 이메일임을 기록
+        //checkObj.memberEmail = false; // 유효하지 않은 이메일임을 기록
 
         return;
     }
 
     // 5) 유효한 이메일 형식인 경우 중복 검사 수행
     // 비동기(ajax)
+    /*
     const resp = await fetch("/member/checkEmail?memberEmail=" + inputEmail);
     const count = await resp.text();
 
@@ -188,7 +186,10 @@ sendAuthKeyBtn.addEventListener("click", async e => {
         checkObj.memberEmail = false; 
         return; 
 
-    } 
+    }
+
+    */
+
 
     // 새로운 인증번호 발급을 원하는것이기 때문에 
     // 새로 발급받은 인증번호 확인전까진 checkObj.authKey는 false
@@ -202,10 +203,10 @@ sendAuthKeyBtn.addEventListener("click", async e => {
 
     // 이전 동작중인 인터벌 클리어(없애기)
     clearInterval(authTimer);
-    console.log(inputEmail);
+
     // *************************************
     // 비동기로 서버에서 메일보내기 
-    fetch("/email/signup", {
+    await fetch("/email/signup", {
         method: "POST",
         headers: {"Content-Type" : "application/json"},
         body: inputEmail

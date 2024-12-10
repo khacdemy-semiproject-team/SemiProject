@@ -34,19 +34,19 @@
                 <span id="deleteImage">x</span>
                 프로필 사진
                 <label for="imageInput" class="imageInput">파일 선택
-                  <input id="imageInput" class="img-select" type="file" accept="image/*" style="display: none;">
+                  <input id="imageInput" name="imageInput" class="img-select" type="file" accept="image/*" style="display: none;">
                 </label>
 
 
                 <div class="color">
                   <span>배경색 바꾸기 : </span>
-                  <input type="color" name="" id="">
+                  <input type="color" name="backgroundColor" id="backgroundColor"  th:value="${member.backgroundColor}">
                   <button class="color-button">기본색</button>
                 </div>
 
                 <div class="profile-info">
                   <label>닉네임
-                    <input type="text" id="memberNickname" class="input-info" placeholder="변경할 닉네임을 입력해주세요.">
+                    <input type="text" name="memberNickname" id="memberNickname" class="input-info" placeholder="변경할 닉네임을 입력해주세요." th:value="${member.memberNickname}">
                     <button type="button" id="checkNickname" class="info-button">중복확인</button><br>
                     <span class="signUp-message" id="nicknameMessage">한글, 영어, 숫자로만 2~10 글자로 입력해주세요.</span>
                   </label>
@@ -54,7 +54,7 @@
 
                 <div class="introduction">
                   <label>자기소개 변경 <br>
-                    <textarea id="introduction" class="profile-edit-introduction" placeholder="자기소개 입력"></textarea>
+                    <textarea name="introduction" id="introduction" class="profile-edit-introduction" placeholder="자기소개 입력" th:text="${member.introduction}"></textarea>
                   </label> <br>
                   <button type="submit" id="application" class="introduction-button">적용</button>
                 </div>
@@ -76,6 +76,12 @@
   <script src="/js/profile-update.js"></script>
   <script src="https://kit.fontawesome.com/4d970bf746.js" crossorigin="anonymous"></script>
   <script src="/js/base.js"></script>
+  <script th:inline="javascript">
+    const message =  /*[[${message}]]*/ "전달 받은 message";
+
+    if (message != null) alert(message);
+  </script>
+  
 </body>
 
 </html>

@@ -1,5 +1,9 @@
 package com.twogap.project.boards.model.service;
 
+import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.twogap.project.member.model.dto.Member;
 
 public interface BoardsService {
@@ -16,6 +20,36 @@ public interface BoardsService {
 	 * @author 우수민
 	 */
 	int checkNickname(String memberNickname);
+
+
+	/** 프로필 변경사항 제출
+	 * @param map
+	 * @return
+	 * @author 우수민
+	 * 
+	 */
+	int application(Member loginMember, MultipartFile imageInput) throws Exception;
+
+
+	/** 사용자 조회
+	 * @param memberNo
+	 * @return
+	 * @author 우수민
+	 */
+	Member infoMember(int memberNo);
+
+
+
+
+	/** 회원탈퇴
+	 * @return
+	 * @author 우수민
+	 */
+	int signOut(int memberNo);
+
+
+
+
 
 
 
