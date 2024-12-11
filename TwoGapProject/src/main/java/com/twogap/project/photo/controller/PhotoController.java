@@ -50,7 +50,7 @@ public class PhotoController {
 		RedirectAttributes ra) throws Exception {
 		Photo photo = new Photo();		
 		
-		photo.setPhotoTitle(photoTitle);
+		photo.setPhotoTitle(photoTitle.replace("\"", ""));
 		photo.setMemberNo(loginMember.getMemberNo());
 		
 		int result = service.photoInsert(photo, images);

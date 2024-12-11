@@ -64,15 +64,14 @@ public class BoardsServiceImpl implements BoardsService {
 		
 		// 프로필 이미지 경로 (수정할 경로)
 		String updatePath = null;
-		
-		int result =1;
+		int result = 1;
 
 		// 변경명 저장
 		String rename = null;
-
+		
 		// 업로드한 이미지가 있을 경우
 		// - 있을 경우 : 경로 조합 (클라이언트 접근 경로 + 리네임파일명)
-		if (!imageInput.getOriginalFilename().equals("")) {
+		if (!imageInput.isEmpty()) {
 			// updatePath 경로 조합
 
 			// 1. 파일명 변경
@@ -83,9 +82,11 @@ public class BoardsServiceImpl implements BoardsService {
 			
 			loginMember.setProfileImg(updatePath);
 			
-			result = mapper.profileImageUpdate(loginMember); 
-			
+		} else {
+			loginMember.setProfileImg(null);
 		}
+		
+		result = mapper.profileImageUpdate(loginMember); 
 		
 		if(result == 0) {
 			throw new Exception();
