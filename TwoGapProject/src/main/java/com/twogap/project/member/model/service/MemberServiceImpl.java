@@ -1,5 +1,9 @@
 package com.twogap.project.member.model.service;
 
+import java.util.Arrays;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,20 +14,29 @@ import com.twogap.project.member.model.dto.Member;
 import com.twogap.project.member.model.mapper.MemberMapper;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberServiceImpl implements MemberService {
 
 	private final MemberMapper mapper;
+	
+	
+	// 랜덤 멤버 넘버 얻어오기
+	@Override
+	public int randomMemberNo(int memberNo) {
+		
+		int[] memberNoArr = mapper.memberNoList(memberNo);
+		
+		Random random = new Random();
+		
+		return memberNoArr[random.nextInt(memberNoArr.length)];
+	}
 
 	// BCrypt 암호화 객체 의존성 주입(SecurityConfig 참고)
 	private final BCryptPasswordEncoder bcrypt;
-
-	@Override
-	public Member selectMember(int memberNo) {
-		return mapper.selectMember(memberNo);
-	}
 
 	
 	// 프로필 수정 -> 비밀번호 변경

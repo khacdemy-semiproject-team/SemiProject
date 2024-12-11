@@ -27,43 +27,17 @@ public class MemberController {
 
 	private final MemberService service;
 
-	@GetMapping("test")
-	public String memberTest(@RequestParam("memberNo") int memberNo, Model model) {
-
-		Member member = service.selectMember(memberNo);
-
-		model.addAttribute("loginMember", member);
-
+	// 12 08일 삭제함 - 쓸모 없는 코드
+	/** 랜던 방문을 위한 키 얻어오기
+	 * @return
+	 * @author 신동국
+	 */
+	@GetMapping("random")
+	@ResponseBody
+	public int randomMemberNo(@SessionAttribute("loginMember") Member loginMember) {
 		
-		
-		return "boards/test";
-	}
-	
-	@GetMapping("main")
-	public String logIn(@RequestParam("memberNo") int memberNo,
-							 Model model
-			) {
-		
-		Member member = service.selectMember(memberNo);
-		
-		model.addAttribute("loginMember", member);
-		
-		
-		return "boards/main";
-	}
-
-
-
-	@GetMapping("note")
-	public String noteTest(@RequestParam("memberNo") int memberNo, Model model) {
-
-		Member member = service.selectMember(memberNo);
-
-		model.addAttribute("loginMember", member);
-
-		return "boards/note";
-	}
-	
+		return service.randomMemberNo(loginMember.getMemberNo());
+	}	
 	
 	/** 프로필 수정 -> 비밀번호 변경
 	 * @return
@@ -114,7 +88,5 @@ public class MemberController {
 		
 		return "member/signOut"; // 회원탈퇴 페이지로 이동
 	}
-	
-
 
 }

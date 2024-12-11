@@ -30,27 +30,26 @@ public class FileConfig implements WebMvcConfigurer{
    @Value("${spring.servlet.multipart.max-file-size}")
    private long maxFileSize;
 
-   // 임계값 초과 시 파일의 임시 저장 경로
-   @Value("${spring.servlet.multipart.location}")
-   private String location;
-   
-   
-   
-   // 프로필 이미지 관련 경로
-   @Value("${my.profile.resource-handler}")
-   private String profileResourcehandler;
-   
-   @Value("${my.profile.resource-location}")
-   private String profileResourceLocation;
 
+	// 임계값 초과 시 파일의 임시 저장 경로
+	@Value("${spring.servlet.multipart.location}")
+	private String location;
 	
-	// 메모장 이미지 관련 경로
+	
+	
+	// 프로필 이미지 관련 경로
+	@Value("${my.profile.resource-handler}")
+	private String profileResourcehandler;
+	
+	@Value("${my.profile.resource-location}")
+	private String profileResourceLocation;
+	
+	// 메모 이미지 관련 경로
 	@Value("${my.memo.resource-handler}")
 	private String memoResourceHandler;
 
 	@Value("${my.memo.resource-location}")
 	private String memoResourceLocation;
-	
 	
 	// 사진첩 이미지 관련 경로
 	@Value("${my.gallery.resource-handler}")
@@ -67,9 +66,10 @@ public class FileConfig implements WebMvcConfigurer{
 		registry.addResourceHandler(profileResourcehandler)
 		.addResourceLocations(profileResourceLocation);
 		
+
 		registry.addResourceHandler(galleryResourceHandler)
 		.addResourceLocations(galleryResourceLocation);
-		
+
 		registry.addResourceHandler(memoResourceHandler)
 		.addResourceLocations(memoResourceLocation);
 	}

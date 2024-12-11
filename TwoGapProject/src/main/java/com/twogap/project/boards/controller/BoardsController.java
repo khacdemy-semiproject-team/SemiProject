@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.twogap.project.boards.model.service.BoardsService;
+import com.twogap.project.common.util.Utility;
 import com.twogap.project.member.model.dto.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -30,14 +31,16 @@ public class BoardsController {
 
 	private final BoardsService service;
 
-	/** 공지사항 조회하기
+	/** 공지사항 가져오기 + 12.09일 타인 방문 추가 및 변경(신동국)
 	 * @param loginMember
 	 * @return
+	 * @author 김용찬
 	 */
 	@ResponseBody
 	@GetMapping("selectAlert")
 	public String viewAlert(@SessionAttribute("loginMember") Member loginMember) {
 		int memberNo = loginMember.getMemberNo();
+		if( Utility.uid != 0 ) memberNo = Utility.uid; // 타인 방문 추가
 		return service.viewAlert(memberNo);
 	}
 
@@ -89,8 +92,14 @@ public class BoardsController {
 		return service.checkNickname(memberNickname);
 	}
 	
+	/** 공지사항으로 이동 + 랜덤방문 시 uid 세팅 12.09일 추가
+	 * @return
+	 */
 	@GetMapping("main")
-	public String returnAlert() {
+	public String returnAlert(@RequestParam(value = "uid", required = false, defaultValue = "0") int uid) {
+		
+		Utility.uid  = uid;
+		
 		return "boards/main";
 		
 	}

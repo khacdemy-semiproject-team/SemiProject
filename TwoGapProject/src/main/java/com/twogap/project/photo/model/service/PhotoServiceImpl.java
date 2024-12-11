@@ -27,12 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 public class PhotoServiceImpl implements PhotoService {
 
 	private final PhotoMapper mapper;
-
+	
 	@Value("${my.gallery.web-path}")
-	private String webPath; // /images/gallery/
+	private String webPath; // /images/board/
 
 	@Value("${my.gallery.folder-path}")
-	private String folderPath; // C:/uploadFiles/gallery
+	private String folderPath; // C:/uploadFiles/board
 
 	// 사진첩 메인
 //	@Override

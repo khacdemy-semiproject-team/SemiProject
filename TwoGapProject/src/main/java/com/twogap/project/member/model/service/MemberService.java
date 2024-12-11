@@ -4,7 +4,10 @@ import com.twogap.project.member.model.dto.Member;
 
 public interface MemberService {
 
-	Member selectMember(int memberNo);
+	/** 랜덤 멤버 넘버 얻어오기
+	 * @return
+	 */
+	int randomMemberNo(int memberNo);
 
 	/** 프로필 수정 -> 비밀번호 변경
 	 * @param memberPw
