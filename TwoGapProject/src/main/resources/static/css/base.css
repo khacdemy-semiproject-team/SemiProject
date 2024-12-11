@@ -651,7 +651,7 @@ body {
 
 .sec_cal .cal_wrap .days {
   display: flex;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #007096;
   padding: 5px 10px;
 }
 
