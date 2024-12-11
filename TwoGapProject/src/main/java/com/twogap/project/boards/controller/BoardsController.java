@@ -30,6 +30,10 @@ public class BoardsController {
 
 	private final BoardsService service;
 
+	/** 공지사항 조회하기
+	 * @param loginMember
+	 * @return
+	 */
 	@ResponseBody
 	@GetMapping("selectAlert")
 	public String viewAlert(@SessionAttribute("loginMember") Member loginMember) {
@@ -37,6 +41,12 @@ public class BoardsController {
 		return service.viewAlert(memberNo);
 	}
 
+	
+	/** 공지사항 수정하기
+	 * @param loginMember
+	 * @param textContent
+	 * @return
+	 */
 	@ResponseBody
 	@PutMapping("updateAlert")
 	public int updateAlert(@SessionAttribute("loginMember") Member loginMember, @RequestBody String textContent) {
