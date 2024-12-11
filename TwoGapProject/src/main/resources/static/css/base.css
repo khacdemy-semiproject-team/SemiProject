@@ -217,6 +217,7 @@
     background: #FFFFFF80;
     border-radius: 20px;
     overflow-y: auto;
+    word-break: break-all;
   }
   
   

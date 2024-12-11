@@ -1,5 +1,7 @@
 package com.twogap.project.boards.model.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.twogap.project.member.model.dto.Member;
@@ -34,5 +36,30 @@ public interface BoardsMapper {
 	 * @author 우수민
 	 */
 	int checkNickname(String memberNickname);
+
+	/** 프로필 변경사항 제출
+	 * @param map
+	 * @return
+	 */
+	int application(Member inputMember);
+
+	/** 사용자 조회
+	 * @param memberNo
+	 * @return
+	 * @author 우수민
+	 */
+	Member infoMember(int memberNo);
+
+	/** 회원탈퇴
+	 * @return
+	 * @author 우수민
+	 */
+	int signOut(int memberNo);
+
+	/** 프로필만 변경
+	 * @param loginMember
+	 * @return
+	 */
+	int profileImageUpdate(Member loginMember);
 
 }

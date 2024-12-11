@@ -16,32 +16,32 @@ import jakarta.servlet.MultipartConfigElement;
 @Configuration
 @PropertySource("classpath:/config.properties")
 public class FileConfig implements WebMvcConfigurer{
-	
+   
 
-	// 파일 업로드 임계값
-	@Value("${spring.servlet.multipart.file-size-threshold}")
-	private long fileSizeThreshold;
-	
-	// HTTP 요청 당 파일 최대 크기
-	@Value("${spring.servlet.multipart.max-request-size}")
-	private long maxRequestSize;
-	
-	// 개별 파일당 최대 크기
-	@Value("${spring.servlet.multipart.max-file-size}")
-	private long maxFileSize;
+   // 파일 업로드 임계값
+   @Value("${spring.servlet.multipart.file-size-threshold}")
+   private long fileSizeThreshold;
+   
+   // HTTP 요청 당 파일 최대 크기
+   @Value("${spring.servlet.multipart.max-request-size}")
+   private long maxRequestSize;
+   
+   // 개별 파일당 최대 크기
+   @Value("${spring.servlet.multipart.max-file-size}")
+   private long maxFileSize;
 
-	// 임계값 초과 시 파일의 임시 저장 경로
-	@Value("${spring.servlet.multipart.location}")
-	private String location;
-	
-	
-	
-	// 프로필 이미지 관련 경로
-	@Value("${my.profile.resource-handler}")
-	private String profileResourcehandler;
-	
-	@Value("${my.profile.resource-location}")
-	private String profileResourceLocation;
+   // 임계값 초과 시 파일의 임시 저장 경로
+   @Value("${spring.servlet.multipart.location}")
+   private String location;
+   
+   
+   
+   // 프로필 이미지 관련 경로
+   @Value("${my.profile.resource-handler}")
+   private String profileResourcehandler;
+   
+   @Value("${my.profile.resource-location}")
+   private String profileResourceLocation;
 
 	
 	// 메모장 이미지 관련 경로
@@ -58,9 +58,6 @@ public class FileConfig implements WebMvcConfigurer{
 
 	@Value("${my.gallery.resource-location}")
 	private String galleryResourceLocation;
-	
-	
-	
 	
 	
 	@Override
@@ -105,5 +102,5 @@ public class FileConfig implements WebMvcConfigurer{
 		
 		return multipartResolver;
 	}
-	
+
 }
