@@ -31,5 +31,33 @@
 		WHERE MEMBER_DEL_FL = 'N'
 		AND MEMBER_NICKNAME = #{memberNickname}
 	 </select>
+	 
+	 <!-- 프로필 변경사항 제출 -->
+	 <update id="application">
+	 	UPDATE "MEMBER" SET
+	 	MEMBER_NICKNAME = #{memberNickname},
+	 	INTRODUCTION = #{introduction},
+	 	BACKGROUND_COLOR = #{backgroundColor}
+	 	WHERE MEMBER_NO = #{memberNo}
+	 </update>
+	 
+	 <update id="profileImageUpdate">
+	 	UPDATE "MEMBER" SET
+	 	PROFILE_IMG = #{profileImg}
+	 	WHERE MEMBER_NO = #{memberNo}
+	 </update>
+	 
+	 <!-- 사용자 조회 -->
+	 <select id="infoMember">
+	 	SELECT * FROM "MEMBER"
+	 	WHERE MEMBER_NO = #{memberNo}
+	 </select>
+	 
+	 <!-- 회원탈퇴 -->
+	 <update id="signOut">
+	 	UPDATE "MEMBER" SET
+	 	MEMBER_DEL_FL = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+	 </update>
 	
 </mapper>

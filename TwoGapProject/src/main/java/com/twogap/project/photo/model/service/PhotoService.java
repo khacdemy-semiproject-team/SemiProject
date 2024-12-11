@@ -13,7 +13,7 @@ public interface PhotoService {
 	 * @param memberNo
 	 * @return
 	 */
-	String viewPhoto(int memberNo);
+	//String viewPhoto(int memberNo);
 
 	/** 사진첩 글쓰기
 	 * @param photo
@@ -22,12 +22,32 @@ public interface PhotoService {
 	 */
 	int photoInsert(Photo photo, List<MultipartFile> images) throws Exception;
  
-	/** 페이지 네이션
+	/** 사진첩 전체 목록 조회
 	 * @param memberNo
 	 * @param cp
 	 * @return
 	 */
-	Map<String, Object> photoSelectList(int memberNo, int cp);
+	List<Photo> photoSelectList(int memberNo, int cp);
+
+	/** 사진첩 삭제
+	 * @param photo 
+	 * @return
+	 */
+	int photoDelete(Photo photo);
+
+	/** 사진첩 수정
+	 * @param photo
+	 * @param images
+	 * @return
+	 * @throws Exception 
+	 */
+	int photoUpdate(Photo photo, MultipartFile images) throws Exception;
+
+	/** 타이틀 수정
+	 * @param photo
+	 * @return
+	 */
+	int photoTitleUpdate(Photo photo);
 	
 
 }

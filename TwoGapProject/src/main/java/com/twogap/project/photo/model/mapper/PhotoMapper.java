@@ -12,6 +12,10 @@ import com.twogap.project.photo.model.dto.Photo;
 @Mapper
 public interface PhotoMapper {
 
+	/** 사진첩 목록 조회
+	 * @param memberNo
+	 * @return
+	 */
 	String viewPhoto(int memberNo);
 
 	
@@ -42,7 +46,38 @@ public interface PhotoMapper {
 	 * @param rowBounds
 	 * @return
 	 */
-	List<Note> photoSelectList(int memberNo, RowBounds rowBounds);
+	List<Photo> photoSelectList(int memberNo, RowBounds rowBounds);
+
+
+	/** photo 삭제
+	 * @param photo 
+	 * @return
+	 */
+	int photoDelete(Photo photo);
+
+
+	/** photo 수정
+	 * @param photo
+	 * @return
+	 */
+	int photoUpdate(Photo photo);
+
+
+	/** img 수정하기
+	 * @param img
+	 * @return
+	 */
+	int photoUploadList(BoardsImg img);
+
+
+	/** 사진첩 제목 수정하기
+	 * @param photo
+	 * @return
+	 */
+	int photoTitleUpdate(Photo photo);
+
+
+
 	
 	
 	

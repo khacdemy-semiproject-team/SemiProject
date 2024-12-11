@@ -6,7 +6,8 @@
 const checkObj = {
   "memberNickname": false,
   "profileImg": false,
-  "introduction": false
+  "introduction": false,
+  "backgroundColor": false
 }
 
 // 프로필 이미지 업로드
@@ -49,7 +50,6 @@ imageInput.addEventListener("change", () => {
       imageInput.files = dataTransfer.files; // 이전 파일로 input 태그의 files 속성 복구
     }
   }
-  
 });
 
 
@@ -57,10 +57,11 @@ imageInput.addEventListener("change", () => {
 deleteImage.addEventListener("click", () => {
   // 기본 이미지 상태가 아니면 삭제 처리
   if(profileImg.src !== defaultImageUrl) {
+    console.log("dkdk");
     imageInput.value = ""; // 파일 선택 초기화
     profileImg.src = defaultImageUrl; // 기본 이미지로 설정
     statusCheck = 0; // 삭제 상태 기록
-    checkObj.profileImg = false; // 이미지 삭제됨
+    checkObj.profileImg = true; // 이미지 삭제됨
     previousFile = null; // 이전 파일 초기화 기록
   } else {
     // 기본 이미지 상태에서 삭제 버튼 클릭 시 상태를 변경하지 않음
@@ -68,16 +69,6 @@ deleteImage.addEventListener("click", () => {
     checkObj.profileImg = false; // 변경 사항 없음
   }
 });
-
-
-
-
-
-// 바꿀 배경색 선택
-
-
-
-
 
 
 // 자기소개 텍스트 필드 변경 시 처리
@@ -139,18 +130,43 @@ checkNickname.addEventListener("click", (e) => {
         .catch(err => console.log(err));
 });
 
-// 변경사항이 있을 때는 제출, 없을 때는 제출 없이 메인페이지로 리턴
-console.log(checkObj.memberNickname);
 
+
+// 배경색
+const backgroundColor = document.querySelector("#backgroundColor");
+const backgroundColorfirst = backgroundColor.value;
+const colorButton = document.querySelector(".color-button");
+
+colorButton.addEventListener("click", () => {
+  document.querySelector("body").style.backgroundColor = "#CDE3EE";
+  document.querySelector(".calendar").style.backgroundColor = "#CDE3EE";
+  document.querySelector(".profile").style.backgroundColor = "#CDE3EE";
+  document.querySelector(".center-box").style.backgroundColor = "#CDE3EE";
+  backgroundColor.value = "#CDE3EE";
+  checkObj.backgroundColor = true;
+})
+
+backgroundColor.addEventListener("input", (e) => {
+  document.querySelector("body").style.backgroundColor = e.target.value;
+  document.querySelector(".calendar").style.backgroundColor = e.target.value;
+  document.querySelector(".profile").style.backgroundColor = e.target.value;
+  document.querySelector(".center-box").style.backgroundColor = e.target.value;
+  checkObj.backgroundColor = true;
+}); 
+
+// 변경사항이 있을 때는 제출, 없을 때는 페이지 이동 없음
 const application = document.getElementById("application");
 
 profileForm.addEventListener("submit", e =>{ 
 
-    if(checkObj.memberNickname === false && checkObj.profileImg === false && checkObj.introduction === false)  {
-    alert("변경사항이 없습니다")
-    e.preventDefault();
-      return;
-    }
+  // 배경사진 변경 돌고돌아 그대로일 때
+  if( backgroundColorfirst ==  backgroundColor.value) checkObj.backgroundColor = false;
+  
+  if(checkObj.memberNickname === false && checkObj.profileImg === false && checkObj.introduction === false && checkObj.backgroundColor === false)  {
+  alert("변경사항이 없습니다")
+  e.preventDefault();
+    return;
+  }
   
 });
 

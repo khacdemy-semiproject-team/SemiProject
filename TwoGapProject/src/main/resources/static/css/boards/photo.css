@@ -1,3 +1,153 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  width: 400px;
+  overflow: auto;
+}
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #e74c3c; /* 빨간색으로 변경 */
+}
+
+
+.modal-photo {
+  margin-top: 20px;
+}
+
+.modal-photo img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+#preview-img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* 제목 스타일 */
+.modal-content h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 입력 필드 스타일 */
+.title-box {
+  display: flex;
+}
+
+.title-box label {
+  flex-basis: 20%;
+  line-height: 55px;
+}
+
+input[type="text"] {
+  flex-basis: 80%;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+input[type="text"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* 이미지 업로드 필드 스타일 */
+#edit-image-upload {
+  display: none; /* 파일 input 숨김 */
+}
+
+label[for="edit-image-upload"]{
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+label[for="edit-image-upload"]:hover {
+  background-color: #2980b9;
+}
+
+/* 이미지 미리보기 스타일 */
+.edit-image-preview {
+  margin-top: 20px;
+}
+
+.edit-image-preview img {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+#save-btn  {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 0;
+  border: none;
+}
+
+#save-btn:hover {
+  background-color: darkgreen;
+}
+
+#cancel-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 0;
+  border: none;
+}
+
+#cancel-btn:hover {
+  background-color: darkred;
+}
+
+/* ****************************** */
+
 .center-box {
   width : 100%;
   padding : 15px;
@@ -40,6 +190,10 @@
   width: 750px;
   height: 600px;
   border-radius: 0px 0px 20px 20px;
+
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  border: 1px solid #ddd; /* 경계선 */
+
 }
 
 
@@ -58,17 +212,15 @@
 
 /* 사진 칸 */
 .photo-item { /* 각 사진 항목 */
-  flex: 0 0 calc(25% - 20px); /* 4열 배치 */
-  max-width: calc(25% - 20px);
-  height: 125px;
+  flex: 0 0 calc(33.33% - 20px); /* 3열 배치 */
+  max-width: calc(33.33% - 20px);
+  height: 150px;
   position: relative; /* 내부 요소 위치 지정용 */
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  
-  
 }
 
 .photo-item:hover { /* 사진 항목 hover 효과 */
@@ -211,4 +363,3 @@
   height: 100%;         /* 세로 비율 유지 */
   object-fit: contain;  /* 이미지 비율을 유지하면서 컨테이너에 맞게 크기 조정 */
 }
-
