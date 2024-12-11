@@ -105,7 +105,7 @@
   color: #666;
   border-bottom: 1px solid transparent;
   transition: all 0.2s ease;
-  flex: 1;
+  width: calc(100% / 3);
   text-align: center;
 }
 
@@ -130,7 +130,7 @@
 .follow-list {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  width: calc(100% / 3);
   gap: 1rem;
   max-height: 400px;
 
@@ -183,6 +183,8 @@
   transition: all 0.2s ease;
   background-color: #007096;
   color: white;
+
+  po
 }
 
 .follow-button:hover {

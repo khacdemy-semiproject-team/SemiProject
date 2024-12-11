@@ -4,6 +4,7 @@ let alertWrite = document.querySelector(".write"); // 최초 alertWrite 버튼�
 
 // 알림 내용 갱신 함수
 function fetchRequest() {
+  
   fetch("/boards/selectAlert")
     .then(response => response.text())  // 응답을 바로 텍스트로 변환
     .then(alertContent => {

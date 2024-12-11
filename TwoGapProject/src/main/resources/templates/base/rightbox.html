@@ -5,16 +5,20 @@
         <div class="profile-test">
             <div class="profile-img">
                 <!-- 12.05 신동국 이미지 추가 -->
-                <img th:src="${session.loginMember.profileImg ?: '/images/user.jpg'}">
+                <img th:src="${session.loginMember.profileImg ?: '/images/user.png'}" alt="프로필 이미지">
             </div>
 
             <div class="profile-text">
-                <div class="profile-nickname"  th:text="${session.loginMember.memberNickname}">닉네임</div>
+                <div class="profile-nickname" th:text="${session.loginMember.memberNickname}">닉네임</div>
 
                 <div class="profile-edit">
                     <a href="/boards/profile-update">프로필 수정</a>
                     <span> | </span>
-                     <button class="write">글쓰기</button>
+                    <button class="write">글쓰기</button>
+                </div>
+
+                <div class="back-home hidden">
+                    <button>돌아가기</button>
                 </div>
 
                 <!-- 11.27일 추가 우리 모두 반성합시다 ㅠㅠ -->
@@ -35,12 +39,32 @@
         </div>
     </div>
 
-    <div class="calendar"></div>
+    <div class="calendar">
+        <div class="sec_cal">
+            <div class="cal_nav">
+                <a class="nav-btn go-prev">prev</a>
+                <div class="year-month"></div>
+                <a class="nav-btn go-next">next</a>
+            </div>
+            <div class="cal_wrap">
+                <div class="days">
+                    <div class="day">SUN</div>
+                    <div class="day">MON</div>
+                    <div class="day">TUE</div>
+                    <div class="day">WED</div>
+                    <div class="day">THU</div>
+                    <div class="day">FRI</div>
+                    <div class="day">SAT</div>
+                </div>
+                <div class="dates"></div>
+            </div>
+        </div>
+    </div>
 
     <div class="friend-box">
         <button onclick="location.href='/follow/main' ">팔로우</button>
-        <button id="test">랜덤방문</button>
-        
+        <button id="random-member">랜덤방문</button>
+
     </div>
 
 </div>

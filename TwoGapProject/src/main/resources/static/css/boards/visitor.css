@@ -1,0 +1,173 @@
+.visitor-container {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 93%;
+
+  padding: 2rem;
+  padding-bottom: 0;
+  background-color: white;
+
+  border-radius: 20px;
+}
+
+.boards-title {
+  margin-left: 40px;
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: #000000;
+  margin: 1rem 0;
+}
+
+.visitor-content-list {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  word-break: break-all;
+}
+
+
+
+.visitor-content {
+  background: white;
+  border-radius: 20px;
+}
+
+.visitor-item {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 20px;
+}
+
+.visitor-info {
+  display: flex;
+  padding: 5px;
+  background-color: #cde3eee1;
+  border-radius: 20px;
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 8px;
+}
+
+.guest-name {
+  width: 35%;
+  padding-left: 10px;
+}
+
+.visitor-date {
+  width: 45%;
+}
+
+.edit-tools {
+  width: 20%;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.edit-tools span {
+  margin: 0px 5px;
+}
+
+.visitor-update-content {
+  width: 100%;
+  height: 4rem;
+  resize: none;
+}
+
+.guest-profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #eee;
+}
+
+.guest-profile-image img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.visitor-text {
+  width: 90%;
+}
+
+
+
+.write-form {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.write-form textarea {
+  padding: 10px;
+  height: 40px;
+  width: 85%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+  overflow: hidden;
+}
+
+.confirm-btn {
+  padding: 8px 20px;
+  height: 40px;
+  width: 70px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+}
+
+
+
+
+
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  padding-bottom: 10px;
+}
+
+.pagination li {
+  width: 20px;
+  margin: 0 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.visitor-content-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.visitor-content-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+
+.visitor-content-list::-webkit-scrollbar-track {
+  background: #f1f1f100;
+}
+
+.visitor-content-list::-webkit-scrollbar-thumb {
+  background: #00709646;
+  border-radius: 12px;
+}
+
+
+.visitor-content-list::-webkit-scrollbar-thumb:hover {
+  background: #007096;
+}

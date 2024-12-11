@@ -63,8 +63,6 @@ public class NoteController {
 	@GetMapping("selectImg")
 	public List<BoardsImg> noteSelectImg(@RequestParam(value="noteNo") int noteNo) {
 		
-//		List <Boa>
-		
 		return service.noteSelectImg(noteNo);
 	}
 	
