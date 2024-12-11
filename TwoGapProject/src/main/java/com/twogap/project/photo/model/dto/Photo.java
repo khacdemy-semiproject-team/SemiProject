@@ -25,7 +25,7 @@ public class Photo {
 	private String imgPath;
 	private String imgOriginalName;
 	private String imgRename;
-	private String imgOrder;
-	
+	private int imgOrder;
+	private int imgNo;
 
 }

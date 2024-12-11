@@ -108,4 +108,61 @@ public class PhotoServiceImpl implements PhotoService {
 		return photoList;
 	}
 
+	// PHOTO 삭제
+	@Override
+	public int photoDelete(Photo photo) {
+		return mapper.photoDelete(photo);
+	}
+
+	
+	// 사진첩 수정
+	@Override
+	public int photoUpdate(Photo photo, MultipartFile images) throws Exception {
+		// 
+		int result = mapper.photoUpdate(photo);
+
+		if (result == 0)
+			return 0;
+
+
+		if (images != null) {
+
+			
+
+				String originalName =images.getOriginalFilename();
+
+				// 변경명
+				String rename = Utility.fileRename(originalName);
+
+				// 모든 값을 저장할 DTO 생성 (BoardImg - Builder 패턴 사용 )
+				BoardsImg img = BoardsImg.builder().imgNo(photo.getImgNo()).imgPath(webPath).imgOriginalName(originalName).imgRename(rename)
+						.imgOrder(photo.getImgOrder()).imgBoardNo(photo.getPhotoNo()).boardTypeNo(2).uploadFile(images).build();
+
+				
+			log.debug("img : " + img);
+
+			if (img == null) {
+				return result;
+			}
+
+			result = mapper.photoUploadList(img);
+
+			if (result > 0) {
+				// 서버에 파일 저장
+				img.getUploadFile().transferTo(new File(folderPath + img.getImgRename()));
+				}
+
+			} else {
+				// 삽입 실패 시 롤백
+				throw new RuntimeException();
+			}
+		
+
+		return result;
+	}
+
+	@Override
+	public int photoTitleUpdate(Photo photo) {
+		return mapper.photoTitleUpdate(photo);
+	}
 }

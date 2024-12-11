@@ -28,6 +28,26 @@ public interface PhotoService {
 	 * @return
 	 */
 	List<Photo> photoSelectList(int memberNo, int cp);
+
+	/** 사진첩 삭제
+	 * @param photo 
+	 * @return
+	 */
+	int photoDelete(Photo photo);
+
+	/** 사진첩 수정
+	 * @param photo
+	 * @param images
+	 * @return
+	 * @throws Exception 
+	 */
+	int photoUpdate(Photo photo, MultipartFile images) throws Exception;
+
+	/** 타이틀 수정
+	 * @param photo
+	 * @return
+	 */
+	int photoTitleUpdate(Photo photo);
 	
 
 }

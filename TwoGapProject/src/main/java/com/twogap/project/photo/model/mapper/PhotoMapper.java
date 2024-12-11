@@ -49,6 +49,34 @@ public interface PhotoMapper {
 	List<Photo> photoSelectList(int memberNo, RowBounds rowBounds);
 
 
+	/** photo 삭제
+	 * @param photo 
+	 * @return
+	 */
+	int photoDelete(Photo photo);
+
+
+	/** photo 수정
+	 * @param photo
+	 * @return
+	 */
+	int photoUpdate(Photo photo);
+
+
+	/** img 수정하기
+	 * @param img
+	 * @return
+	 */
+	int photoUploadList(BoardsImg img);
+
+
+	/** 사진첩 제목 수정하기
+	 * @param photo
+	 * @return
+	 */
+	int photoTitleUpdate(Photo photo);
+
+
 
 	
 	

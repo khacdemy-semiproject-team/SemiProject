@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -23,6 +26,7 @@ import com.twogap.project.photo.model.service.PhotoService;
 import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("photo")
@@ -43,7 +47,7 @@ public class PhotoController {
 	public int insertPhoto(@RequestPart(value="images", required = false) List<MultipartFile> images,
 			@RequestPart("photoTitle") String photoTitle,
 			@SessionAttribute(value="loginMember") Member loginMember,
-			RedirectAttributes ra) throws Exception {
+		RedirectAttributes ra) throws Exception {
 		Photo photo = new Photo();		
 		
 		photo.setPhotoTitle(photoTitle);
@@ -67,6 +71,33 @@ public class PhotoController {
 		return photoList;
 	}
 	
+	@DeleteMapping("delete")
+	@ResponseBody
+	public int photoDelete(@SessionAttribute ("loginMember") Member loginMember,
+						   @RequestBody Photo photo) {
+		
+		return service.photoDelete(photo);
+	}
+	
+	@PutMapping("update")
+	@ResponseBody
+	public int photoUpdate(@SessionAttribute ("loginMember") Member loginMember,
+			@RequestPart(value="images", required = false) MultipartFile images,
+			@RequestPart("photo") Photo photo) throws Exception {
+		log.debug("photo : " + photo);
+		int result = service.photoUpdate(photo, images);
+		
+		return result;
+	}
+	
+	@PutMapping("photoTitleUpdate")
+	@ResponseBody
+	public int photoTitleUpdate(@SessionAttribute("loginMember") Member loginMember,
+				@RequestBody Photo photo) {
+		
+			
+		return service.photoTitleUpdate(photo);
+	}
 	
 
 }
