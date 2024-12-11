@@ -102,7 +102,6 @@ sendAuthKeyBtn.addEventListener("click", async e => {
 
         return;
     }
-
     // 5) 유효한 이메일 형식인 경우 중복 검사 수행
     // 비동기(ajax)
     const resp = await fetch("/member/checkEmail?memberEmail=" + inputEmail);
@@ -113,6 +112,7 @@ sendAuthKeyBtn.addEventListener("click", async e => {
         emailMessage.classList.add("error");
         emailMessage.classList.remove("confirm");
         checkObj.memberEmail = true;
+        return; 
         
     } else { 
         // 중복 X 경우
@@ -120,7 +120,6 @@ sendAuthKeyBtn.addEventListener("click", async e => {
         emailMessage.classList.add("confirm");
         emailMessage.classList.remove("error");
         checkObj.memberEmail = false; 
-        return; 
 
     } 
 
@@ -133,10 +132,8 @@ sendAuthKeyBtn.addEventListener("click", async e => {
     // 클릭 시 타이머 숫자 초기화
     min = initMin;
     sec = initSec;
-
     // 이전 동작중인 인터벌 클리어(없애기)
     clearInterval(authTimer);
-    console.log(inputEmail);
     // *************************************
     // 비동기로 서버에서 메일보내기 
     fetch("/email/signup", {

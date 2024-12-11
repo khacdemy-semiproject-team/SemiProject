@@ -12,6 +12,18 @@ const checkPwMessage = document.querySelector("#checkPwMessage");
 
 // 비밀번호, 비밀번호 확인 일치 확인
 const checkPw = () => {
+
+    pwMessage.innerText = "";
+    checkPwMessage.innerText = "";
+
+    if(memberPw.value.length != memberPwConfirm.value.length){
+        checkPwMessage.innerText = "비밀번호가 일치하지 않습니다.";
+        checkPwMessage.classList.add("error");
+        checkPwMessage.classList.remove("confirm");
+        checkObj.memberPw = false;
+        return;
+    }
+
     if (memberPw.value === memberPwConfirm.value) {
         checkPwMessage.innerText = "비밀번호가 일치합니다.";
         checkPwMessage.classList.add("confirm");
@@ -28,14 +40,16 @@ const checkPw = () => {
 // 유효성 검사
 memberPw.addEventListener("input", e => {
     const inputPw = e.target.value;
-
+ 
     if (inputPw.trim().length === 0) {
-        pwMessage.innerText = "영어, 숫자, 특수문자(!, @, #, -, _) 6~20 글자 사이로 입력해주세요.";
+        pwMessage.innerText = " 숫자, 특수문자(!, @, #, -, _) 6~20 글자 사이로 입력해주세요.";
         pwMessage.classList.remove("confirm", "error");
         checkObj.memberPw = false; // 비밀번호 유효 X
         memberPw.value = ""; // 처음에 띄어쓰기 못하게 막기
         return;
     }
+
+    checkPw();
 
     const regExp = /^[a-zA-Z0-9!@#_-]{6,20}$/;
 
@@ -53,9 +67,7 @@ memberPw.addEventListener("input", e => {
     pwMessage.classList.remove("error");
     checkObj.memberPw = true;
 
-    if (memberPwConfirm.value.length > 0) {
-        checkPw();
-    }
+
 });
 
 memberPwConfirm.addEventListener("input", () => {
@@ -81,7 +93,7 @@ formSection.addEventListener("submit", e => {
             alert("변경하실 비밀번호 입력 후 눌러주세요!");
             e.preventDefault(); // 클릭 이벤트 중단
         
-            // document.getElementById(key).focus(); // 초점 이동
+            document.getElementById(key).focus(); // 초점 이동
         
             return;
         }
