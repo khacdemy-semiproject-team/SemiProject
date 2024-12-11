@@ -84,7 +84,7 @@ function openEditModal(photoString) {
         <div id="edit-image-preview" class="edit-image-preview">
           <img src="${photo.imgPath}${photo.imgRename}" alt="이미지 미리보기" id="preview-img">
         </div>
-        <button id="save-btn" onClick='saveEditPhoto(${photo.imgNo},${photo.photoNo}, "${photo.photoTitle}")'>저장</button>
+        <button id="save-btn" onClick='saveEditPhoto(${photo.imgNo},${photo.photoNo},${photo.photoTitle})'>저장</button>
         <button id="cancel-btn" onClick="closeEditModal()">취소</button>
       </div>
     </div>
