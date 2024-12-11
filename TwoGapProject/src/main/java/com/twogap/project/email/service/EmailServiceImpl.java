@@ -49,9 +49,9 @@ public class EmailServiceImpl implements EmailService {
 		
 		// DB 저장 성공 시 메일 발송 시도
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
-		log.debug("authKey : " + authKey);
 		
 		try {
+			log.debug("authKey : " + authKey);
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			helper.setTo(email); // 받는 사람 (수신자)
 			helper.setSubject("[2gapProject] 회원가입 인증번호 입니다."); // 메일 전송 시 제목

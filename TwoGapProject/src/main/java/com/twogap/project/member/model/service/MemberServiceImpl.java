@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.twogap.project.member.model.dto.Member;
 import com.twogap.project.member.model.mapper.MemberMapper;
@@ -19,10 +20,13 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional(rollbackFor = Exception.class)
 public class MemberServiceImpl implements MemberService {
 
 	private final MemberMapper mapper;
 	
+	// BCrypt 암호화 객체 의존성 주입(SecurityConfig 참고)
+	private final BCryptPasswordEncoder bcrypt;
 	
 	// 랜덤 멤버 넘버 얻어오기
 	@Override
@@ -34,10 +38,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberNoArr[random.nextInt(memberNoArr.length)];
 	}
-
-	// BCrypt 암호화 객체 의존성 주입(SecurityConfig 참고)
-	private final BCryptPasswordEncoder bcrypt;
-
 	
 	// 프로필 수정 -> 비밀번호 변경
 	@Override
@@ -71,6 +71,66 @@ public class MemberServiceImpl implements MemberService {
 		paramMap.put("memberNo", memberNo);
 
 		return mapper.changePw(paramMap);
+	}
+
+	// 개인정보 변경
+	@Override
+	public int privacyInfoUpdate(Member inputMember, String[] memberAddress, String[] memberTel, String[] memberHomeTel,
+			String[] memberEmail, Member loginMember) {
+
+		if (!inputMember.getMemberAdress().equals(",,")) {
+
+			String address = String.join("^^^", memberAddress);
+
+			inputMember.setMemberAdress(address);
+
+		} else {
+
+			inputMember.setMemberAdress(null);
+
+		}
+
+		// 이메일
+		if (!inputMember.getMemberEmail().equals(",")) {
+			String email = memberEmail[0] + '@' + memberEmail[1];
+			log.debug("email" + email);
+			inputMember.setMemberEmail(email);
+
+		} else {
+
+			inputMember.setMemberEmail(null);
+
+		}
+
+		// 핸드폰 번호
+		if (!inputMember.getMemberTel().equals(",")) {
+			String tel = String.join("-", memberTel);
+			inputMember.setMemberTel(tel);
+		} else {
+			inputMember.setMemberTel(null);
+		}
+
+		// 집 전화번호
+		if (!inputMember.getMemberHomeTel().equals(",")) {
+			String homeTel = String.join("-", memberHomeTel);
+			inputMember.setMemberHomeTel(homeTel);
+		} else {
+			inputMember.setMemberHomeTel(null);
+		}
+		
+		inputMember.setMemberNo(loginMember.getMemberNo());
+		
+		int result = mapper.privacyInfoUpdate(inputMember);
+		
+		// 업데이트 성공 시 세션 멤버도 변경
+		if( result > 0) {
+			loginMember.setMemberAdress(inputMember.getMemberAdress());
+			loginMember.setMemberEmail(inputMember.getMemberEmail());
+			loginMember.setMemberTel(inputMember.getMemberTel());
+			loginMember.setMemberHomeTel(inputMember.getMemberHomeTel());
+		}
+		
+		return result;
 	}
 
 }

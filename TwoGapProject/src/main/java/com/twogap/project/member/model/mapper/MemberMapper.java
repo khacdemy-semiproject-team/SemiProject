@@ -29,6 +29,9 @@ public interface MemberMapper {
 	 */
 	int changePw(Map<String, Object> paramMap);
 
+	// 개인정보 변경
+	int privacyInfoUpdate(Member inputMember);
+
 	
 
 	

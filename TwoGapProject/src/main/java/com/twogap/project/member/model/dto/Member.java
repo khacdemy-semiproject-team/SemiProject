@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +22,7 @@ public class Member {
 	private String memberDelFl;
 	private String memberTel;
 	private String memberHomeTel;
-	private String memberAddress;
+	private String memberAdress;
 	private String profileImg;
 	private String backgroundColor;
 	private String personalCode;
