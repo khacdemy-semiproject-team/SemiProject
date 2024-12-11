@@ -57,7 +57,6 @@ imageInput.addEventListener("change", () => {
 deleteImage.addEventListener("click", () => {
   // 기본 이미지 상태가 아니면 삭제 처리
   if(profileImg.src !== defaultImageUrl) {
-    console.log("dkdk");
     imageInput.value = ""; // 파일 선택 초기화
     profileImg.src = defaultImageUrl; // 기본 이미지로 설정
     statusCheck = 0; // 삭제 상태 기록

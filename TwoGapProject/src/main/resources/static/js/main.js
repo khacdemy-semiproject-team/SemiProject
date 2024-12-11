@@ -19,7 +19,7 @@ function selectAlert(alertContent) {
   logo.classList.remove("update-logo");
   logo.innerHTML = "<h1>2 YEARS APART</h1><h2>MINI HOMEPAGE</h2>";
   const testBox = document.querySelector(".self-box2");
-  testBox.innerHTML = alertContent;
+  testBox.innerHTML = alertContent.replaceAll("\"", "");
 }
 
 // 글쓰기 클릭 시 이벤트
@@ -32,7 +32,6 @@ function handleWriteClick() {
   // 상태 변경
   logo.innerHTML = "<span class='alert-title'>공지사항 수정</span>";
   testBox.readOnly = false;
-  centerBox.style.backgroundColor = "#CDE3EE80";
 
   // 버튼 상태 변경
   alertWrite.classList.remove("write");
@@ -54,12 +53,10 @@ function handleCheckClick() {
   if (textArea) {
     const textContent = textArea.value;
 
-    console.log(textContent);
-
     // 알림 수정 요청
     fetch("/boards/updateAlert", {
       method: "PUT",
-      body: textContent,
+      body: JSON.stringify(textContent),
     })
     .then(resp => {
       if (!resp.ok) {
@@ -86,7 +83,6 @@ function handleCheckClick() {
         newAlertWrite.classList.remove("checkBtn");
         newAlertWrite.classList.add("write");
         textArea.classList.remove("update-box");
-        centerBox.style["background-color"] = null;
         textArea.readOnly = true;
         
         // 다음 버튼 클릭을 위해 새 alertWrite를 저장
