@@ -73,30 +73,34 @@ function boardSelectCp(value) {
 function board(boardListTable, boardList) {
 
   testBox.style.display = "flex";
+  testBox.style.justifyContent = "none";
 
-  const boardThead = document.createElement("thead");
+  if(document.querySelector("thead") === null ) {
+    const boardThead = document.createElement("thead");
+    const boardTr = document.createElement("tr");
+  
+    const boardTh1 = document.createElement("th");
+    const boardTh2 = document.createElement("th");
+    const boardTh3 = document.createElement("th");
+  
+    boardTh1.classList.add("boardList-number-column");
+    boardTh2.classList.add("board-title");
+    boardTh3.classList.add("boardList-date-column");
+  
+    boardListTable.append(boardThead);
+    boardThead.append(boardTr);
+    
+    boardTh1.innerText = "번호";
+    boardTr.append(boardTh1);
+  
+    boardTh2.innerText = "제목";
+    boardTr.append(boardTh2);
+  
+    boardTh3.innerText = "날짜";
+    boardTr.append(boardTh3);
+  }
 
-  const boardTr = document.createElement("tr");
 
-  const boardTh1 = document.createElement("th");
-  const boardTh2 = document.createElement("th");
-  const boardTh3 = document.createElement("th");
-
-  boardTh1.classList.add("boardList-number-column");
-  boardTh2.classList.add("board-title");
-  boardTh3.classList.add("boardList-date-column");
-
-  boardListTable.append(boardThead);
-  boardThead.append(boardTr);
-
-  boardTh1.innerText = "번호";
-  boardTr.append(boardTh1);
-
-  boardTh2.innerText = "제목";
-  boardTr.append(boardTh2);
-
-  boardTh3.innerText = "날짜";
-  boardTr.append(boardTh3);
 
   // 테이블의 tbody
   let boardTbody = document.querySelector("tbody");
@@ -451,7 +455,6 @@ function boardInsert() {
 
   }
   
-
   // 취소 버튼
   const cancelButton = document.createElement("button");
   cancelButton.type = "button";
@@ -466,16 +469,6 @@ function boardInsert() {
     document.querySelector(".boardList-title > h1").innerHTML = "게시글";
   }
 
-
-  // // 취소 버튼 클릭 시 이벤트
-  // boardUpdateCancelBtn.onclick = () => {
-  //   alert("게시글 수정하기가 취소되었습니다.")
-  //   document.querySelector(".boardDetail-post-header").remove();
-  //   selectBoard(board);
-  // };
-
-
-  // console.log("됨");
 
   buttonWrapper.appendChild(submitButton);
   buttonWrapper.appendChild(cancelButton);

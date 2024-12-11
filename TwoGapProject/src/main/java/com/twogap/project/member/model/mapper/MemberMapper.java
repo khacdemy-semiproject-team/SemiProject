@@ -9,6 +9,9 @@ public interface MemberMapper {
 
 	Member selectMember(int memberNo);
 
+	// 개인정보 변경
+	int privacyInfoUpdate(Member inputMember);
+
 	
 
 	

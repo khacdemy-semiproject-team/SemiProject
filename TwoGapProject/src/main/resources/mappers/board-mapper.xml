@@ -36,10 +36,8 @@
 		AND MEMBER_NO = #{memberNo}
 	</delete>
 	
+	
 	<!-- 게시글 작성 -->
-	
-	
-	
 	<insert id="insertBoard" useGeneratedKeys="true" parameterType="Board">
 	
         <!-- selectKey를 사용하여 boardNo를 먼저 생성 -->

@@ -49,7 +49,7 @@
 			DEFAULT,					<!-- 탈퇴여부 -->
 			#{memberTel},				<!-- 휴대폰 -->
 			#{memberTel},				<!-- 집전화-->
-			#{memberAddress},			<!-- 주소 -->
+			#{memberAdress},			<!-- 주소 12.10 문제 발생때문에 Address -> Adress로 변경-->
 			NULL,						<!-- 프로필 경로 -->
 			#{personalCode},			<!-- 주민번호(야매) -->
 			DEFAULT,					<!-- 홈페이지 배경색 -->

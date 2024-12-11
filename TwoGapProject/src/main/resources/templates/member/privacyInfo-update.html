@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://kit.fontawesome.com/4d970bf746.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/privacyInfo-update.css">
+
+</head>
+
+<body>
+  <div class="homepage-container">
+
+    <th:block th:replace="~{base/myProfilebar}"></th:block>
+
+    <div class="homepage">
+
+      <div class="center-box">
+        <div class="test-box">
+          <div class="background">
+            <div class="container">
+              <div class="header">
+
+              </div>
+              <form action="/member/privacyInfoUpdate" class="formSection" method="POST">
+                <h2 class="form-title">개인정보 변경</h2>
+
+                <br>
+                <br>
+
+                <!-- Email -->
+                <div class="form-group">
+                  <label for="memberEmail">* Email</label>
+                  <div class="input-row">
+                    <input type="text" name="memberEmail" id="member-email-id" placeholder="이메일" maxlength="18"
+                      autocomplete="off" th:value="${emailId}"/>
+                    <span>@</span>
+                    <input type="text" name="memberEmail" id="member-email-domain" placeholder="이메일 도메인" maxlength="18"
+                      autocomplete="off" th:value="${emailDomain}"/>
+
+                    <div class="memberEmail" id="memberEmail">
+                      <select name="memberEmail" id="memberEmail">
+                        <option value="" selected>직접입력</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="hanmail.net">hanmail.net</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                        <option value="nate.com">nate.com</option>
+                        <option value="yahoo.co.kr">yahoo.co.kr</option>
+                        <option value="gmail.com">gmail.com</option>
+                      </select>
+                    </div>
+
+                    <button type="button" id="sendAuthKeyBtn" class="btn btn-secondary">인증번호 받기</button>
+                  </div>
+                  <span class="signUp-message" id="emailMessage"></span>
+
+                </div>
+
+
+
+                <!-- 인증번호 입력 -->
+                <div class="form-group">
+                  <label for="authKey">인증번호 입력</label>
+                  <div class="input-row">
+                    <input type="text" name="authKey" id="authKey" placeholder="인증번호 입력">
+                    <button type="button" id="checkAuthKeyBtn" class="btn btn-secondary">확인</button>
+                  </div>
+                  <span class="signUp-message" id="authKeyMessage"></span> 
+                  <!-- 인증번호가 일치하지 않습니다-->
+                </div>
+
+
+
+                <!-- Phone -->
+                <div class="form-group dual-input">
+                  <label for="memberTel">* 핸드폰번호</label>
+                  <input type="text" name="memberTel" id="memberTel1" class="memberTel" maxlength="3" placeholder="010" th:value="${memberTel1}">
+                  <span>-</span>
+                  <input type="text" name="memberTel" id="memberTel2" class="memberTel" maxlength="4"
+                    placeholder="1234" th:value="${memberTel2}">
+                  <span>-</span>
+                  <input type="text" name="memberTel" id="memberTel3" class="memberTel" maxlength="4"
+                    placeholder="5678" th:value="${memberTel3}">
+                </div>
+
+                <!-- Home -->
+                <div class="form-group dual-input">
+                  <label for="memberHomeTel">연락처(집)</label>
+                  <input type="text" name="memberHomeTel" id="memberHomeTel1" class="memberHomeTel" maxlength="3"
+                    placeholder="02" th:value="${memberHomeTel1}">
+                  <span>-</span>
+                  <input type="text" name="memberHomeTel" id="memberHomeTel2" class="memberHomeTel" maxlength="4" th:value="${memberHomeTel2}">
+                  <span>-</span>
+                  <input type="text" name="memberHomeTel" id="memberHomeTel3" class="memberHomeTel" maxlength="4" th:value="${memberHomeTel3}">
+                </div>
+
+                <!-- Address -->
+                <div class="form-group">
+                  <label for="Adress">주소</label>
+                  <div class="input-row">
+                    <input type="text" name="memberAdress" id="postcode" class="Adress" placeholder="우편번호" readonly th:value="${postcode}">
+                    <button type="button" id="searchAddress" class="btn btn-secondary">검색</button>
+                  </div>
+                  <div class="input-row">
+                    <input type="text" name="memberAdress" id="address" class="Adress" placeholder="기본 주소" readonly th:value="${address}">
+                  </div>
+                  <div class="input-row">
+                    <input type="text" name="memberAdress" id="detailAddress" class="Adress" placeholder="상세 주소" th:value="${detailAddress}">
+                  </div>
+                </div>
+
+                <button type="submit" id="signUpForm" class="btn full-width">변경하기</button>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <th:block th:replace="~{base/rightbox}"></th:block>
+
+    </div>
+
+  </div>
+
+  <script src="/js/privacyInfo-update.js"></script>
+
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</body>
+
+</html>

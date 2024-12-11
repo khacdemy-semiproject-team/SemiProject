@@ -46,9 +46,9 @@ public class EmailServiceImpl implements EmailService {
 		
 		// DB 저장 성공 시 메일 발송 시도
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
-		log.debug("authKey : " + authKey);
 //		
 		try {
+			log.debug("authKey : " + authKey);
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			helper.setTo(email); // 받는 사람 (수신자)
 			helper.setSubject("[boardProject] 회원가입 인증번호 입니다."); // 메일 전송 시 제목
@@ -56,7 +56,7 @@ public class EmailServiceImpl implements EmailService {
 			helper.addInline("logo", new ClassPathResource("static/images/twogap.jpg"));  
 			
 			
-//			mailSender.send(mimeMessage);
+			mailSender.send(mimeMessage);
 			return authKey; // 모든 작업 성공 시 Controller 쪽으로 인증키 반환
 			
 		} catch (Exception e) {
