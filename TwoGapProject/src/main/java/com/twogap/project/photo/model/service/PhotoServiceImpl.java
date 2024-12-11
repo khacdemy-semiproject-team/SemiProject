@@ -27,10 +27,10 @@ public class PhotoServiceImpl implements PhotoService {
 
 	private final PhotoMapper mapper;
 	
-	@Value("${my.board.web-path}")
+	@Value("${my.gallery.web-path}")
 	private String webPath; // /images/board/
 
-	@Value("${my.board.folder-path}")
+	@Value("${my.gallery.folder-path}")
 	private String folderPath; // C:/uploadFiles/board
 
 	

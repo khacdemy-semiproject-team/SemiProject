@@ -75,11 +75,29 @@ let sec = initSec;
 const emailMessage = document.querySelector("#emailMessage");
 
 // ------------------------------------------
+
+
+
 /* 이메일 인증 */
 
 // 작성된 이메일 값 얻어오기
 const emailId = document.querySelector("#member-email-id");
 const emailDomain = document.querySelector("#member-email-domain");
+const selectEmail = document.querySelector("#memberEmail");
+
+// select 옵션 변경 시
+selectEmail.addEventListener('change', (event) => {
+    if (event.target.value !== "") {
+        // 옵션에 있는 도메인 선택 시
+        emailDomain.value = event.target.value;
+        emailDomain.disabled = true;
+    } else {
+        // 직접 입력 시
+        emailDomain.value = "";
+        emailDomain.disabled = false;
+    }
+});
+
 
 let inputEmail = null;
 

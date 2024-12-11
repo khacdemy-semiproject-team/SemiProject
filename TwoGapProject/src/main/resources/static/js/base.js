@@ -114,3 +114,22 @@ if(logoutBtn !== null ) {
   })
 
 }
+
+
+
+// 12.10 우수민 작성
+function homepageColor() {
+  
+  fetch("/boards/backgroundColor")
+  .then(resp => resp.text())
+  .then(color => {
+    document.querySelector("body").style.backgroundColor = color;
+    document.querySelector(".calendar").style.backgroundColor = color;
+    document.querySelector(".profile").style.backgroundColor = color;
+    document.querySelector(".center-box").style.backgroundColor = color;
+
+  });
+  
+}
+
+homepageColor();
