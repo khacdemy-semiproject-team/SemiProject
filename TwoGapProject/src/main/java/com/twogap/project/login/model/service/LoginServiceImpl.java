@@ -79,16 +79,16 @@ public class LoginServiceImpl implements LoginService {
 			String[] memberHomeTel, String[] memberEmail, String[] personalCode) {
 		
 		// 주소
-		if(!inputMember.getMemberAddress().equals(",,")) {
+		if(!inputMember.getMemberAdress().equals(",,")) {
 			
 			String address = String.join("^^^", memberAddress);
 			
-			inputMember.setMemberAddress(address);
+			inputMember.setMemberAdress(address);
 
 			
 		} else {
 			
-			inputMember.setMemberAddress(null);
+			inputMember.setMemberAdress(null);
 
 
 		}

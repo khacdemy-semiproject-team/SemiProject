@@ -4,6 +4,9 @@ const noteContainer = document.createElement("div");
 noteContainer.classList.add("note-container");
 testBox.append(noteContainer);
 
+let noteUid = window.location.search;
+noteUid = noteUid.substring(noteUid.indexOf('=') + 1, noteUid.length);
+
 let noteItemList = null;
 let noteItem = null;
 
@@ -86,6 +89,7 @@ function createNoteItemList(result) {
         div.innerText = "메모글이 존재하지 않습니다 >.<"; 
         div.style.cssText = "width: 100%; height: 100%; display: flex; "
         div.style.cssText += "justify-content : center; align-items : center;";
+        if(document.querySelector(".pagination") !== null ) document.querySelector(".pagination").remove();
         noteItemList.append(div);
         return;
     }
@@ -99,9 +103,7 @@ function createNoteItemList(result) {
     }
     
     // 페이지 네이션 출력 - base.js에 있습니다
-
     pagination(result['pagination'], noteList[0].boardTypeNo);
-
 
 }
 
@@ -181,7 +183,7 @@ function insertNote() {
         const formData = new FormData();
         const contentTextarea = document.querySelector(".content-textarea");
  
-        // 글자 띄어쓰기 내려쓰기제외 비어있을시
+        // 글자 띄어쓰기 내려쓰기 제외 비어있을시
         if(contentTextarea.value.trim().length == 0) {
             alert("빈칸으로 제출 하실 수 없습니다");
             contentTextarea.innerText = "";
@@ -225,7 +227,8 @@ function insertNote() {
                 .then(resp => resp.json())
                 .then(result => {
 
-                    noteSelectCp(document.querySelector(".current").value);
+                    const cp = document.querySelector(".current") !== null ? document.querySelector(".current").value : 1 ;
+                    noteSelectCp(cp);
                 });
 
             } else {

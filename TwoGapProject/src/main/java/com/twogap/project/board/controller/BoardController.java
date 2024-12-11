@@ -32,7 +32,7 @@ public class BoardController {
 	private final BoardService service;
 	
 	
-	/** 메인 메뉴바에서 게시판 클릭 시 
+	/** 메인 메뉴바에서 게시판 클릭 시 게시판 화면으로 전환
 	 * @return
 	 */
 	@GetMapping("main")
@@ -40,6 +40,12 @@ public class BoardController {
 		return "boards/board";
 	}
 	
+	
+	/** 게시판 목록 조회
+	 * @param loginMember
+	 * @param cp
+	 * @return
+	 */
 	@GetMapping("selectList")
 	@ResponseBody
 	public Map<String, Object> boardSelectList(@SessionAttribute("loginMember") Member loginMember,
@@ -76,8 +82,6 @@ public class BoardController {
 	    
 	    return result; // 성공 시 1, 실패 시 0 반환
 	}
-	
-	
 	
 	
 	

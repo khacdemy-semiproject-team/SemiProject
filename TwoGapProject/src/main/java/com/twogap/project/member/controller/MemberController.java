@@ -1,5 +1,7 @@
 package com.twogap.project.member.controller;
 
+import java.util.Arrays;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,43 +29,17 @@ public class MemberController {
 
 	private final MemberService service;
 
-	@GetMapping("test")
-	public String memberTest(@RequestParam("memberNo") int memberNo, Model model) {
-
-		Member member = service.selectMember(memberNo);
-
-		model.addAttribute("loginMember", member);
-
+	// 12 08일 삭제함 - 쓸모 없는 코드
+	/** 랜던 방문을 위한 키 얻어오기
+	 * @return
+	 * @author 신동국
+	 */
+	@GetMapping("random")
+	@ResponseBody
+	public int randomMemberNo(@SessionAttribute("loginMember") Member loginMember) {
 		
-		
-		return "boards/test";
-	}
-	
-	@GetMapping("main")
-	public String logIn(@RequestParam("memberNo") int memberNo,
-							 Model model
-			) {
-		
-		Member member = service.selectMember(memberNo);
-		
-		model.addAttribute("loginMember", member);
-		
-		
-		return "boards/main";
-	}
-
-
-
-	@GetMapping("note")
-	public String noteTest(@RequestParam("memberNo") int memberNo, Model model) {
-
-		Member member = service.selectMember(memberNo);
-
-		model.addAttribute("loginMember", member);
-
-		return "boards/note";
-	}
-	
+		return service.randomMemberNo(loginMember.getMemberNo());
+	}	
 	
 	/** 프로필 수정 -> 비밀번호 변경
 	 * @return
@@ -104,7 +80,6 @@ public class MemberController {
 		
 	}
 	
-	
 	/** 프로필 수정 -> 회원탈퇴
 	 * @return
 	 * @author 우수민
@@ -115,6 +90,79 @@ public class MemberController {
 		return "member/signOut"; // 회원탈퇴 페이지로 이동
 	}
 	
-
+	/** 개인정보변경 페이지로 이동
+	 * @return
+	 * @author 고민규(12/9)
+	 */
+	@GetMapping("privacyInfo-update")
+	public String privacyInfoUpdate(@SessionAttribute("loginMember") Member loginMember,
+							Model model) {
+		
+		// 이메일 나누기
+		if(loginMember.getMemberEmail() != null) {
+			String[] arr = loginMember.getMemberEmail().split("@"); 
+			
+			model.addAttribute("emailId",arr[0]);
+			model.addAttribute("emailDomain",arr[1]);
+		}
+		
+		
+		// 핸드폰 번호 나누기
+		if(loginMember.getMemberTel() != null) {
+			String[] arr = loginMember.getMemberTel().split("-"); 
+			
+			model.addAttribute("memberTel1",arr[0]);
+			model.addAttribute("memberTel2",arr[1]);
+			model.addAttribute("memberTel3",arr[2]);
+		}
+		
+		// 집 전화번호 나누기
+		if(loginMember.getMemberHomeTel() != null) {
+			String[] arr = loginMember.getMemberHomeTel().split("-");
+			
+			model.addAttribute("memberHomeTel1",arr[0]);
+			model.addAttribute("memberHomeTel2",arr[1]);
+			model.addAttribute("memberHomeTel3",arr[2]);
+		}
+		
+		// 주소 나누기
+		if(loginMember.getMemberAdress() != null) {
+			
+			// 구분자 "^^^" 를 기준으로 
+			// memberAddress 값을 쪼개어 String[]로 반환
+			String[] arr = loginMember.getMemberAdress().split("\\^\\^\\^"); 
+			
+			model.addAttribute("postcode",arr[0]);
+			model.addAttribute("address",arr[1]);
+			model.addAttribute("detailAddress",arr[2]);
+		}
+		
+		return "/member/privacyInfo-update";
+		
+	}
+	
+	@PostMapping("privacyInfoUpdate")
+	public String privacyInfoUpdate(Member inputMember, 
+									@RequestParam("memberAdress")String[] memberAddress,
+									@RequestParam("memberTel")String[] memberTel,
+									@RequestParam("memberHomeTel")String[] memberHomeTel,
+									@RequestParam("memberEmail")String[] memberEmail,
+									@SessionAttribute("loginMember") Member loginMember,
+									RedirectAttributes ra) {
+		String path = null;
+		String mesaage = null;
+		int result = service.privacyInfoUpdate(inputMember, memberAddress, memberTel, memberHomeTel, memberEmail, loginMember);
+		
+		if( result > 0 ) {
+			mesaage = "개인정보 변경 성공";
+			path = "boards/main";
+		} else {
+			mesaage = "개인정보 변경 실패";
+			path = "member/privacyInfoUpdate";
+		}
+		
+		
+		return "redirect:/" + path;
+	}
 
 }

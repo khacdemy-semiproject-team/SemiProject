@@ -3,8 +3,10 @@ package com.twogap.project.common.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-// 프로그램 전체적으로 사용된 우용한 기능 모음
+// 프로그램 전체적으로 사용된 유용한 기능 모음
 public class Utility {
+	
+	public static int uid = 0; // uid 용
 	
 	public static int seqNum = 1; // 1 ~ 99999 반복
 	

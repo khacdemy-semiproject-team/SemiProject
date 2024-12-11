@@ -9,7 +9,11 @@ import com.twogap.project.member.model.dto.Member;
 @Mapper
 public interface MemberMapper {
 
-	Member selectMember(int memberNo);
+	/** 멤버 넘버 리스트 얻어오기
+	 * @param memberNo
+	 * @return
+	 */
+	int[] memberNoList(int memberNo);
 
 	/** 현재 비밀번호가 일치하는지 확인
 	 * @param memberNo
@@ -24,6 +28,9 @@ public interface MemberMapper {
 	 * @author 우수민
 	 */
 	int changePw(Map<String, Object> paramMap);
+
+	// 개인정보 변경
+	int privacyInfoUpdate(Member inputMember);
 
 	
 
