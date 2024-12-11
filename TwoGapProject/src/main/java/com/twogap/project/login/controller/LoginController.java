@@ -305,5 +305,24 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
+	/** 12.11일 추가 로그인 유무에 따른 예외 처리
+	 * @param loginMember
+	 * @return
+	 * @author 신동국
+	 */
+	@GetMapping("login")
+	public String getLogin(@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+		
+		String path = null;
+		
+		if(loginMember == null ) {
+			path = "/";
+		} else {
+			path = "/boards/main";
+		}
+		
+		return "redirect:" + path;
+	}
+	
 
 }

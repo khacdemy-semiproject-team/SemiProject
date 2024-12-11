@@ -155,7 +155,7 @@ function createSearchItem(searchList) {
     const followSearchButton = newEl("button", {}, ["follow-search-button", "following"]);
 
     const followSearchImage = newEl("div", {}, ["follow-search-image"]);
-    const profileSrc = searchUser.profileImg === null ? "/images/user.jpg": searchUser.profileImg;
+    const profileSrc = searchUser.profileImg === null ? "/images/user.png": searchUser.profileImg;
     const profileImg = newEl("img", {src: `${profileSrc}`, alr: "프로필 이미지"}, []);
     const followSearchName = newEl("span", {}, ["follow-search-name"]);
     followSearchName.innerText = searchUser.memberNickname;
@@ -171,7 +171,8 @@ function createSearchItem(searchList) {
       case 1: case 2:
         
         followSearchButton.innerHTML = "<i class='fa-solid fa-user-minus'></i>";
-        followSearchButton.onclick = async () => {
+        followSearchButton.onclick = async (e) => {
+          e.stopPropagation();
           await unFollowEvent(followSearchButton, searchUser.memberNo);
           followSearch();
         };
@@ -179,7 +180,8 @@ function createSearchItem(searchList) {
 
       case 3: case 4:
         followSearchButton.innerHTML = "<i class='fa-solid fa-user-plus'></i>";
-        followSearchButton.onclick = async () => {
+        followSearchButton.onclick = async (e) => {
+          e.stopPropagation();
           await addFollowEvent(followSearchButton, searchUser.memberNo);
           followSearch();
         };
@@ -188,7 +190,7 @@ function createSearchItem(searchList) {
       default:
         alert("시스템 문제 발생 저희에게 문의 해주세요");
     }
-    followSearchName.addEventListener("click", () => followPopup(searchUser, 2));
+    followSearchItem.addEventListener("click", () => followPopup(searchUser, 2));
   }
 
 }
@@ -197,11 +199,12 @@ function createSearchItem(searchList) {
 ///////////////////////////////////////////////////////////////////////////////////
 // 조회 리스트 출력
 function followListCreate() {
- console.log("됨");
+
   fetch("/follow/selectList")
   .then(resp => resp.json())
   .then(memberList => {
 
+    if( document.querySelector('.list-none') !== null ) 
     if(memberList.length === 0 ) {
       const div = document.createElement('div');
       div.style.width = "100%";
@@ -210,6 +213,7 @@ function followListCreate() {
       div.style.display = "flex";
       div.style.cssText += "justify-content : center; align-items : center;";
       div.innerText = "팔로우 관계의 유저가 없습니다 T.T";
+      div.classList.add("list-none");
       document.querySelector(".follow-container").append(div);
       return;
       
@@ -288,7 +292,7 @@ function followListCreate() {
   const followImage = newEl("div", {}, ["follow-image"]);
   const image = newEl("img", {alt: "프로필 이미지"}, []);
   const followName = newEl("span", {}, ["follow-name"]);
-  image.src = member.profileImg === null ? "/images/user.jpg": member.profileImg;
+  image.src = member.profileImg === null ? "/images/user.png": member.profileImg;
   followName.innerText = member.memberNickname;
 
   followImage.append(image);
@@ -301,7 +305,8 @@ function followListCreate() {
   switch(member.followState) {
     case 1:
       followButton.innerHTML = "<i class='fa-solid fa-user-minus'></i>";
-      followButton.onclick = async () => {
+      followButton.onclick = async (e) => {
+        e.stopPropagation();
         await unFollowEvent(followButton, member.memberNo);
         followListCreate();
       }
@@ -310,7 +315,8 @@ function followListCreate() {
       
     case 2: 
       followButton.innerHTML = "<i class='fa-solid fa-user-minus'></i>";
-      followButton.onclick = async () => {
+      followButton.onclick = async (e) => {
+        e.stopPropagation();
         await unFollowEvent(followButton, member.memberNo);
         followListCreate();
       }
@@ -319,7 +325,8 @@ function followListCreate() {
       
     case 3:
       followButton.innerHTML = "<i class='fa-solid fa-user-plus'></i>";
-      followButton.onclick = async () => {
+      followButton.onclick = async (e) => {
+        e.stopPropagation();
         await addFollowEvent(followButton, member.memberNo);
         followListCreate();
       }
@@ -329,7 +336,8 @@ function followListCreate() {
       alert("문제 발생 문의 바람")
   }
 
-  followName.addEventListener("click", () => followPopup(member, 1))
+  
+  followItem.addEventListener("click", () => followPopup(member, 1));
 }
 
 
@@ -341,7 +349,7 @@ function followPopup(member, state) {
   const popupProfile = newEl("div", {}, ["popup-profile"]);
   const popupProfileImg = newEl("div", {}, ["popup-profile-img"]);
   const image = newEl("img", {alt : "프로필"}, []);
-  image.src = member.profileImg === null ? "/images/user.jpg": searchUser.profileImg;
+  image.src = member.profileImg === null ? "/images/user.jpg": member.profileImg;
 
   const popupProfileText = newEl("div", {}, ["popup-profile-text"]);
   const popupProfileNickname = newEl("div", {}, ["popup-profile-nickname"]);
@@ -374,19 +382,21 @@ function followPopup(member, state) {
     case 1: case 2:
       followButton.innerHTML = "<i class='fa-solid fa-user-minus'></i>";
       followButton.onclick = () =>  {
-        unFollowEvent(followButton, member);
+        unFollowEvent(followButton, member.memberNo);
         
       }
       break;
     case 3: case 4:
       followButton.innerHTML = "<i class='fa-solid fa-user-plus'></i>";
       followButton.onclick = () => {
-        addFollowEvent(followButton, member);
+        addFollowEvent(followButton, member.memberNo);
       }
       break;
   }
 
-
+  homeButton.addEventListener("click", () => {
+    location.href = '/boards/main?uid=' + member.memberNo;
+  });
 
   popupOutside.addEventListener("click", () => {
     followPopup.remove();

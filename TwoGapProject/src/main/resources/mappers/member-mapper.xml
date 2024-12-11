@@ -2,26 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.twogap.project.member.model.mapper.MemberMapper">
 
-	<select id="selectMember">
-		SELECT
-			MEMBER_NO,
-			MEMBER_ID,
-			MEMBER_PW,
-			MEMBER_EMAIL,
-			MEMBER_NICKNAME,
-			MEMBER_DEL_FL,
-			MEMBER_TEL,
-			MEMBER_HOME_TEL,
-			MEMBER_ADRESS,
-			PROFILE_IMG,
-			PERSONAL_CODE,
-			BACKGROUND_COLOR,
-			AUTHORITY,
-			INTRODUCTION
-		FROM "MEMBER"
-		WHERE MEMBER_NO = #{memberNo}
+	<select id="memberNoList">
+		SELECT MEMBER_NO FROM "MEMBER"
+		WHERE NOT MEMBER_NO = #{memberNo}
 	</select>
 	
+	<!-- 현재 비밀번호가 일치하는지 확인 -->
+	<select id="selectPw">
+		SELECT MEMBER_PW FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 	
 	
 	<!-- 개인 정보 수정 -->
@@ -36,8 +26,11 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
-	
-	
-	
+	<!-- 새 비밀번호로 변경 -->
+	<update id="changePw">
+		UPDATE "MEMBER" SET
+		MEMBER_PW = #{encPw}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 	
 </mapper>
