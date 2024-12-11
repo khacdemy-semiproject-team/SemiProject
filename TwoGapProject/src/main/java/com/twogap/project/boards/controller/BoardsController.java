@@ -131,15 +131,15 @@ public class BoardsController {
 	 * @return
 	 * @author 우수민
 	 */
-	@ResponseBody
-	@PutMapping("signOut")
-	public String signOut(Member inputMember,
-						@SessionAttribute("loginMember") Member loginMember,
+	@GetMapping("signOut")
+	public String signOut(@SessionAttribute("loginMember") Member loginMember,
 						SessionStatus status, 
 						RedirectAttributes ra) {
 		
+		log.debug("dls");
+		
 		//int memberNo = inputMember.getMemberNo();
-		int result = service.signOut(inputMember.getMemberNo());
+		int result = service.signOut(loginMember.getMemberNo());
 		
 		String message = null;
 		
@@ -154,5 +154,11 @@ public class BoardsController {
 		ra.addFlashAttribute("message", message);
 		return "redirect:/";
 	}
-
+	
+	// 배경색 변경
+	@ResponseBody
+	@GetMapping("backgroundColor")
+	public String getBackgroundColor(@SessionAttribute("loginMember") Member loginMember) {
+		return loginMember.getBackgroundColor(); 
+	}
 }	

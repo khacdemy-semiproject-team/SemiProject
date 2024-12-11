@@ -16,11 +16,12 @@ if(formSection != null) {
     
         // 동의 체크되어 있을 경우 제출
         if(!confirm("정말 탈퇴하시겠습니까?")) {
-            alert("취소 되었습니다.");
             e.preventDefault();
             return;
         }
-
     });
 }
 
+function cancelAction() {
+    location.href = '/boards/main';
+}
