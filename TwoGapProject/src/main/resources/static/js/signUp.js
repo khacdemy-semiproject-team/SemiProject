@@ -301,6 +301,8 @@ checkAuthKeyBtn.addEventListener("click", () => {
 
         checkObj.authKey = true; // 인증번호 검사 여부 true 변경
 
+        emailId.readOnly = true;
+
     });
 
 });
@@ -378,6 +380,7 @@ const checkPw = () => {
 
     if (memberPw.value.length == 0 || memberPwConfirm.value.length == 0){
         checkPwMessage.innerText = "";
+        checkObj.memberPwConfirm = false;
         return;
     }
 
