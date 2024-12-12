@@ -190,7 +190,15 @@ function createSearchItem(searchList) {
       default:
         alert("시스템 문제 발생 저희에게 문의 해주세요");
     }
+
+
+
+
     followSearchItem.addEventListener("click", () => followPopup(searchUser, 2));
+
+
+
+
   }
 
 }
@@ -338,6 +346,8 @@ function followListCreate() {
 
   
   followItem.addEventListener("click", () => followPopup(member, 1));
+
+  
 }
 
 
@@ -349,7 +359,7 @@ function followPopup(member, state) {
   const popupProfile = newEl("div", {}, ["popup-profile"]);
   const popupProfileImg = newEl("div", {}, ["popup-profile-img"]);
   const image = newEl("img", {alt : "프로필"}, []);
-  image.src = member.profileImg === null ? "/images/user.jpg": member.profileImg;
+  image.src = member.profileImg === null ? "/images/user.png": member.profileImg;
 
   const popupProfileText = newEl("div", {}, ["popup-profile-text"]);
   const popupProfileNickname = newEl("div", {}, ["popup-profile-nickname"]);

@@ -16,7 +16,7 @@ const profileImg = document.getElementById("profileImg");  // 미리보기 이�
 const imageInput = document.getElementById("imageInput");  // 파일 선택 input
 const deleteImage = document.getElementById("deleteImage");  // 이미지 삭제 버튼
 // const MAX_SIZE = 1024 * 1024 * 5;  // 최대 파일 크기 설정 (5MB)
-
+console.log(profileImg);
 const defaultImageUrl = `${window.location.origin}/images/user.png`;
 // 절대 경로로 기본이미지 URL 설정
 // -> http://localhost/images/user.png
