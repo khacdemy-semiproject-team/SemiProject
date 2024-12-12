@@ -195,7 +195,7 @@ public class LoginController {
 		
 		String message = null;
 		String path = null;
-		
+
 		if(result != null) { // 있는 회원			
 			
 			message = "회원님의 아이디는 " + result.getMemberId() + "입니다.";
@@ -212,6 +212,7 @@ public class LoginController {
 		return "redirect:" + path; 
 
 	}
+
 	
 	
 	
