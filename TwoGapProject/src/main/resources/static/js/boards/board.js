@@ -192,23 +192,33 @@ function selectBoard(board) {
   testBox.append(boardDetailPostHeader);
 
   boardDetailUpdateBtn.innerText = "수정";
-  boardDetailPostInfo.append(boardDetailUpdateBtn);
 
-  boardDetailPostInfo.innerHTML += "<span>|</span>";
 
   boardDetailDeleteBtn.innerText = "삭제";
-  boardDetailPostInfo.append(boardDetailDeleteBtn);
 
-  boardDetailPostHeader.append(boardDetailPostInfo);
+  let visitorUid = window.location.search;
+  visitorUid = visitorUid.substring(visitorUid.indexOf('=') + 1, visitorUid.length);
+
+  if(visitorUid.length === 0 ) {
+    boardDetailPostInfo.append(boardDetailUpdateBtn);
+    boardDetailPostInfo.innerHTML += "<span>|</span>";
+    boardDetailPostHeader.append(boardDetailPostInfo);
+    boardDetailPostInfo.append(boardDetailDeleteBtn);
+
+    // 게시글 수정하기
+    // 수정 버튼 클릭 시 이벤트
+    document.querySelector(".boardDetail-update")
+    .addEventListener("click", () => boardDetailUpdate(board), {once: true});
+
+    // 게시글 삭제하기
+    // 삭제 버튼 클릭 시 이벤트
+    boardDetailDeleteBtn.addEventListener("click", () => boardDetailDelete(board));
+  }
 
   testBox.append(boardListTable);
 
   boardDetailPostContent.innerText = board["boardContent"];
   boardListTable.append(boardDetailPostContent);
-
-  
-
-
 
   // 상세조회 페이지(목록)로 돌아가기
   // 목록으로 버튼 클릭 시 이벤트
@@ -217,14 +227,7 @@ function selectBoard(board) {
   // console.log(document.querySelector(".boardDetail-update"));
   // console.log(boardDetailUpdateBtn); // 트러블 슈팅
 
-  // 게시글 수정하기
-  // 수정 버튼 클릭 시 이벤트
-  document.querySelector(".boardDetail-update")
-    .addEventListener("click", () => boardDetailUpdate(board), {once: true});
 
-  // 게시글 삭제하기
-  // 삭제 버튼 클릭 시 이벤트
-  boardDetailDeleteBtn.addEventListener("click", () => boardDetailDelete(board));
 
 }
 
@@ -330,7 +333,7 @@ function boardDetailUpdate(board) {
           // 수정 성공 시
           document.querySelector(".boardDetail-post-header").remove();
           selectBoard(board);
-          alert("게시글 수정에 성공 >.<");
+          alert("게시글 수정dp 성공했습니다");
           document.querySelector(".boardList-title > h1").innerHTML = "게시글";
          
          

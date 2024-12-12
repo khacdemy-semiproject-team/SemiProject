@@ -22,6 +22,7 @@
 		WHERE A.FOLLOWER_ID = #{memberNo}
 		AND A.FOLLOWING_ID IN  
 		(SELECT FOLLOWER_ID FROM FOLLOW))
+		AND MEMBER_DEL_FL = 'N'
 		
 		UNION
 		 
@@ -48,6 +49,7 @@
 		WHERE A.FOLLOWER_ID = #{memberNo}
 		AND A.FOLLOWING_ID IN  
 		(SELECT FOLLOWER_ID FROM FOLLOW)))
+		AND MEMBER_DEL_FL = 'N'
 		 
 		UNION
 		
@@ -74,6 +76,7 @@
 		WHERE A.FOLLOWER_ID = #{memberNo}
 		AND A.FOLLOWING_ID IN  
 		(SELECT FOLLOWER_ID FROM FOLLOW)))
+		AND MEMBER_DEL_FL = 'N'
 		  
 		 ORDER BY 2
 	</select>
@@ -101,6 +104,7 @@
 			WHERE FOLLOWING_ID = #{memberNo}
 		) AND MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
 		AND NOT MEMBER_NO = #{memberNo}
+		AND MEMBER_DEL_FL = 'N'
 		
 		UNION
 		
@@ -121,7 +125,9 @@
 		AND A.FOLLOWING_ID = B.FOLLOWER_ID
 		WHERE A.FOLLOWER_ID = #{memberNo}
 		AND A.FOLLOWING_ID IN  
-		(SELECT FOLLOWER_ID FROM FOLLOW)) AND MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
+		(SELECT FOLLOWER_ID FROM FOLLOW))
+		AND MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
+		AND MEMBER_DEL_FL = 'N'
 		
 		UNION
 		
@@ -148,7 +154,9 @@
 		AND A.FOLLOWING_ID = B.FOLLOWER_ID
 		WHERE A.FOLLOWER_ID = #{memberNo}
 		AND A.FOLLOWING_ID IN  
-		(SELECT FOLLOWER_ID FROM FOLLOW))) AND MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
+		(SELECT FOLLOWER_ID FROM FOLLOW)))
+		AND MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
+		AND MEMBER_DEL_FL = 'N'
 		 
 		UNION
 		
@@ -175,20 +183,61 @@
 		AND A.FOLLOWING_ID = B.FOLLOWER_ID
 		WHERE A.FOLLOWER_ID = #{memberNo}
 		AND A.FOLLOWING_ID IN  
-		(SELECT FOLLOWER_ID FROM FOLLOW))) AND MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
+		(SELECT FOLLOWER_ID FROM FOLLOW)))
 		
+		AND MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
+		AND MEMBER_DEL_FL = 'N'
 		ORDER BY 2
 	</select>
 	
+	<!-- 언팔로우 딜리트 -->
 	<delete id="unFollow">
 		DELETE FROM FOLLOW
 		WHERE FOLLOWER_ID = #{followNo}
 		AND FOLLOWING_ID = #{follwingNo}
 	</delete>
 	
-	
-	<delete id="addFollow">
+	<!-- 팔로우 딜리트 -->
+	<insert id="addFollow">
 		INSERT INTO "FOLLOW" VALUES (#{followNo}, #{follwingNo}, SYSDATE)
-	</delete>
+	</insert>
+
+	<!-- 생일 유저 추가하기 -->
+	<select id="birthdaySelect">
+		SELECT SUBSTR(PERSONAL_CODE, 5,2) "birthDay", MEMBER_NICKNAME "memberNickname" FROM "MEMBER"
+
+		<!-- 팔로잉 유저들 가져오기 -->
+		WHERE MEMBER_NO IN 
+		(
+			SELECT A.FOLLOWING_ID 
+			FROM "FOLLOW" A
+			JOIN "FOLLOW" B 
+			  ON A.FOLLOWER_ID = B.FOLLOWING_ID
+			 AND A.FOLLOWING_ID = B.FOLLOWER_ID
+			WHERE A.FOLLOWER_ID = #{memberNo}
+			  AND A.FOLLOWING_ID IN  
+			  (SELECT FOLLOWER_ID FROM FOLLOW)
+			 
+			UNION
+			 
+			 SELECT FOLLOWING_ID
+			FROM FOLLOW
+			WHERE FOLLOWER_ID = #{memberNo}
+			AND FOLLOWING_ID NOT IN
+			(
+			SELECT A.FOLLOWING_ID 
+			FROM "FOLLOW" A
+			JOIN "FOLLOW" B 
+			  ON A.FOLLOWER_ID = B.FOLLOWING_ID
+			 AND A.FOLLOWING_ID = B.FOLLOWER_ID
+			WHERE A.FOLLOWER_ID = #{memberNo}
+			  AND A.FOLLOWING_ID IN  
+			  (SELECT FOLLOWER_ID FROM FOLLOW)
+		))
+		
+		AND SUBSTR(PERSONAL_CODE, 3,2) = #{month}
+		AND MEMBER_DEL_FL = 'N'
+	
+	</select>
 	
 </mapper>

@@ -51,7 +51,7 @@ function handleCheckClick() {
   const textArea = document.querySelector(".update-box");
 
   if (textArea) {
-    const textContent = textArea.value;
+    const textContent = textArea.value.replaceAll(/(?:\r\n|\r|\n)/g, "<br>");
 
     // 알림 수정 요청
     fetch("/boards/updateAlert", {

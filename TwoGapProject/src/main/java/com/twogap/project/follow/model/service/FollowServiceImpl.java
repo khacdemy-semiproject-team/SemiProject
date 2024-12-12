@@ -61,4 +61,30 @@ public class FollowServiceImpl implements FollowService{
 		return mapper.addFollow(map);
 	}
 	
+	// 팔로우 생일얻기
+	@Override
+	public Map<String, String> birthdaySelect(int memberNo, int month) {
+		
+		Map<String, Integer> map = new HashMap<>();
+		
+		map.put("memberNo", memberNo);
+		map.put("month", month);
+		
+		List<Map<String, Object>> birthdayList = mapper.birthdaySelect(map);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		for ( Map<String, Object> resultMap : birthdayList) {
+			
+			String birthday = String.valueOf(resultMap.get("birthDay"));
+			
+			String memberNickname = result.get(birthday) == null ? String.valueOf(resultMap.get("memberNickname")) : 
+								result.get(birthday) + ", " + String.valueOf(resultMap.get("memberNickname"));
+			
+			result.put(birthday, memberNickname);
+		}
+		// TODO Auto-generated method stub
+		return result;
+	}
+	
 }

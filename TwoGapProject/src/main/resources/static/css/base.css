@@ -62,6 +62,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center ;
+
+    cursor: pointer;
     
   }
   
@@ -651,7 +653,7 @@ body {
 
 .sec_cal .cal_wrap .days {
   display: flex;
-  border-bottom: 1px solid #007096;
+  border-bottom: 1px solid #ffffff7a;
   padding: 5px 10px;
 }
 
@@ -664,6 +666,7 @@ body {
   align-items: center;
   justify-content: center;
   width: calc(100% / 7);
+  height: calc(100% / 6);
   text-align: left;
   color: #000000;
   font-size: 12px;
@@ -671,7 +674,7 @@ body {
   border-radius: 50%;
 }
 
-.currentMonth.today {background: rgb(86, 158, 206);}
+.currentMonth.today {background: rgba(86, 158, 206, 0.548);}
 
 .sec_cal .cal_wrap .dates {
   display: flex;
@@ -694,4 +697,64 @@ body {
 
 .sec_cal .cal_wrap .day.disable {
   color: #79797977;
+}
+
+.birthday {
+  background-color: #ffffff80;
+	position: relative;
+}
+
+.birthday span{
+	position: absolute;  /*어떤 요소에 absolute를 주면 블럭요소는 inline으로 변경됨.*/
+	background-color: #000;
+	width: 200px;
+	color : #fff;
+	top : -80px;
+	text-align: center;
+	padding: 10px;
+	border-radius: 5px;
+	left: 50%;                    /*중앙배치 : 왼쪽에서 50%위치*/
+	transform: translateX(-50%);  /*중앙배치 : X크기값을 50%만큼 이동*/
+	opacity: 0;                   /*이벤트설정 : 서서히 변하게 함*/
+	transition: 0.5s;             /*어떤 변화가 요청되면 0.5초뒤에 일어나자.*/
+
+	
+	visibility: hidden;          /*특정 요소 접촉시 이벤트 발생*/
+
+}
+
+.birthday span:after {
+	content : '';             /*가상클래스 before, after는 무조건 content가 있어야 작동*/
+	position: absolute;
+	background-color:#000;
+	width : 10px;
+	height: 10px;
+	transform: rotate(45deg) translateX(-50%);  /*transform은 한 요소에 1번밖에 못쓰므로 합쳐줘야함*/
+	bottom: -5px;
+	left: 50%;                                  /*1. 왼쪽에서 50%위치에 둔다.*/
+																							/*2. 크기값을 50%만큼 이동시켜준다.->항상 중앙에 위치하게됨*/
+
+}
+
+.birthday:hover span{
+	opacity: 0.7;
+	visibility: visible;     /*hover시 발생하는 이벤트*/
+ 
+}
+
+.write {
+  width: 50px;
+  height: 20px;
+  background-color: #007096;
+  border-radius: 10px;
+  color: #fff;
+  border: none;
+}
+
+button:hover {
+  background-color: #00536e;
+}
+
+button:active {
+  background-color: #00709660;
 }

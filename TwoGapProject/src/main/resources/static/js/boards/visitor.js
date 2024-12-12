@@ -27,11 +27,11 @@ const newEl = (tag, attr, cls) => {
 
 // 페이지네이션 클릭 시 이벤트
 function visitorSelectCp(value) {
-
   fetch("/visitor/selectList?cp=" + value)
   .then(resp => resp.json())
   .then(result => {
-    visitorList(document.querySelector(".visitor-container"))
+    visitorList(result);
+    pagination(result['pagination'], result.visitorList[0].boardTypeNo);
   });
 }
 
@@ -68,12 +68,40 @@ function selectVisitor() {
   visitorContainer.append(boardTitle);
   visitorContainer.append(divider);
 
-  visitorList(visitorContainer);
+  fetch("/visitor/selectList")
+    .then(resp => resp.json())
+    .then(result => {
+
+      if (result.visitorList.length === 0) {
+
+        let visitorContainer = document.querySelector(".visitor-container");
+        visitorContentList = document.querySelector(".visitor-content-list");
+      
+        if( visitorContentList !== null ) visitorContentList.innerHTML = "";
+        else {
+          visitorContentList = newEl("div", {}, ["visitor-content-list"]);
+          visitorContainer.append(visitorContentList);
+        }
+
+        visitorContentList.innerText = "방명록이 존재하지 않습니다";
+        visitorContentList.style.cssText = "width: 100%; height: 100%; display: flex; "
+        visitorContentList.style.cssText += "justify-content : center; align-items : center;";
+        if(document.querySelector(".pagination") !== null ) document.querySelector(".pagination").remove()
+        return;
+      } else {
+        pagination(result['pagination'], result.visitorList[0].boardTypeNo);
+      }
+      visitorList(result);
+      
+    })
+  
 }
 
-async function visitorList(visitorContainer) {
+async function visitorList(result) {
 
-  let visitorContentList = document.querySelector(".visitor-content-list");
+  let visitorContainer = document.querySelector(".visitor-container");
+  visitorContentList = document.querySelector(".visitor-content-list");
+
   if( visitorContentList !== null ) visitorContentList.innerHTML = "";
   else {
     visitorContentList = newEl("div", {}, ["visitor-content-list"]);
@@ -98,26 +126,10 @@ async function visitorList(visitorContainer) {
     confirmBtn.addEventListener("click", () => visitorInsert(inputArea));
   }
 
-
-  fetch("/visitor/selectList")
-    .then(resp => resp.json())
-    .then(result => {
-
-      if (result.visitorList.length === 0) {
-
-        visitorContentList.innerText = "방명록이 존재하지 않습니다";
-        visitorContentList.style.cssText = "width: 100%; height: 100%; display: flex; "
-        visitorContentList.style.cssText += "justify-content : center; align-items : center;";
-        if(document.querySelector(".pagination") !== null ) document.querySelector(".pagination").remove()
-        return;
-      } else {
-        pagination(result['pagination'], result.visitorList[0].boardTypeNo);
-      }
-
-      for (let visitor of result.visitorList) {
-        visitorItem(visitorContentList, visitor, sessionNo);
-      }
-    })
+  for (let visitor of result.visitorList) {
+    visitorItem(visitorContentList, visitor, sessionNo);
+  }
+  
 
 }
 
@@ -189,7 +201,6 @@ function visitorInsert(inputArea) {
   .then(resp => resp.text()).then(result => {
     if( result > 0 ) {
       alert("게시글이 성공적으로 등록되었습니다.");
-      let cp = 1;
       if(document.querySelector(".current") !== null ) cp = document.querySelector(".current").value;
       visitorSelectCp(cp);
     }
@@ -223,7 +234,6 @@ function visitorUpdateModify(visitorText, visitorContent, editTools, visitorInfo
   visitorInfo.append(confirmBox);
 
   confirmSpan.addEventListener("click", () => {
-    console.log("눌렀니");
     const inputVisitor = {
       visitorContent : visitorUpdateContent.value.replaceAll(/(?:\r\n|\r|\n)/g, "<br>"),
       hostMemberNo : visitorUid,

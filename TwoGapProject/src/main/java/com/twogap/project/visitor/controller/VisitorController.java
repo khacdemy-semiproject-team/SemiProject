@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.twogap.project.common.util.Utility;
 import com.twogap.project.member.model.dto.Member;
+import com.twogap.project.member.model.service.MemberService;
 import com.twogap.project.visitor.model.dto.Visitor;
 import com.twogap.project.visitor.model.service.VisitorService;
 
@@ -31,10 +32,20 @@ import lombok.extern.slf4j.Slf4j;
 public class VisitorController {
 	
 	public final VisitorService service;
+
+	private final MemberService memberService;
 	
 	@GetMapping("main")
-	public String visitorMain(@RequestParam(value = "uid", required = false, defaultValue = "0") int uid) {
+	public String visitorMain(@RequestParam(value = "uid", required = false, defaultValue = "0") int uid,
+				@SessionAttribute("loginMember") Member loginMember) {
+		
+		if( uid != 0 ) {
+			if(uid == loginMember.getMemberNo() || memberService.checkDelFl(uid) == 0 ) {
+				return "redirect:/boards/main";
+			}
+		}
 		Utility.uid  = uid;
+		
 		return "/boards/visitor";
 	}
 	
@@ -46,7 +57,8 @@ public class VisitorController {
 	@ResponseBody
 	@GetMapping("selectList") 
 	public Map<String, Object> selectList(@SessionAttribute("loginMember") Member loginMember,
-			@RequestParam(value="cp",required = false, defaultValue = "1") int cp) {
+								@RequestParam(value="cp",required = false, defaultValue = "1") int cp) {
+		
 		int memberNo = loginMember.getMemberNo();
 		if( Utility.uid != 0 ) memberNo = Utility.uid; // 타인 방문 추가
 		

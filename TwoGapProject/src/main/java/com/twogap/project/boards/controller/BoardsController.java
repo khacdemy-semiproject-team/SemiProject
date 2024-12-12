@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.twogap.project.boards.model.service.BoardsService;
 import com.twogap.project.common.util.Utility;
 import com.twogap.project.member.model.dto.Member;
+import com.twogap.project.member.model.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardsController {
 
 	private final BoardsService service;
+	
+	private final MemberService memberService;
 
 	/** 공지사항 가져오기 + 12.09일 타인 방문 추가 및 변경(신동국)
 	 * @param loginMember
@@ -96,8 +99,14 @@ public class BoardsController {
 	 * @return
 	 */
 	@GetMapping("main")
-	public String returnAlert(@RequestParam(value = "uid", required = false, defaultValue = "0") int uid) {
+	public String returnAlert(@RequestParam(value = "uid", required = false, defaultValue = "0") int uid,
+							@SessionAttribute("loginMember") Member loginMember) {
 		
+		if( uid != 0 ) {
+			if(uid == loginMember.getMemberNo() || memberService.checkDelFl(uid) == 0 ) {
+				return "redirect:/boards/main";
+			}
+		}
 		Utility.uid  = uid;
 		
 		return "boards/main";
