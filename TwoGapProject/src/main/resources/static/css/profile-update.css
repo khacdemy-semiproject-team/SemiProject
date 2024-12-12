@@ -346,5 +346,6 @@ form[name='myPageFrm']{position: relative;}
 .confirm{ color : green; }
 .error{ color : red; }
 
-/* 메뉴바 간격 */
-.menubar{gap: 5px;}
+.menu-item a{
+  word-break: auto-phrase; /* 줄바꿈 자동 */
+}

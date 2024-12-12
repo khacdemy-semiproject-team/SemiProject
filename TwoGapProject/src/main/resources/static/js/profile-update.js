@@ -6,7 +6,6 @@
 const checkObj = {
   "memberNickname": false,
   "profileImg": false,
-  "introduction": false,
   "backgroundColor": false
 }
 
@@ -16,7 +15,7 @@ const profileImg = document.getElementById("profileImg");  // 미리보기 이�
 const imageInput = document.getElementById("imageInput");  // 파일 선택 input
 const deleteImage = document.getElementById("deleteImage");  // 이미지 삭제 버튼
 // const MAX_SIZE = 1024 * 1024 * 5;  // 최대 파일 크기 설정 (5MB)
-
+console.log(profileImg);
 const defaultImageUrl = `${window.location.origin}/images/user.png`;
 // 절대 경로로 기본이미지 URL 설정
 // -> http://localhost/images/user.png
@@ -39,6 +38,7 @@ imageInput.addEventListener("change", () => {
     checkObj.profileImg = true; 
     previousImage = newImageUrl; // 현재 선택된 이미지 이전 이미지로 저장(바뀔 경우 대비) --> src
     previousFile = file; // 현재 선택된 파일 객체를 이전 파일로 저장(바뀔 경우 대비) --> input
+    document.querySelector("[name='status']").value = 1;
     
   } else { // 파일 선택이 취소된 경우
     profileImg.src = previousImage; // 이전 미리보기 이미지로 복원
@@ -62,25 +62,14 @@ deleteImage.addEventListener("click", () => {
     statusCheck = 0; // 삭제 상태 기록
     checkObj.profileImg = true; // 이미지 삭제됨
     previousFile = null; // 이전 파일 초기화 기록
+    document.querySelector("[name='status']").value = 0;
   } else {
     // 기본 이미지 상태에서 삭제 버튼 클릭 시 상태를 변경하지 않음
     statusCheck = -1; // 변경 사항 없음 상태 유지
     checkObj.profileImg = false; // 변경 사항 없음
+    document.querySelector("[name='status']").value = -1;
   }
 });
-
-
-// 자기소개 텍스트 필드 변경 시 처리
-const introductionInput = document.getElementById("introduction"); // 자기소개 입력 필드
-introductionInput.addEventListener("input", () => {
-  if (introductionInput.value.trim().length > 0) {
-    checkObj.introduction = true; // 자기소개가 변경되었음을 표시
-  } else {
-    checkObj.introduction = false; // 자기소개가 비어있다면 변경되지 않았다고 표시
-  }
-});
-
-
 
 
 const checkNickname = document.querySelector("#checkNickname");
@@ -162,21 +151,9 @@ profileForm.addEventListener("submit", e =>{
   if( backgroundColorfirst ==  backgroundColor.value) checkObj.backgroundColor = false;
   
   if(checkObj.memberNickname === false && checkObj.profileImg === false && checkObj.introduction === false && checkObj.backgroundColor === false)  {
-  alert("변경사항이 없습니다")
-  e.preventDefault();
+    alert("변경사항이 없습니다")
+    e.preventDefault();
     return;
   }
   
 });
-
-// if(statusCheck === -1) { // 변경 사항이 없는 경우 제출 막기
-//     e.preventDefault();
-//     alert("이미지 변경 후 제출하세요");
-
-//   };
-
-// // 닉네임 유효성 검사 통과하지 않으면 폼 제출 방지
-// if (!checkObj.memberNickname) {
-//   e.preventDefault();
-//   alert("유효한 닉네임을 입력하세요.");
-// };

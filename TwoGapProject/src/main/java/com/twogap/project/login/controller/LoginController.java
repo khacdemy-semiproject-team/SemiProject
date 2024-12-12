@@ -191,6 +191,7 @@ public class LoginController {
 		
 		log.debug("inputmember : " + inputmember);
 		log.debug("memberEmail : " + memberEmail.toString());
+		
 		Member result = service.findId(inputmember, memberEmail); 
 		
 		String message = null;
@@ -323,6 +324,11 @@ public class LoginController {
 		}
 		
 		return "redirect:" + path;
+	}
+	
+	@GetMapping("personalData")
+	public String personalData() {
+		return "/boards/personalData";
 	}
 	
 
