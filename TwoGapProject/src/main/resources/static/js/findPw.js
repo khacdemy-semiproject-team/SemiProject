@@ -47,18 +47,18 @@ checkId.addEventListener("click", async e => {
     const count = await resp.text();
 
     if (count > 0) { 
-        idMessage.innerText = "이미 사용 중인 아이디입니다.";
-        idMessage.classList.add("error");
-        idMessage.classList.remove("confirm");
+        idMessage.innerText = "DB에 존재하는 회원입니다";
+        idMessage.classList.add("confirm");
+        idMessage.classList.remove("error");
         checkObj.memberId = true;
         memberId.readOnly = true;
         return;
     }
 
     // 중복 X 경우
-    idMessage.innerText = "사용 가능한 아이디입니다.";
-    idMessage.classList.add("confirm");
-    idMessage.classList.remove("error");
+    idMessage.innerText = "없는 아이디입니다.";
+    idMessage.classList.add("error");
+    idMessage.classList.remove("confirm");
     checkObj.memberId = false;
     return;
 });
@@ -110,13 +110,14 @@ selectEmail.addEventListener('change', (event) => {
     if (event.target.value !== "") {
         // 옵션에 있는 도메인 선택 시
         emailDomain.value = event.target.value;
-        emailDomain.disabled = true;
+        emailDomain.readOnly= true;
     } else {
         // 직접 입력 시
         emailDomain.value = "";
-        emailDomain.disabled = false;
+        emailDomain.readOnly = false;
     }
 });
+
 let inputEmail = null;
 
 // 인증번호 받기 버튼 클릭 시 
@@ -138,7 +139,7 @@ sendAuthKeyBtn.addEventListener("click", async e => {
         emailMessage.classList.remove('confirm', 'error');
 
         // 이메일 유효성 검사 여부를 false 변경
-        //checkObj.memberEmail = false;
+        checkObj.memberEmail = false;
 
         // 잘못 입력한 띄어쓰기가 있을 경우 없앰
         emailId.value = "";
@@ -161,35 +162,29 @@ sendAuthKeyBtn.addEventListener("click", async e => {
         emailMessage.innerText = "알맞은 이메일 형식으로 작성해주세요.";
         emailMessage.classList.add('error'); // 글자를 빨간색으로 변경
         emailMessage.classList.remove('confirm'); // 초록색 제거
-        //checkObj.memberEmail = false; // 유효하지 않은 이메일임을 기록
+        checkObj.memberEmail = false; // 유효하지 않은 이메일임을 기록
 
         return;
     }
-
     // 5) 유효한 이메일 형식인 경우 중복 검사 수행
     // 비동기(ajax)
-    /*
     const resp = await fetch("/member/checkEmail?memberEmail=" + inputEmail);
     const count = await resp.text();
 
     if (count > 0) {
-        emailMessage.innerText = "이미 사용 중인 이메일입니다.";
-        emailMessage.classList.add("error");
-        emailMessage.classList.remove("confirm");
+        emailMessage.innerText = "메일을 성공적으로 전송했습니다.";
+        emailMessage.classList.add("confirm");
+        emailMessage.classList.remove("error");
         checkObj.memberEmail = true;
         
     } else { 
-        // 중복 X 경우
-        emailMessage.innerText = "사용 가능한 이메일입니다.";
-        emailMessage.classList.add("confirm");
-        emailMessage.classList.remove("error");
-        checkObj.memberEmail = false; 
+        // 아이디와 매칭되는 이메일이 없을 때
+        emailMessage.innerText = "아이디와 매칭되는 이메일이 없습니다.";
+        emailMessage.classList.add("error");
+        emailMessage.classList.remove("confirm");
+        checkObj.memberEmail = false;
         return; 
-
-    }
-
-    */
-
+    } 
 
     // 새로운 인증번호 발급을 원하는것이기 때문에 
     // 새로 발급받은 인증번호 확인전까진 checkObj.authKey는 false
@@ -200,13 +195,11 @@ sendAuthKeyBtn.addEventListener("click", async e => {
     // 클릭 시 타이머 숫자 초기화
     min = initMin;
     sec = initSec;
-
     // 이전 동작중인 인터벌 클리어(없애기)
     clearInterval(authTimer);
-
     // *************************************
     // 비동기로 서버에서 메일보내기 
-    await fetch("/email/signup", {
+    fetch("/email/signup", {
         method: "POST",
         headers: {"Content-Type" : "application/json"},
         body: inputEmail
@@ -326,31 +319,4 @@ checkAuthKeyBtn.addEventListener("click", () => {
 
     });
 
-});
-
-
-// 입력한 아이디와 이메일이 DB에 있더라도
-// 매칭되지 않는다면 (각각 다른 회원의 아이디, 이메일이라면)
-// 입력하신 아이디와 이메일이 일치하지 않습니다 띄우기
-
-
-
-// 아이디, 이메일, 인증번호 값 null일 때 비밀번호 찾기 버튼 안 눌리게 제한
-const findPwForm = document.querySelector("#findPwForm");
-const formSection = document.querySelector(".formSection");
-
-formSection.addEventListener("submit", e => {
-
-    for(let key in checkObj) {
-
-        if(!checkObj[key]) {
-            console.log(key);
-            alert("입력칸을 모두 입력하신 후 눌러주세요!");
-            e.preventDefault(); // 클릭 이벤트 중단
-        
-            // document.getElementById(key).focus(); // 초점 이동
-        
-            return;
-        }
-    }  
 });

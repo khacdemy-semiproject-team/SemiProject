@@ -46,11 +46,11 @@ selectEmail.addEventListener('change', (event) => {
     if (event.target.value !== "") {
         // 옵션에 있는 도메인 선택 시
         emailDomain.value = event.target.value;
-        emailDomain.disabled = true;
+        emailDomain.readOnly = true;
     } else {
         // 직접 입력 시
         emailDomain.value = "";
-        emailDomain.disabled = false;
+        emailDomain.readOnly = false;
     }
 });
 
@@ -102,25 +102,25 @@ sendAuthKeyBtn.addEventListener("click", async e => {
 
         return;
     }
-
     // 5) 유효한 이메일 형식인 경우 중복 검사 수행
-    // 비동기(ajax)
     const resp = await fetch("/member/checkEmail?memberEmail=" + inputEmail);
     const count = await resp.text();
 
     if (count > 0) {
-        emailMessage.innerText = "이미 사용 중인 이메일입니다.";
-        emailMessage.classList.add("error");
-        emailMessage.classList.remove("confirm");
-        checkObj.memberEmail = true;
+        emailMessage.innerText = "메일을 성공적으로 전송했습니다.";
+        emailMessage.classList.add("confirm");
+        emailMessage.classList.remove("error");
+        checkObj.memberEmail = true; 
         
+
     } else { 
-        // 중복 X 경우
-        emailMessage.innerText = "사용 가능한 이메일입니다.";
+        // 이메일이 없을 경우
+        emailMessage.innerText = "존재하지 않는 이메일입니다.";
         emailMessage.classList.add("confirm");
         emailMessage.classList.remove("error");
         checkObj.memberEmail = false; 
-        return; 
+        return;
+         
 
     } 
 
@@ -133,10 +133,8 @@ sendAuthKeyBtn.addEventListener("click", async e => {
     // 클릭 시 타이머 숫자 초기화
     min = initMin;
     sec = initSec;
-
     // 이전 동작중인 인터벌 클리어(없애기)
     clearInterval(authTimer);
-    console.log(inputEmail);
     // *************************************
     // 비동기로 서버에서 메일보내기 
     fetch("/email/signup", {

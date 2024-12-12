@@ -140,7 +140,8 @@ public class LoginServiceImpl implements LoginService {
 	// 아이디 찾기
 	@Override
 	public Member findId(Member inputmember, String[] memberEmail) {
-		
+
+		log.debug("inputmember : " + inputmember);
 		if(!inputmember.getMemberEmail().equals(",")) {
 			String email = String.join("@", memberEmail);
 			
