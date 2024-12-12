@@ -133,7 +133,7 @@ public class LoginController {
 	 */
 	@PostMapping("signup")
 	public String submit(/*@ModelAttribute*/ Member inputMember, 
-						@RequestParam("memberAddress")String[] memberAddress,
+						@RequestParam("memberAdress")String[] memberAdress,
 						@RequestParam("memberTel")String[] memberTel,
 						@RequestParam("memberHomeTel")String[] memberHomeTel,
 						@RequestParam("memberEmail")String[] memberEmail,
@@ -141,7 +141,7 @@ public class LoginController {
 						RedirectAttributes ra) { 
 		
 		// 회원가입 서비스 호출
-		int result = service.submit(inputMember, memberAddress, memberTel, memberHomeTel, memberEmail, personalCode); // 데이터 가공 
+		int result = service.submit(inputMember, memberAdress, memberTel, memberHomeTel, memberEmail, personalCode); // 데이터 가공 
 
 		
 		String path = null;
