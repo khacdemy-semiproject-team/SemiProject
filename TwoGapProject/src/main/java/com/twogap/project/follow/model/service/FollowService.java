@@ -1,6 +1,7 @@
 package com.twogap.project.follow.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.twogap.project.member.model.dto.Member;
 
@@ -35,5 +36,11 @@ public interface FollowService {
 	 * @return
 	 */
 	List<Member> selectList(int memberNo);
+
+	/** 팔로우들 생일 얻어오기
+	 * @param memberNo
+	 * @return
+	 */
+	Map<String, String> birthdaySelect(int memberNo, int month);
 
 }

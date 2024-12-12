@@ -35,14 +35,25 @@ function detailPhoto(photoString) {
     photo.photoNo
   }" id="photo-detail-img">
         </div>
-        <button class="test" onClick='openEditModal(${JSON.stringify(photo)})'>수정</button>
-        <button onClick="deletePhoto(${photo.photoNo}, ${photo.imgNo})">삭제</button>
+        <button class="update-btn" onClick='openEditModal(${JSON.stringify(photo)})'>수정</button>
+        <button class="delete-btn" onClick="deletePhoto(${photo.photoNo}, ${photo.imgNo})">삭제</button>
       </div>
     </div>
   `;
 
   // 모달 창 삽입
   document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+  const updateBtn = document.querySelector(".update-btn");
+  const deleteBtn = document.querySelector(".delete-btn");
+
+  let visitorUid = window.location.search;
+  visitorUid = visitorUid.substring(visitorUid.indexOf('=') + 1, visitorUid.length);
+
+  if(visitorUid.length !== 0 ) {
+    updateBtn.style.display = 'none';
+    deleteBtn.style.display = 'none';
+  }
 }
 
 // 모달 창 닫기 함수

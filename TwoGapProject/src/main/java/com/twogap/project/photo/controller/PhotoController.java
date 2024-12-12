@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.twogap.project.common.util.Utility;
 import com.twogap.project.member.model.dto.Member;
+import com.twogap.project.member.model.service.MemberService;
 import com.twogap.project.note.model.dto.Note;
 import com.twogap.project.photo.model.dto.Photo;
 import com.twogap.project.photo.model.service.PhotoService;
@@ -36,9 +38,18 @@ import oracle.jdbc.proxy.annotation.Post;
 public class PhotoController {
 	
 	private final PhotoService service;
+
+	private final MemberService memberService;
 	
 	@GetMapping("main")
-	public String photo() {
+	public String photo(@RequestParam(value = "uid", required = false, defaultValue = "0") int uid,
+					@SessionAttribute("loginMember") Member loginMember) {
+		if( uid != 0 ) {
+			if(uid == loginMember.getMemberNo() || memberService.checkDelFl(uid) == 0 ) {
+				return "redirect:/boards/main";
+			}
+		}
+		Utility.uid  = uid;
 		return "/boards/photo";
 	}
 	
@@ -64,10 +75,10 @@ public class PhotoController {
 									 @RequestParam(value="cp",required = false, defaultValue = "1") int cp,
 									 Model model) {
 		
-		log.debug("cp : " + cp);
-		
 		// photoSelectList 결과 받아오기
-		List<Photo> photoList = service.photoSelectList(loginMember.getMemberNo(), cp);
+		int memberNo = loginMember.getMemberNo();
+		if( Utility.uid != 0 ) memberNo = Utility.uid; // 타인 방문 추가
+		List<Photo> photoList = service.photoSelectList(memberNo, cp);
 		return photoList;
 	}
 	

@@ -87,6 +87,10 @@
 
 .edit-content-textarea {
     border-width: 0;
+    resize: none;
+    width: 600px;
+    height: 250px;
+
 }
 
 /* 수정 확인/취소 버튼 */
