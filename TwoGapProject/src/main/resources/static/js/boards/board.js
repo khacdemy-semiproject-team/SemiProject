@@ -220,11 +220,12 @@ function selectBoard(board) {
   // 게시글 수정하기
   // 수정 버튼 클릭 시 이벤트
   document.querySelector(".boardDetail-update")
-    .addEventListener("click", () => boardDetailUpdate(board), {once: true});
+    .addEventListener("click", () => boardDetailUpdate(board));
 
-  // 게시글 삭제하기
-  // 삭제 버튼 클릭 시 이벤트
-  boardDetailDeleteBtn.addEventListener("click", () => boardDetailDelete(board));
+  // 게시글 수정하기
+  // 수정 버튼 클릭 시 이벤트
+  document.querySelector(".boardDetail-update")
+    .addEventListener("click", () => boardDetailUpdate(board), {once: true});
 
 }
 
@@ -506,7 +507,7 @@ function boardWrite() {
     boardTitle: titleInput.value,
     boardContent: contentTextarea.value,
   };
-  console.log(boardData);
+  // console.log(boardData);
 
   // 게시글 작성 비동기 요청
   fetch("/board/write", {
