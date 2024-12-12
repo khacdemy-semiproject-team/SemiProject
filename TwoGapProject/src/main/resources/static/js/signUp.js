@@ -366,7 +366,13 @@ checkId.addEventListener("click", async e => {
     idMessage.classList.add("confirm");
     idMessage.classList.remove("error");
     checkObj.memberId = true; // 유효한 아이디
+    memberId.readOnly = true;
 });
+
+
+
+
+
 
 // ----------------------------------------------------
 // 비밀번호 일치 여부, 유효성 검사
