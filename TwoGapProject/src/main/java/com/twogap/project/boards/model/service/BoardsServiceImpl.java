@@ -57,10 +57,8 @@ public class BoardsServiceImpl implements BoardsService {
 
 	// 프로필 변경사항 제출
 	@Override
-	public int application(Member loginMember, MultipartFile imageInput) throws Exception {
+	public int application(Member loginMember, MultipartFile imageInput, int status) throws Exception {
 
-//		log.debug("야호"+ imageInput);
-//		log.debug("제발" + imageInput.getOriginalFilename().equals(""));
 		
 		// 프로필 이미지 경로 (수정할 경로)
 		String updatePath = null;
@@ -81,12 +79,14 @@ public class BoardsServiceImpl implements BoardsService {
 			updatePath = profileWebPath + rename;
 			
 			loginMember.setProfileImg(updatePath);
+			result = mapper.profileImageUpdate(loginMember); 
 			
-		} else {
+		} else if(status == 1) { // 삭제 버튼 눌렀을 경우
 			loginMember.setProfileImg(null);
+			result = mapper.profileImageUpdate(loginMember); 
 		}
-		
-		result = mapper.profileImageUpdate(loginMember); 
+
+		// else{} // 변경 X, 삭제 X -> mapper 호출 안함!!!
 		
 		if(result == 0) {
 			throw new Exception();

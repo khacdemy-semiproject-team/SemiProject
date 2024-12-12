@@ -16,13 +16,13 @@ const checkPw = () => {
     pwMessage.innerText = "";
     checkPwMessage.innerText = "";
 
-    if(memberPw.value.length != memberPwConfirm.value.length){
-        checkPwMessage.innerText = "비밀번호가 일치하지 않습니다.";
-        checkPwMessage.classList.add("error");
-        checkPwMessage.classList.remove("confirm");
-        checkObj.memberPw = false;
+    if (memberPw.value.length == 0 || memberPwConfirm.value.length == 0){
+        pwMessage.innerText = "";
+        checkPwMessage.innerText = "";
+        checkObj.memberPwConfirm = false;
         return;
     }
+
 
     if (memberPw.value === memberPwConfirm.value) {
         checkPwMessage.innerText = "비밀번호가 일치합니다.";

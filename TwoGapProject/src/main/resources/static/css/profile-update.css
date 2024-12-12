@@ -345,3 +345,6 @@ form[name='myPageFrm']{position: relative;}
 /* 메세지 색상 지정 */
 .confirm{ color : green; }
 .error{ color : red; }
+
+/* 메뉴바 간격 */
+.menubar{gap: 5px;}

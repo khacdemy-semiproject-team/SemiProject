@@ -119,6 +119,7 @@ public class BoardsController {
 	 * @param inputMember
 	 * @param loginMember
 	 * @param imageInput
+	 * @param status : 프로필 이미지 변경 여부 확인(0 : 삭제 아님, 1 : 삭제)
 	 * @param ra
 	 * @return
 	 * @throws Exception
@@ -128,6 +129,7 @@ public class BoardsController {
 	public String application(Member inputMember,
 							@SessionAttribute("loginMember") Member loginMember,
 							@RequestParam("imageInput") MultipartFile imageInput,
+							@RequestParam("status") int status,
 							RedirectAttributes ra) throws Exception {
 		log.debug("imageInput : " + imageInput.getOriginalFilename()); 
 		// 프로필 변경 서비스 호출
@@ -135,7 +137,7 @@ public class BoardsController {
 		loginMember.setIntroduction(inputMember.getIntroduction());
 		loginMember.setBackgroundColor(inputMember.getBackgroundColor());
 		
-		int result = service.application(loginMember, imageInput);
+		int result = service.application(loginMember, imageInput, status);
 		
 		
 		// 변경 성공 시 "변경되었습니다." 메시지
@@ -147,7 +149,7 @@ public class BoardsController {
 	
 		ra.addFlashAttribute("message", message);
 		
-		return "boards/main";
+		return "redirect:/boards/profile-update";
 
 	}
 	
