@@ -751,6 +751,17 @@ body {
   border: none;
 }
 
+.back-home button {
+  width: 70px;
+  height: 18px;
+  background-color: #007096;
+  border-radius: 10px;
+  border: none;
+
+  color: white;
+  
+}
+
 button:hover {
   background-color: #00536e;
 }
@@ -758,3 +769,5 @@ button:hover {
 button:active {
   background-color: #00709660;
 }
+
+

@@ -86,8 +86,23 @@ function selectVisitor() {
         visitorContentList.innerText = "방명록이 존재하지 않습니다";
         visitorContentList.style.cssText = "width: 100%; height: 100%; display: flex; "
         visitorContentList.style.cssText += "justify-content : center; align-items : center;";
-        if(document.querySelector(".pagination") !== null ) document.querySelector(".pagination").remove()
+        if(document.querySelector(".pagination") !== null ) document.querySelector(".pagination").remove();
+
+        if( visitorUid !== "" ){
+          writeForm = newEl("div", {}, ["write-form"]);
+          const inputArea = newEl("textarea", { type: "text", placeholder: "방명록을 남겨주세요~~" }, []);
+          const confirmBtn = newEl("button", {}, ["confirm-btn"]);
+        
+          visitorContainer.append(writeForm);
+          writeForm.append(inputArea);
+          writeForm.append(confirmBtn);
+        
+          confirmBtn.innerHTML = "등록";
+        
+          confirmBtn.addEventListener("click", () => visitorInsert(inputArea));
+        }
         return;
+
       } else {
         pagination(result['pagination'], result.visitorList[0].boardTypeNo);
       }
@@ -200,8 +215,10 @@ function visitorInsert(inputArea) {
   })
   .then(resp => resp.text()).then(result => {
     if( result > 0 ) {
+      let cp = null;
       alert("게시글이 성공적으로 등록되었습니다.");
       if(document.querySelector(".current") !== null ) cp = document.querySelector(".current").value;
+      else cp =1 ;
       visitorSelectCp(cp);
     }
   });
