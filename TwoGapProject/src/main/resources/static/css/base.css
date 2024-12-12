@@ -771,3 +771,10 @@ button:active {
 }
 
 
+.menubar{
+  gap: 20px;
+}
+
+.menubar .menu-item{
+  height: initial;
+}

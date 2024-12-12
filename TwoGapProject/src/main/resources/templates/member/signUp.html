@@ -37,7 +37,7 @@
         <div class="form-group">
           <label for="memberPw">* 비밀번호</label>
           <div class="input-row">
-            <input type="password" name="memberPw" id="memberPw" class="memberPw" placeholder="********">
+            <input type="password" name="memberPw" id="memberPw" class="memberPw" placeholder="비밀번호 입력">
           </div>
           <span class="signUp-message" id="pwMessage"></span>
           
@@ -45,7 +45,7 @@
         <div class="form-group">
           <label for="memberPwConfirm">비밀번호 확인</label>
           <div class="input-row">
-            <input type="password" name="memberPwConfirm" id="memberPwConfirm" class="memberPwConfirm" placeholder="********">
+            <input type="password" name="memberPwConfirm" id="memberPwConfirm" class="memberPwConfirm" placeholder="비밀번호 입력">
           </div>
           <span class="signUp-message" id="checkPwMessage"></span>
         </div>
@@ -55,12 +55,12 @@
         <div class="form-group">
           <label for="memberEmail">* Email</label>
           <div class="input-row">
-              <input type="text" name="memberEmail" id="member-email-id" placeholder="이메일" maxlength="18" autocomplete="off" />
+              <input type="text" name="memberEmail" id="memberEmail" placeholder="이메일" maxlength="18" autocomplete="off" />
               <span>@</span> 
               <input type="text" name="memberEmail" id="member-email-domain" placeholder="이메일 도메인" maxlength="18" autocomplete="off" />
   
-              <div class="memberEmail" id="memberEmail">
-                  <select name="memberEmail" id="memberEmail">
+              <div class="memberEmail">
+                  <select name="memberEmail" id="selectEmail">
                     <option value="" selected>직접입력</option>
                     <option value="naver.com">naver.com</option>
                     <option value="hanmail.net">hanmail.net</option>

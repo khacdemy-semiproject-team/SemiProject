@@ -81,10 +81,12 @@ public class BoardsServiceImpl implements BoardsService {
 			loginMember.setProfileImg(updatePath);
 			result = mapper.profileImageUpdate(loginMember); 
 			
-		} else if(status == 1) { // 삭제 버튼 눌렀을 경우
+		} else if(status == 0) { // 삭제 버튼 눌렀을 경우
 			loginMember.setProfileImg(null);
 			result = mapper.profileImageUpdate(loginMember); 
 		}
+		
+		
 
 		// else{} // 변경 X, 삭제 X -> mapper 호출 안함!!!
 		
