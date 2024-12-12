@@ -32,8 +32,16 @@ public interface MemberMapper {
 	// 개인정보 변경
 	int privacyInfoUpdate(Member inputMember);
 
-	
+	/** 호스트 닉네임 가져오기
+	 * @param memberNo
+	 * @return
+	 */
+	String getHostNickname(int memberNo);
 
-	
+	/** 탈퇴 회원 조회
+	 * @param uid
+	 * @return
+	 */
+	int checkDelFl(int uid);
 
 }

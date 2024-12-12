@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.twogap.project.board.model.dto.Board;
 import com.twogap.project.board.model.service.BoardService;
+import com.twogap.project.common.util.Utility;
 import com.twogap.project.member.model.dto.Member;
+import com.twogap.project.member.model.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,16 +32,24 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	
 	private final BoardService service;
+
+	private final MemberService memberService;
 	
 	
 	/** 메인 메뉴바에서 게시판 클릭 시 게시판 화면으로 전환
 	 * @return
 	 */
 	@GetMapping("main")
-	public String boardMain() {
+	public String boardMain(@RequestParam(value = "uid", required = false, defaultValue = "0") int uid,
+							@SessionAttribute("loginMember") Member loginMember) {
+		if( uid != 0 ) {
+			if(uid == loginMember.getMemberNo() || memberService.checkDelFl(uid) == 0 ) {
+				return "redirect:/boards/main";
+			}
+		}
+		Utility.uid  = uid;
 		return "boards/board";
 	}
-	
 	
 	/** 게시판 목록 조회
 	 * @param loginMember
@@ -52,7 +62,9 @@ public class BoardController {
 											   @RequestParam(value="cp",required = false, defaultValue = "1") int cp) {
 		
 		// 게시판 목록 조회 서비스 호출
-		Map<String, Object> map = service.boardSelectList(loginMember.getMemberNo(), cp);
+		int memberNo = loginMember.getMemberNo();
+		if( Utility.uid != 0 ) memberNo = Utility.uid; // 타인 방문 추가
+		Map<String, Object> map = service.boardSelectList(memberNo, cp);
 		
 		return map;
 	}

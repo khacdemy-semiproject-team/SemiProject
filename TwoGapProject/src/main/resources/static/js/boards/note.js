@@ -232,7 +232,7 @@ function insertNote() {
                 });
 
             } else {
-                alert("안된다고 한다 바보둥국");
+                alert("게시글 등록이 실패하였습니다");
             }
         });
     })
@@ -430,7 +430,7 @@ const noteUpdate = note => {
         .then(result => {
 
             if( result > 0) {
-                alert("음해");
+                alert("수정 성공");
                 deleteNotePopup();
                 
                 noteSelectCp(document.querySelector(".current").value);
@@ -439,7 +439,7 @@ const noteUpdate = note => {
 
                 
             } else {
-                alert("안 굴러가!");
+                alert("수정 실패");
             }
         });
     })
@@ -523,7 +523,7 @@ function noteImgPreviewModify(e, fileInputFiles) {
 
     // return 비울 시 배열도 비워짐 잊지 말기
     if((imgs.length + fileLength) > 5 ) {
-        alert("많아!");     
+        alert("사진은 최대 5장까지 가능합니다");     
         e.preventDefault();
         return fileInputFiles;
     }

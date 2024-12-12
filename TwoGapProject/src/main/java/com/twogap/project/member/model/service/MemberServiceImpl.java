@@ -132,5 +132,17 @@ public class MemberServiceImpl implements MemberService {
 		
 		return result;
 	}
+	
+	// 닉네임
+	@Override
+	public String getHostNickname(int memberNo) {
+		
+		return mapper.getHostNickname(memberNo);
+	}
+	
+	@Override
+	public int checkDelFl(int uid) {
+		return mapper.checkDelFl(uid);
+	}
 
 }
