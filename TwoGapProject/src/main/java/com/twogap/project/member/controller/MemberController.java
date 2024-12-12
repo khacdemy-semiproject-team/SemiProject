@@ -65,7 +65,7 @@ public class MemberController {
 		if(result > 0) { 
 			
 			message = "비밀번호가 성공적으로 변경되었습니다.";
-			path = "boards/main";
+			path = "boards/profile-update";
 			
 		} else {
 			

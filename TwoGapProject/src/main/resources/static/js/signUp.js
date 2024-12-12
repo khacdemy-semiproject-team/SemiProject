@@ -35,9 +35,9 @@ document.querySelector("#searchAddress").addEventListener("click", execDaumPostc
 // - false == 해당 항목은 유효하지 않은 형식으로 작성됨
 const checkObj = {
     "memberId" : false,
-    "memberEmail": false,
     "memberPw": false,
     "memberPwConfirm": false,
+    "memberEmail": false,
     "memberNickname": false,
     // "personalCode": false,
     // "memberTel": false,
@@ -81,9 +81,9 @@ const emailMessage = document.querySelector("#emailMessage");
 /* 이메일 인증 */
 
 // 작성된 이메일 값 얻어오기
-const emailId = document.querySelector("#member-email-id");
+const emailId = document.querySelector("#memberEmail");
 const emailDomain = document.querySelector("#member-email-domain");
-const selectEmail = document.querySelector("#memberEmail");
+const selectEmail = document.querySelector("#selectEmail");
 
 // select 옵션 변경 시
 selectEmail.addEventListener('change', (event) => {
@@ -301,6 +301,8 @@ checkAuthKeyBtn.addEventListener("click", () => {
 
         checkObj.authKey = true; // 인증번호 검사 여부 true 변경
 
+        emailId.readOnly = true;
+
     });
 
 });
@@ -364,7 +366,13 @@ checkId.addEventListener("click", async e => {
     idMessage.classList.add("confirm");
     idMessage.classList.remove("error");
     checkObj.memberId = true; // 유효한 아이디
+    memberId.readOnly = true;
 });
+
+
+
+
+
 
 // ----------------------------------------------------
 // 비밀번호 일치 여부, 유효성 검사
@@ -378,10 +386,11 @@ const checkPw = () => {
 
     if (memberPw.value.length == 0 || memberPwConfirm.value.length == 0){
         checkPwMessage.innerText = "";
+        checkObj.memberPwConfirm = false;
         return;
     }
 
-    if (memberPw.value === memberPwConfirm.value) {
+    if (checkObj.memberPw && memberPw.value === memberPwConfirm.value) {
         checkPwMessage.innerText = "비밀번호가 일치합니다.";
         checkPwMessage.classList.add("confirm");
         checkPwMessage.classList.remove("error");
@@ -396,6 +405,12 @@ const checkPw = () => {
 
 // 유효성 검사
 memberPw.addEventListener("input", e => {
+
+    // 비밀번호 확인 칸에 값이 있을 경우 비밀번호 확인 함수 수행
+    if (memberPwConfirm.value.length > 0) {
+        checkPw();
+    }
+
     const inputPw = e.target.value;
 
     if (inputPw.trim().length === 0) {
@@ -422,9 +437,6 @@ memberPw.addEventListener("input", e => {
     pwMessage.classList.remove("error");
     checkObj.memberPw = true;
 
-    if (memberPwConfirm.value.length > 0) {
-        checkPw();
-    }
 });
 
 memberPwConfirm.addEventListener("input", () => {
@@ -487,9 +499,21 @@ checkNickname.addEventListener("click", (e) => {
             nicknameMessage.classList.add("confirm");
             nicknameMessage.classList.remove("error");
             checkObj.memberNickname = true;
+            memberNickname.readOnly = true; // 변경 불가
         })
         .catch(err => console.log(err));
 });
+
+
+document.querySelector("#memberNickname").addEventListener("input", e => {
+
+    if (memberNickname.value.length === 0) {
+        nicknameMessage.innerText = "";
+        checkObj.memberNickname = false;
+        return;
+    }
+});
+
 
 // --------------------------------------------------------
 // 주민등록번호 숫자만 입력하게 제한
@@ -555,7 +579,6 @@ formSection.addEventListener("submit", e => {
             console.log(key);
             alert("필수 입력 칸을 모두 입력해주세요!");
             e.preventDefault(); // 클릭 이벤트 중단
-        
             document.getElementById(key).focus(); // 초점 이동
         
             return;

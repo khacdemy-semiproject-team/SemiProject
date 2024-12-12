@@ -25,3 +25,13 @@ if(formSection != null) {
 function cancelAction() {
     location.href = '/boards/main';
 }
+
+
+// 배경색 변경
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("/boards/backgroundColor")
+      .then(resp => resp.text())
+      .then(color => {
+        document.querySelector("body").style.backgroundColor = color;
+      });
+  });

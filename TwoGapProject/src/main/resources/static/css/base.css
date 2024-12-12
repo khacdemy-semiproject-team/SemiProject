@@ -769,3 +769,11 @@ button:active {
   background-color: #00709660;
 }
 
+
+.menubar{
+  gap: 20px;
+}
+
+.menubar .menu-item{
+  height: initial;
+}

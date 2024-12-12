@@ -190,7 +190,15 @@ function createSearchItem(searchList) {
       default:
         alert("시스템 문제 발생 저희에게 문의 해주세요");
     }
+
+
+
+
     followSearchItem.addEventListener("click", () => followPopup(searchUser, 2));
+
+
+
+
   }
 
 }
@@ -338,6 +346,8 @@ function followListCreate() {
 
   
   followItem.addEventListener("click", () => followPopup(member, 1));
+
+  
 }
 
 

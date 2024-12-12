@@ -1,12 +1,10 @@
 package com.twogap.project.photo.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.twogap.project.common.util.Utility;
 import com.twogap.project.member.model.dto.Member;
 import com.twogap.project.member.model.service.MemberService;
-import com.twogap.project.note.model.dto.Note;
 import com.twogap.project.photo.model.dto.Photo;
 import com.twogap.project.photo.model.service.PhotoService;
 
 import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("photo")

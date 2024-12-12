@@ -28,7 +28,7 @@ public interface BoardsService {
 	 * @author 우수민
 	 * 
 	 */
-	int application(Member loginMember, MultipartFile imageInput) throws Exception;
+	int application(Member loginMember, MultipartFile imageInput, int status) throws Exception;
 
 
 	/** 사용자 조회
