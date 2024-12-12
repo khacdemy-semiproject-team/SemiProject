@@ -92,7 +92,7 @@ public class LoginController {
 	 * @author 우수민
 	 */
 	@ResponseBody // 응답 본문(fetch 요청한 쪽)으로 돌려보냄
-	@GetMapping("checkId") // Get 요청 /member/checkEmail
+	@GetMapping("checkId") // Get 요청 
 	public int checkId(@RequestParam("memberId")String memberId) {
 		return service.checkId(memberId);
 		
@@ -195,7 +195,7 @@ public class LoginController {
 		
 		String message = null;
 		String path = null;
-		
+
 		if(result != null) { // 있는 회원			
 			
 			message = "회원님의 아이디는 " + result.getMemberId() + "입니다.";
@@ -212,6 +212,7 @@ public class LoginController {
 		return "redirect:" + path; 
 
 	}
+
 	
 	
 	

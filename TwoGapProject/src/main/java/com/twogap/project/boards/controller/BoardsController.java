@@ -129,7 +129,7 @@ public class BoardsController {
 							@SessionAttribute("loginMember") Member loginMember,
 							@RequestParam("imageInput") MultipartFile imageInput,
 							RedirectAttributes ra) throws Exception {
-		//log.debug("imageInput : " + imageInput.getOriginalFilename()); 
+		log.debug("imageInput : " + imageInput.getOriginalFilename()); 
 		// 프로필 변경 서비스 호출
 		loginMember.setMemberNickname(inputMember.getMemberNickname());
 		loginMember.setIntroduction(inputMember.getIntroduction());

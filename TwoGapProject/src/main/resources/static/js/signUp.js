@@ -375,6 +375,12 @@ const checkPwMessage = document.querySelector("#checkPwMessage");
 
 // 비밀번호, 비밀번호 확인 일치 확인
 const checkPw = () => {
+
+    if (memberPw.value.length == 0 || memberPwConfirm.value.length == 0){
+        checkPwMessage.innerText = "";
+        return;
+    }
+
     if (memberPw.value === memberPwConfirm.value) {
         checkPwMessage.innerText = "비밀번호가 일치합니다.";
         checkPwMessage.classList.add("confirm");
@@ -422,6 +428,12 @@ memberPw.addEventListener("input", e => {
 });
 
 memberPwConfirm.addEventListener("input", () => {
+    
+    if(memberPwConfirm.value.length == 0){
+        checkPwMessage.innerText = "비밀번호확인을 입력해주세요";
+        checkObj.memberPwConfirm = false;
+        return; 
+    }
 
     if (checkObj.memberPw) {
         checkPw(); // 비교하는 함수 수행
@@ -544,7 +556,7 @@ formSection.addEventListener("submit", e => {
             alert("필수 입력 칸을 모두 입력해주세요!");
             e.preventDefault(); // 클릭 이벤트 중단
         
-            // document.getElementById(key).focus(); // 초점 이동
+            document.getElementById(key).focus(); // 초점 이동
         
             return;
         }
