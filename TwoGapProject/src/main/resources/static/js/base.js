@@ -284,7 +284,7 @@ function calendarInit() {
 
 // 12.10 우수민 작성
 function homepageColor() {
-  
+
   fetch("/boards/backgroundColor")
   .then(resp => resp.text())
   .then(color => {

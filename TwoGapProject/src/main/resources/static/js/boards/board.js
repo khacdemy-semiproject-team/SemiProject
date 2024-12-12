@@ -333,7 +333,7 @@ function boardDetailUpdate(board) {
           // 수정 성공 시
           document.querySelector(".boardDetail-post-header").remove();
           selectBoard(board);
-          alert("게시글 수정dp 성공했습니다");
+          alert("게시글 수정에 성공했습니다");
           document.querySelector(".boardList-title > h1").innerHTML = "게시글";
          
          

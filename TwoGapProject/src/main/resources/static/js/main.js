@@ -93,7 +93,7 @@ function handleCheckClick() {
     })
     .catch(error => {
       console.error(error);
-      alert("수정 실패.. 네트워크 오류가 발생했습니다.");
+      alert("2000자 이내로만 작성 가능합니다.");
     });
   }
 }

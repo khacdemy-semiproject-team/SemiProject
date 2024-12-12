@@ -44,6 +44,7 @@ public class BoardController {
 							@SessionAttribute("loginMember") Member loginMember) {
 		if( uid != 0 ) {
 			if(uid == loginMember.getMemberNo() || memberService.checkDelFl(uid) == 0 ) {
+				Utility.uid = 0;
 				return "redirect:/boards/main";
 			}
 		}

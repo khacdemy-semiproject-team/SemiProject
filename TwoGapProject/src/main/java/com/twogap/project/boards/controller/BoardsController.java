@@ -104,6 +104,7 @@ public class BoardsController {
 		
 		if( uid != 0 ) {
 			if(uid == loginMember.getMemberNo() || memberService.checkDelFl(uid) == 0 ) {
+				Utility.uid = 0;
 				return "redirect:/boards/main";
 			}
 		}
@@ -146,7 +147,7 @@ public class BoardsController {
 
 	
 		ra.addFlashAttribute("message", message);
-		
+		Utility.uid = 0;
 		return "boards/main";
 
 	}
@@ -187,6 +188,12 @@ public class BoardsController {
 	@ResponseBody
 	@GetMapping("backgroundColor")
 	public String getBackgroundColor(@SessionAttribute("loginMember") Member loginMember) {
-		return loginMember.getBackgroundColor(); 
+		
+		String result = null;
+		
+		if(Utility.uid != 0) result = service.getBackgroundColor(Utility.uid);
+		else result = loginMember.getBackgroundColor();
+		
+		return result; 
 	}
 }	

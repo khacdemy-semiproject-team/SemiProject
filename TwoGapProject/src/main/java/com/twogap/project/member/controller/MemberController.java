@@ -109,7 +109,12 @@ public class MemberController {
 		
 		// 핸드폰 번호 나누기
 		if(loginMember.getMemberTel() != null) {
-			String[] arr = loginMember.getMemberTel().split("-"); 
+			String[] arr = new String[3];
+			String[] resutlArr = loginMember.getMemberTel().split("-"); 
+			
+			for(int i = 0 ; i < resutlArr.length ; i ++) {
+				arr[i] = resutlArr[i];
+			}
 			
 			model.addAttribute("memberTel1",arr[0]);
 			model.addAttribute("memberTel2",arr[1]);
@@ -118,7 +123,12 @@ public class MemberController {
 
 		// 집 전화번호 나누기
 		if(loginMember.getMemberHomeTel() != null) {
-			String[] arr = loginMember.getMemberHomeTel().split("-");
+			String[] arr = new String[3];
+			String[] resutlArr = loginMember.getMemberHomeTel().split("-");
+			
+			for(int i = 0 ; i < resutlArr.length ; i ++) {
+				arr[i] = resutlArr[i];
+			}
 			
 			model.addAttribute("memberHomeTel1",arr[0]);
 			model.addAttribute("memberHomeTel2",arr[1]);

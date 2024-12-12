@@ -214,14 +214,31 @@
   /* 12.05 신동국 overflow-y, padding 추가 */
   .profile-introduction > div {
     padding: 10px;
-    height: 100%;
-    width: 100%;
+    height: 110px;
+    width: 220px;
     background: #FFFFFF80;
     border-radius: 20px;
-    overflow-y: auto;
     word-break: break-all;
+    overflow-y: auto;
   }
   
+  .profile-introduction > div::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .profile-introduction > div::-webkit-scrollbar-track {
+    background: #f1f1f100;
+    border-radius: 4px;
+  }
+  
+  .profile-introduction > div::-webkit-scrollbar-thumb {
+    background: #cde3ee00;
+    border-radius: 4px;
+  }
+  
+  .profile-introduction > div::-webkit-scrollbar-thumb:hover {
+    background: #00709600;
+  }
   
   /* 달력 */
   .calendar {
@@ -516,22 +533,6 @@ body {
   font-size: 15px;
 }
 
-.profile-introduction {
-  padding: 8px;
-
-  flex-basis: 56%;
-}
-
-.profile-introduction>div {
-  height: 100%;
-  width: auto;
-  background: #FFFFFF80;
-  border-radius: 20px;
-}
-
-
-
-
 
 /* 달력 */
 .calendar {
@@ -751,6 +752,15 @@ body {
   border: none;
 }
 
+.back-home button {
+  background-color: #007096;
+  color: #fff;
+  border-radius: 10px;
+  width: 70px;
+  height: 20px;
+  border: none;
+}
+
 button:hover {
   background-color: #00536e;
 }
@@ -758,3 +768,4 @@ button:hover {
 button:active {
   background-color: #00709660;
 }
+

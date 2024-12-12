@@ -41,6 +41,7 @@ public class VisitorController {
 		
 		if( uid != 0 ) {
 			if(uid == loginMember.getMemberNo() || memberService.checkDelFl(uid) == 0 ) {
+				Utility.uid = 0;
 				return "redirect:/boards/main";
 			}
 		}

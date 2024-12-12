@@ -59,5 +59,11 @@
 	 	MEMBER_DEL_FL = 'Y'
 		WHERE MEMBER_NO = #{memberNo}
 	 </update>
+	 
+	 <select id="getBackgroundColor">
+	 	SELECT BACKGROUND_COLOR
+	 	FROM "MEMBER"
+	 	WHERE MEMBER_NO = #{memberNo}
+	 </select>
 	
 </mapper>

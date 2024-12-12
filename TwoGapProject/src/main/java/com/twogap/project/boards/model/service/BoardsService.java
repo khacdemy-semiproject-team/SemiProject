@@ -48,6 +48,13 @@ public interface BoardsService {
 	int signOut(int memberNo);
 
 
+	/** 배경화면 색 가져오기
+	 * @param uid
+	 * @return
+	 */
+	String getBackgroundColor(int uid);
+
+
 
 
 

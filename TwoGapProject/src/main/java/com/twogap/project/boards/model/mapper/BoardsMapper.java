@@ -62,4 +62,10 @@ public interface BoardsMapper {
 	 */
 	int profileImageUpdate(Member loginMember);
 
+	/** 배경화면 색 가져오기
+	 * @param uid
+	 * @return
+	 */
+	String getBackgroundColor(int memberNo);
+
 }

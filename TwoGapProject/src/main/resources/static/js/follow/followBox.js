@@ -349,7 +349,7 @@ function followPopup(member, state) {
   const popupProfile = newEl("div", {}, ["popup-profile"]);
   const popupProfileImg = newEl("div", {}, ["popup-profile-img"]);
   const image = newEl("img", {alt : "프로필"}, []);
-  image.src = member.profileImg === null ? "/images/user.jpg": member.profileImg;
+  image.src = member.profileImg === null ? "/images/user.png": member.profileImg;
 
   const popupProfileText = newEl("div", {}, ["popup-profile-text"]);
   const popupProfileNickname = newEl("div", {}, ["popup-profile-nickname"]);

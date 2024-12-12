@@ -58,13 +58,12 @@ public class BoardsServiceImpl implements BoardsService {
 	// 프로필 변경사항 제출
 	@Override
 	public int application(Member loginMember, MultipartFile imageInput) throws Exception {
-
-//		log.debug("야호"+ imageInput);
-//		log.debug("제발" + imageInput.getOriginalFilename().equals(""));
 		
 		// 프로필 이미지 경로 (수정할 경로)
 		String updatePath = null;
 		int result = 1;
+		
+		Map<String, String> map = new HashMap<>();
 
 		// 변경명 저장
 		String rename = null;
@@ -86,15 +85,8 @@ public class BoardsServiceImpl implements BoardsService {
 			loginMember.setProfileImg(null);
 		}
 		
-		result = mapper.profileImageUpdate(loginMember); 
+		result = mapper.profileImageUpdate(loginMember);
 		
-		if(result == 0) {
-			throw new Exception();
-		}
-
-		// UPDATE 수행
-		result = mapper.application(loginMember);
-
 		if (result > 0) { // DB에 수정 성공
 
 			// 프로필 이미지를 없앤 경우(NULL로 수정한 경우)를 제외
@@ -109,6 +101,15 @@ public class BoardsServiceImpl implements BoardsService {
 			// 업데이트한 경로로 변경
 
 		}
+		
+		if(result == 0) {
+			throw new Exception();
+		}
+
+		// UPDATE 수행
+		result = mapper.application(loginMember);
+
+		
 
 		return result;
 	}
@@ -125,6 +126,13 @@ public class BoardsServiceImpl implements BoardsService {
 	public int signOut(int memberNo) {
 	
 		return mapper.signOut(memberNo);
+	}
+	
+	// 배경화면 색 가져오기
+	@Override
+	public String getBackgroundColor(int uid) {
+		// TODO Auto-generated method stub
+		return mapper.getBackgroundColor(uid);
 	}
 
 }
