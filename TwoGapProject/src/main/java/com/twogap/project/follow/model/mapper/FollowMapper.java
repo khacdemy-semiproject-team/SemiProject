@@ -35,5 +35,12 @@ public interface FollowMapper {
 	 */
 	int addFollow(Map<String, Integer> map);
 
+	/** 팔로우 생일 추가하기
+	 * @param map 
+	 * @param memberNo
+	 * @return
+	 */
+	List<Map<String, Object>> birthdaySelect(Map<String, Integer> map);
+
 
 }

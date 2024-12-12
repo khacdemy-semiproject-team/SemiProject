@@ -105,7 +105,7 @@ public class MemberController {
 			model.addAttribute("emailId",arr[0]);
 			model.addAttribute("emailDomain",arr[1]);
 		}
-		
+
 		
 		// 핸드폰 번호 나누기
 		if(loginMember.getMemberTel() != null) {
@@ -115,7 +115,7 @@ public class MemberController {
 			model.addAttribute("memberTel2",arr[1]);
 			model.addAttribute("memberTel3",arr[2]);
 		}
-		
+
 		// 집 전화번호 나누기
 		if(loginMember.getMemberHomeTel() != null) {
 			String[] arr = loginMember.getMemberHomeTel().split("-");
@@ -124,13 +124,18 @@ public class MemberController {
 			model.addAttribute("memberHomeTel2",arr[1]);
 			model.addAttribute("memberHomeTel3",arr[2]);
 		}
-		
+
 		// 주소 나누기
 		if(loginMember.getMemberAdress() != null) {
 			
 			// 구분자 "^^^" 를 기준으로 
 			// memberAddress 값을 쪼개어 String[]로 반환
-			String[] arr = loginMember.getMemberAdress().split("\\^\\^\\^"); 
+			String[] arr = new String[3];
+			String[] resutlArr = loginMember.getMemberAdress().split("\\^\\^\\^");
+			
+			for(int i = 0 ; i < resutlArr.length ; i ++) {
+				arr[i] = resutlArr[i];
+			}
 			
 			model.addAttribute("postcode",arr[0]);
 			model.addAttribute("address",arr[1]);

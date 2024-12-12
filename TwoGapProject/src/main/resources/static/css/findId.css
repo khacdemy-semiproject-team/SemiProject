@@ -102,8 +102,6 @@ body {
 }
 
 .btn-secondary {
-  background-color: #E5EAEC;
-  color: #6a6a6a;
   font-size: 13px;
 }
 
@@ -148,3 +146,16 @@ body {
 /* 메세지 색상 지정 */
 .confirm{ color : green; }
 .error{ color : red; }
+
+button {
+  background-color: #007096;
+  border-radius: 10px;
+  color: #fff;
+}
+button:hover {
+  background-color: #00536e;
+}
+
+button:active {
+  background-color: #00709660;
+}

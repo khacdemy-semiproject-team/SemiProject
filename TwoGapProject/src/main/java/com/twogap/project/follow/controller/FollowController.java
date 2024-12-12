@@ -1,6 +1,7 @@
 package com.twogap.project.follow.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -83,5 +84,17 @@ public class FollowController {
 	public int addFollow(@SessionAttribute("loginMember") Member loginMember,
 						@RequestBody int memberNo) {
 		return service.addFollow(loginMember, memberNo);
+	}
+	
+	/** 팔로우들 생일 얻어오기
+	 * @param loginMember
+	 * @return
+	 * @author 신동국
+	 */
+	@ResponseBody
+	@GetMapping("birthdaySelect")
+	public Map<String, String> birthdaySelect(@SessionAttribute("loginMember") Member loginMember
+							, @RequestParam("month")int month) {
+		return service.birthdaySelect(loginMember.getMemberNo(), month);
 	}
 }

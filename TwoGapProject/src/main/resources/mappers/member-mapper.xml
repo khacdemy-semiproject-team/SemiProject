@@ -5,6 +5,7 @@
 	<select id="memberNoList">
 		SELECT MEMBER_NO FROM "MEMBER"
 		WHERE NOT MEMBER_NO = #{memberNo}
+		AND MEMBER_DEL_FL = 'N'
 	</select>
 	
 	<!-- 현재 비밀번호가 일치하는지 확인 -->
@@ -32,5 +33,18 @@
 		MEMBER_PW = #{encPw}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	
+	<select id="getHostNickname">
+		SELECT MEMBER_NICKNAME
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="checkDelFl">
+		SELECT COUNT(*) FROM "MEMBER"
+		WHERE MEMBER_DEL_FL = 'N'
+		AND MEMBER_NO = #{uid}
+	</select>
 	
 </mapper>
