@@ -324,5 +324,10 @@ public class LoginController {
 		return "redirect:" + path;
 	}
 	
+	@GetMapping("personalData")
+	public String personalData() {
+		return "/boards/personalData";
+	}
+	
 
 }
