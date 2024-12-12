@@ -28,5 +28,18 @@ public interface MemberService {
 	 */
 	int privacyInfoUpdate(Member inputMember, String[] memberAddress, String[] memberTel, String[] memberHomeTel,
 			String[] memberEmail, Member loginMemberNo);
+
+	/** 닉네임 얻어오기
+	 * @param memberNo
+	 * @return
+	 * @author 신동국
+	 */
+	String getHostNickname(int memberNo);
+
+	/** 탈퇴회원인지 조회
+	 * @param uid
+	 * @return
+	 */
+	int checkDelFl(int uid);
 	
 }

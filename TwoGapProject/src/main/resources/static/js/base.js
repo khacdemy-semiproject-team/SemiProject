@@ -153,8 +153,7 @@ if(boardsMain !== null ) {
 // 게시판 이동
 if(boardMain !== null ) {
   boardMain.addEventListener("click", () => {
-    // const path = uid == "" ? "/board/main": "/board/main?uid=" + uid;
-    const path = "/board/main";
+    const path = uid == "" ? "/board/main": "/board/main?uid=" + uid;
     location.href = path;
   });
 }
@@ -162,8 +161,7 @@ if(boardMain !== null ) {
 // 사진첩 이동
 if(photoMain !== null ) {
   photoMain.addEventListener("click", () => {
-    // const path = uid == "" ? "/photo/main": "/boards/main?uid=" + uid;
-    const path = "/photo/main";
+    const path = uid == "" ? "/photo/main": "/photo/main?uid=" + uid;
     location.href = path;
   });
 }
@@ -236,26 +234,38 @@ function calendarInit() {
       
       // 지난달
       for (var i = prevDate - prevDay; i <= prevDate; i++) {
-          calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
+          calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable" style="cursor:default">' + i + '</div>'
       }
       // 이번달
       for (var i = 1; i <= nextDate; i++) {
-          calendar.innerHTML = calendar.innerHTML + '<div class="day currentMonth">' + i + '</div>'
+          calendar.innerHTML = calendar.innerHTML + '<div class="day currentMonth" style="cursor:default"><div>' + i + '</div></div>'
       }
       // 다음달
       for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay - 1); i++) {
-          calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
+          calendar.innerHTML = calendar.innerHTML + '<div class="day next disable" style="cursor:default">' + i + '</div>'
       }
 
+      var currentMonthDate = document.querySelectorAll('.dates .currentMonth');
       // 오늘 날짜 표기
       if (today.getMonth() == currentMonth) {
           todayDate = today.getDate();
-          var currentMonthDate = document.querySelectorAll('.dates .currentMonth');
           currentMonthDate[todayDate -1].classList.add('today');
       }
-      
       // 이벤트는 요소를 추가할것 아니면 안됨
-      // console.log(currentMonth); fetch api 사용
+      fetch("/follow/birthdaySelect?month=" + (currentMonth+ 1))
+      .then(resp => resp.json())
+      .then(dayList => {
+        
+        for(let day of Object.keys(dayList)) {
+          currentMonthDate[day -1].classList.add('birthday');
+
+          const message = dayList[day].search(',') === -1 ?
+                            '팔로우 ' + dayList[day] + '님의 생일입니다.': 
+                            '팔로우 ' + dayList[day] + '님 들의 생일입니다.';
+
+          currentMonthDate[day -1].innerHTML +="<span>" + message +  "</span>"
+        }
+      })
   }
 
   // 이전달로 이동
@@ -282,11 +292,33 @@ function homepageColor() {
     document.querySelector(".calendar").style.backgroundColor = color;
     document.querySelector(".profile").style.backgroundColor = color;
     document.querySelector(".center-box").style.backgroundColor = color;
-
   });
   
 }
 
+async function homepageHost() {
+  
+  let data = null;
+  let path = null;
+  if( uid.length !== 0 ) path = '/getHostName?uid=' + uid;
+  else path = '/getHostName?uid='
 
+  try {
+    const response = await fetch(path);
+    if (!response.ok) {
+      throw new Error('Network response was not ok: ' + response.statusText);
+    }
+    data = await response.text();
 
+    const hostName = document.createElement("h1");
+    hostName.innerHTML = data + "님의 홈페이지입니다."
+
+    document.body.prepend(hostName);
+
+  } catch (error) {
+    console.error('Fetch error:', error);
+  }
+}
+
+homepageHost();
 homepageColor();

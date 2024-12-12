@@ -129,11 +129,6 @@ h4{
   cursor: pointer;
 }
 
-.btn-secondary {
-  background-color: #E5EAEC;
-  color: #6a6a6a;
-}
-
 .full-width {
   width: 100%;
   margin-top: 20px;
@@ -153,4 +148,19 @@ h4{
 
 .signUp-message {
   font-size: 13px;
+}
+
+
+button {
+  background-color: #007096;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+button:hover {
+  background-color: #00536e;
+}
+
+button:active {
+  background-color: #00709660;
 }

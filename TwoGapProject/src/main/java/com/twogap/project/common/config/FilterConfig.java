@@ -25,7 +25,7 @@ public class FilterConfig {
 		// 필터가 동작할 URL을 세팅
 		
 		// /myPage/*    : myPage로 시작하는 모든 요청
-		String[] filteringURL = {"/myPage/*", "/editBoard/*"};
+		String[] filteringURL = {"/note/*", "/visitor/*", "/board/*", "/follow/*", "/photo/*"};
 		// String[] 을 List로 변환
 		// Arrays.asList(filteringURL) -> List
 		
