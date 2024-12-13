@@ -58,6 +58,8 @@ public class BoardsServiceImpl implements BoardsService {
 	// 프로필 변경사항 제출
 	@Override
 	public int application(Member loginMember, MultipartFile imageInput, int status) throws Exception {
+		log.debug("야호"+ imageInput);
+		log.debug("제발" + imageInput.getOriginalFilename().equals(""));
 
 		
 		// 프로필 이미지 경로 (수정할 경로)
