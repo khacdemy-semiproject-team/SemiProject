@@ -59,8 +59,8 @@ public class BoardsServiceImpl implements BoardsService {
 	@Override
 	public int application(Member loginMember, MultipartFile imageInput) throws Exception {
 
-//		log.debug("야호"+ imageInput);
-//		log.debug("제발" + imageInput.getOriginalFilename().equals(""));
+		log.debug("야호"+ imageInput);
+		log.debug("제발" + imageInput.getOriginalFilename().equals(""));
 		
 		// 프로필 이미지 경로 (수정할 경로)
 		String updatePath = null;

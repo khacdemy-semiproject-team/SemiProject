@@ -155,12 +155,18 @@ backgroundColor.addEventListener("input", (e) => {
 
 // 변경사항이 있을 때는 제출, 없을 때는 페이지 이동 없음
 const application = document.getElementById("application");
-
+console.log(profileImg);
 profileForm.addEventListener("submit", e =>{ 
+  
 
   // 배경사진 변경 돌고돌아 그대로일 때
   if( backgroundColorfirst ==  backgroundColor.value) checkObj.backgroundColor = false;
   
+  if (profileImg.src === defaultImageUrl && !imageInput.files.length) {
+    // 기본 이미지를 제출하도록 상태 관리
+    checkObj.profileImg = false;
+  }
+
   if(checkObj.memberNickname === false && checkObj.profileImg === false && checkObj.introduction === false && checkObj.backgroundColor === false)  {
   alert("변경사항이 없습니다")
   e.preventDefault();
