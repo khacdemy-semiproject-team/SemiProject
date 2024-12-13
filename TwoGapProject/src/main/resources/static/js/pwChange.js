@@ -92,7 +92,7 @@ memberPw.addEventListener("input", e => {
 memberNewPw.addEventListener("input", e => {
     const inputPw = e.target.value;
 
-    if (memberNewPw.trim().length === 0) {
+    if (memberNewPw.value.trim().length === 0) {
         newPwMessage.innerText = "영어, 숫자, 특수문자(!, @, #, -, _) 6~20 글자 사이로 입력해주세요.";
         newPwMessage.classList.remove("confirm", "error");
         checkObj.memberPw = false; // 비밀번호 유효 X
@@ -207,4 +207,14 @@ formSection.addEventListener("submit", e => {
             return;
         }
     }  
+});
+
+
+// 배경색 변경
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("/boards/backgroundColor")
+    .then(resp => resp.text())
+    .then(color => {
+      document.querySelector("body").style.backgroundColor = color;
+    });
 });
