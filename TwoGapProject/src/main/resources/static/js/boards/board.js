@@ -227,7 +227,15 @@ function selectBoard(board) {
   // console.log(document.querySelector(".boardDetail-update"));
   // console.log(boardDetailUpdateBtn); // 트러블 슈팅
 
+  // 게시글 수정하기
+  // 수정 버튼 클릭 시 이벤트
+  document.querySelector(".boardDetail-update")
+    .addEventListener("click", () => boardDetailUpdate(board));
 
+  // 게시글 수정하기
+  // 수정 버튼 클릭 시 이벤트
+  document.querySelector(".boardDetail-update")
+    .addEventListener("click", () => boardDetailUpdate(board), {once: true});
 
 }
 
@@ -509,7 +517,7 @@ function boardWrite() {
     boardTitle: titleInput.value,
     boardContent: contentTextarea.value,
   };
-  console.log(boardData);
+  // console.log(boardData);
 
   // 게시글 작성 비동기 요청
   fetch("/board/write", {
